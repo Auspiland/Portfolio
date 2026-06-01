@@ -191,6 +191,26 @@ h1 .nowrap{white-space:nowrap}
   animation:dash 1.2s linear infinite; opacity:.7}
 @keyframes dash{to{stroke-dashoffset:-16}}
 
+.diag-cap{font-family:var(--mono); font-size:10px; color:var(--bone-faint);
+  text-align:center; margin-top:8px; letter-spacing:.08em; line-height:1.55}
+
+/* 핵심 원칙 풀-인용 */
+.principle{font-family:var(--display); font-style:italic; font-size:16px; color:var(--bone);
+  border-left:2px solid var(--signal); padding:5px 0 5px 16px; margin:0 0 22px; max-width:54ch; line-height:1.5}
+.principle b{font-style:normal; font-weight:500; color:var(--signal)}
+
+/* web ⊕ exec 능력 매트릭스 */
+.capwrap{margin-top:16px}
+.capmatrix{display:grid; grid-template-columns:46px repeat(4,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line)}
+.capmatrix > div{background:var(--ink); padding:7px 4px; text-align:center;
+  font-family:var(--mono); font-size:12px; line-height:1}
+.cm-corner{background:var(--ink-2)}
+.cm-head{color:var(--bone-faint); font-size:10px; letter-spacing:.06em}
+.cm-label{color:var(--bone-dim); text-align:left; padding-left:8px; letter-spacing:.12em; font-size:10px}
+.cm-on{color:var(--signal); font-weight:600}
+.cm-off{color:var(--bone-faint)}
+
 /* quant pipeline */
 .pipeline{display:flex; align-items:stretch; gap:0; margin-top:6px}
 .stage{flex:1; background:var(--ink); border:1px solid var(--line); padding:16px 14px;
@@ -373,43 +393,48 @@ footer .big em{font-style:italic; color:var(--signal)}
     <article class="project">
       <div class="phead">
         <h3>OpenClaw</h3>
-        <span class="ptag">Self-hosted Multi-Agent System</span>
+        <span class="ptag">Self-hosted Multi-Agent · Security by Design</span>
       </div>
-      <p class="oneliner">집에 둔 미니 서버 위에서 도는, 역할이 분리된 멀티 에이전트 시스템.</p>
+      <p class="oneliner">집의 미니 서버에서 24시간 자율로 도는 멀티 에이전트 — <em style="font-style:normal;color:var(--signal)">“웹 접근”과 “코드 실행”을 한 에이전트에 절대 같이 주지 않는</em> 보안 설계 위에서.</p>
 
       <div class="pbody">
         <div>
           <p class="desc">
-            <b>manager · reader · worker · auditor</b> 네 역할로 작업을 분리해,
-            한 에이전트가 계획하고 다른 에이전트가 실행·검증하도록 설계했습니다.
-            Claude API로 추론하고, 이상 징후는 텔레그램 봇으로 즉시 알립니다.
-            전용 시스템 유저와 Docker 샌드박스 위에서 동작하며,
-            방화벽·무결성 검사·접근 격리 등 다단계 보안 하드닝을 적용했습니다.
+            자율 에이전트의 진짜 위협은 외부 콘텐츠가 프롬프트 인젝션으로
+            다른 에이전트를 조종하는 것입니다. 그래서 작업을
+            <b>manager · reader · worker · auditor</b> 네 역할로 쪼개고,
+            하나의 원칙을 강제했습니다 —
+            <b>웹이 열린 에이전트는 코드를 실행하지 못하고, 코드를 실행하는 에이전트는 <code style="font-family:var(--mono);font-size:.92em;color:var(--signal)">network: none</code></b>.
+            오염된 글을 읽어도 코드를 못 돌리고, 악성 코드가 돌아도 밖으로 나갈 길이 없습니다.
+            에이전트끼리 직통 채널도 없어, 모든 정보는 manager를 경유합니다.
+          </p>
+          <p class="principle">
+            침해돼도 피해는 박스 안에 봉쇄된다 —
+            네트워크·호스트·계정·컨테이너·에이전트, <b>5겹 방어</b>.
           </p>
           <div class="chips">
-            <span class="chip hi">Multi-Agent</span>
-            <span class="chip">Ubuntu Server 24.04</span>
-            <span class="chip">Docker Sandbox</span>
+            <span class="chip hi">web ⊕ exec</span>
+            <span class="chip">Multi-Agent</span>
+            <span class="chip">Rootless Docker</span>
+            <span class="chip">seccomp · capDrop ALL</span>
+            <span class="chip">network: none</span>
+            <span class="chip">Tailscale ACL · UFW</span>
             <span class="chip">Claude API</span>
-            <span class="chip">Telegram Bot</span>
-            <span class="chip">Tailscale</span>
-            <span class="chip">Security Hardening</span>
           </div>
           <div class="metrics">
             <div class="metric"><div class="v">4</div><div class="l">Agent Roles</div></div>
-            <div class="metric"><div class="v">24/7</div><div class="l">Self-hosted</div></div>
+            <div class="metric"><div class="v">5</div><div class="l">Defense Layers</div></div>
+            <div class="metric"><div class="v">none</div><div class="l">Executor Net</div></div>
             <div class="metric"><div class="v">N100</div><div class="l">Mini Server</div></div>
           </div>
         </div>
 
         <!-- agent network diagram -->
         <div class="diagram">
-          <svg viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 280 210" xmlns="http://www.w3.org/2000/svg">
             <line class="edge flow" x1="140" y1="48" x2="60" y2="120"/>
             <line class="edge flow" x1="140" y1="48" x2="220" y2="120"/>
-            <line class="edge" x1="60" y1="120" x2="140" y2="190"/>
-            <line class="edge" x1="220" y1="120" x2="140" y2="190"/>
-            <line class="edge" x1="60" y1="120" x2="220" y2="120"/>
+            <line class="edge flow" x1="140" y1="48" x2="140" y2="190"/>
             <g>
               <circle cx="140" cy="48" r="26" fill="var(--signal)"/>
               <text class="node-core" x="140" y="51" text-anchor="middle">MANAGER</text>
@@ -427,8 +452,18 @@ footer .big em{font-style:italic; color:var(--signal)}
               <text class="node-label" x="140" y="193" text-anchor="middle" fill="var(--coral)">AUDITOR</text>
             </g>
           </svg>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--bone-faint);text-align:center;margin-top:6px;letter-spacing:.1em">
-            계획 → 수집/실행 → 검증 루프
+          <div class="diag-cap">manager가 모든 흐름을 조율 · 에이전트 간 직통 없음</div>
+
+          <div class="capwrap">
+            <div class="capmatrix">
+              <div class="cm-corner"></div>
+              <div class="cm-head">MGR</div><div class="cm-head">RDR</div><div class="cm-head">WRK</div><div class="cm-head">AUD</div>
+              <div class="cm-label">WEB</div>
+              <div class="cm-on">✓</div><div class="cm-on">✓</div><div class="cm-off">✗</div><div class="cm-off">✗</div>
+              <div class="cm-label">EXEC</div>
+              <div class="cm-off">✗</div><div class="cm-off">✗</div><div class="cm-on">✓</div><div class="cm-on">✓</div>
+            </div>
+            <div class="diag-cap">web ⊕ exec — 한 에이전트가 둘 다 갖지 않는다</div>
           </div>
         </div>
       </div>

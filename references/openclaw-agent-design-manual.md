@@ -33,7 +33,7 @@ miniland의 OpenClaw는 단일 만능 에이전트가 아니라, **역할별로 
 
 구체적인 외부 계층 값(L1~L3)은 운영 환경 기준 다음과 같다. 에이전트 설계의 전제 조건이므로 함께 명시한다.
 
-- **L1 네트워크:** UFW 기본 정책은 incoming/outgoing/routed 모두 `deny`. 인바운드는 `tailscale0`의 22/tcp만, 아웃바운드는 53·80·443·41641(udp)만 허용. `before.rules`에서 `192.168.0.0/16` 아웃바운드를 DROP하되 공유기 DNS(192.168.1.1:53)만 예외. `ip_forward=0`으로 패킷 포워더 악용을 커널 레벨에서 차단하고, Tailscale subnet router/exit node도 비활성.
+- **L1 네트워크:** UFW 기본 정책은 incoming/outgoing/routed 모두 `deny`. 인바운드는 `tailscale0`의 22/tcp만, 아웃바운드는 53·80·443·41641(udp)만 허용. `before.rules`에서 `192.168.0.0/16` 아웃바운드를 DROP하되 공유기 DNS(192.168.1.1:53)만 예외. `ip_forward=0`으로 패킷 포워더 악용을 커널 레벨에서 차단하고, Tailscale subnet router/exit node도 비활성. 단 이 호스트 정책은 *목적지 포트*만 좁히고 *목적지 도메인*은 열어두므로, 웹 에이전트의 유출 경로는 §3.2 보완 1의 egress allowlist로 추가로 좁힌다.
 - **L2 접근 제어:** `PermitRootLogin no`, `PasswordAuthentication no`, 공개키 전용. authorized_keys 키에 `restrict,pty,port-forwarding,from="192.168.1.0/24,100.64.0.0/10"` 적용. fail2ban이 SSH 브루트포스를 차단(maxretry 3, bantime 24h)하고, auditd가 sudoers·passwd·shadow·SSH키·`/srv/openclaw`·UFW 변경을 감시.
 - **L3 계정:** `auspiland`(uid=1000, sudo 풀권한, admin), `ops`(uid=1002, 제한 sudo), `openclaw`(uid=999, nologin, 서비스 전용). 에이전트는 모두 `openclaw` 계정 아래에서 동작하므로, 에이전트가 무엇을 하든 그 권한 상한은 sudo 없는 uid=999다.
 
@@ -50,8 +50,8 @@ manager (depth 0, 오케스트레이터, default 에이전트)
    │  ── 직접 실행(exec) 권한 없음, 조율·기록만 ──
    │
    ├── reader   (depth 1)  정보 수집 — web ✓ / exec ✗
-   ├── worker   (depth 1)  실행      — exec ✓ / net ✗   (병렬 spawn 가능)
-   └── auditor  (depth 1)  검증·수정  — exec ✓ / net ✗
+   ├── worker   (depth 1)  실행      — exec ✓ / write ✓ / net ✗   (병렬 spawn 가능)
+   └── auditor  (depth 1)  검증      — exec ✓ / write ✗ / net ✗   (read-only)
 ```
 
 핵심은 **에이전트 간 직접 연결이 없다**는 점이다. reader가 수집한 정보를 worker에게 넘기는 경로는 항상 manager(오케스트레이터)를 경유한다. reader → worker 직통 채널이 없으므로, reader가 오염된 콘텐츠를 읽어도 worker를 직접 조종할 수 없다.
@@ -64,13 +64,25 @@ manager (depth 0, 오케스트레이터, default 에이전트)
 |------|:---:|:---:|:---:|:---:|
 | 웹 접근 (web_search/web_fetch) | ✓ | ✓ | ✗ | ✗ |
 | 코드 실행 (exec) | ✗ | ✗ | ✓ | ✓ |
-| 파일 쓰기 (write/edit/apply_patch) | ✗ | ✗ | ✓ | ✓ |
-| 네트워크 | bridge | bridge | **none** | **none** |
+| 파일 쓰기 (write/edit/apply_patch) | ✗ | ✗ | ✓ | ✗ |
+| 네트워크 | egress-allow | egress-allow | **none** | **none** |
 
 - **웹이 열린 에이전트(manager, reader)** 는 exec가 막혀 있다 → 오염된 콘텐츠를 읽어도 직접 코드를 돌릴 수 없다.
 - **실행이 열린 에이전트(worker, auditor)** 는 `network: none`이다 → 악성 코드가 실행돼도 외부 C&C와 통신하거나 LAN을 스캔할 수 없다.
 
 이 교차 구조가 위협 모델의 "에이전트 간 프롬프트 인젝션 전파"와 "외부 C&C 통신"을 동시에 끊는다.
+
+#### 보완 1 — 웹 측의 데이터 유출 경로 차단 (egress allowlist)
+
+교차 제한의 비대칭이 한 군데 남는다: 실행 에이전트는 `network: none`으로 **완전 차단**이지만, 웹 에이전트(manager/reader)는 호스트 방화벽이 443을 통과시키므로 **임의의 HTTPS 엔드포인트로 POST**가 가능하다. 즉 reader가 프롬프트 인젝션에 오염되면 *코드는 못 돌려도* 읽은 데이터·비밀값을 외부로 흘릴 수 있다.
+
+따라서 웹 에이전트의 아웃바운드는 **목적지 도메인 allowlist**(Anthropic API + 지정 검색/페치 엔드포인트)로 좁힌다. egress 프록시(또는 sandbox별 DNS/방화벽)로 강제하면, 웹이 열린 쪽도 "허용된 목적지로만" 나가므로 자유로운 유출 채널이 사라진다. 이로써 교차 제한이 대칭이 된다 — **실행 쪽은 네트워크 0, 웹 쪽은 allowlist 0-trust**.
+
+> 이 보완은 §10의 "API 키를 gateway 전역 env로 두는 편이 깔끔"과도 맞물린다. 전역 키를 두더라도 egress allowlist가 있으면, 오염된 reader가 키를 읽더라도 보낼 곳이 없다.
+
+#### 보완 2 — manager 입력은 항상 신뢰하지 않는다
+
+manager는 유일하게 sandbox 밖(main 세션)에서 돌고 웹도 열려 있어, 사실상 가장 가치 있는 인젝션 표적이다. exec 차단만으로 "충분"하다고 보지 않는다. reader가 돌려준 모든 콘텐츠는 **지시가 아니라 데이터로만** 취급하도록 manager 시스템 프롬프트에 명시하고, manager가 worker에게 넘기는 지시는 reader 원문이 아니라 manager가 재작성한 요약만 통과시킨다(원문 passthrough 금지).
 
 ---
 
@@ -110,15 +122,17 @@ manager (depth 0, 오케스트레이터, default 에이전트)
 
 > **설계 결정:** worker 전용 디렉토리(`workspace/worker`)를 따로 두지 않고 `workspace/production`으로 통일했다. worker가 하는 일 자체가 production에서 skill을 실행하는 것이므로 분리 실익이 없다.
 
-### 4.4 auditor — 검증 / 수정
+### 4.4 auditor — 검증 (read-only)
 
-worker 결과물을 검증하고 필요 시 수정하는 에이전트. worker와 같은 실행 권한을 갖되 자원은 작게 잡았다.
+worker 결과물을 검증하는 에이전트. **검사는 하되 직접 고치지 않는다** — 테스트·정적분석 등 실행 권한은 갖되 파일 쓰기(`write/edit/apply_patch`)는 박탈했다. 이는 **직무 분리(separation of duties)**다: 결과를 검증하는 주체가 동시에 그 결과를 수정하면 "auditor의 수정은 누가 검증하나"라는 사각이 생긴다. auditor는 문제를 **발견·보고**만 하고, 실제 수정은 manager가 다시 worker에게 위임한다.
 
 - **런타임:** sandboxed (mode: all)
-- **차단 툴:** `web_search`, `web_fetch`
+- **차단 툴:** `web_search`, `web_fetch`, `write`, `edit`, `apply_patch`
 - **네트워크:** **none**
 - **자원:** 메모리 상한 1g, CPU 1코어
-- **워크스페이스:** `/srv/openclaw/workspace/audit`
+- **워크스페이스:** `/srv/openclaw/workspace/audit` (읽기 검증 대상은 production을 ro 마운트)
+
+> **검증 → 수정 루프:** auditor가 결함을 찾으면 manager에게 보고하고, manager가 worker를 다시 spawn해 수정한다. "검증하는 손"과 "고치는 손"을 분리해, 자기 수정을 자기가 통과시키는 사각을 없앴다.
 
 ---
 
@@ -257,7 +271,7 @@ subagent 동시성·깊이 제한은 `agents.defaults.subagents`에만 둔다.
 | manager | direct (main 세션) | non-main | exec, apply_patch |
 | reader | sandboxed | all | exec, write, edit, apply_patch, process |
 | worker | sandboxed | all | web_search, web_fetch |
-| auditor | sandboxed | all | web_search, web_fetch |
+| auditor | sandboxed | all | web_search, web_fetch, write, edit, apply_patch |
 
 > `sandbox explain`의 `workspaceRoot`가 기본값(`~/.openclaw/sandboxes`)으로 표시되는 것은 main 세션 기준 표시이며, 실제 sandboxed 세션에서는 각 에이전트 workspace가 컨테이너 `/workspace`에 마운트된다. 표시값과 실제 마운트가 다른 것은 정상이다.
 
@@ -328,8 +342,10 @@ sysctl kernel.apparmor_restrict_unprivileged_userns   # → 0 이어야 정상
 |------|------|------|
 | 에이전트 분리(4종) | ✅ | 권한 최소화 + 프롬프트 인젝션 전파 차단 |
 | 웹/실행 교차 제한 | ✅ | reader 오염 시 exec 불가, worker 침해 시 외부통신 불가 |
+| 웹 측 egress allowlist | ✅ | 실행 쪽 net=none과 대칭 — 오염된 웹 에이전트도 임의 유출 불가(보완 1) |
+| auditor read-only(직무 분리) | ✅ | 검증 주체가 곧 수정 주체이면 사각 발생 → 검증/수정의 손을 분리 |
 | worker = production 통일 | ✅ | worker의 일이 곧 production skill 실행, 분리 실익 없음 |
-| manager는 sandbox 미사용 | ✅ | 오케스트레이션만, exec 차단으로 충분 |
+| manager는 sandbox 미사용 | ✅ | OpenClaw 구조상 main 세션 — exec 차단 + 입력 무신뢰 취급으로 보완(보완 2) |
 | sysctl 해제 + sandbox 유지 | ✅ | seccomp가 독립 계층으로 userns 봉쇄, 나머지 sandbox 보호 유지 |
 | 정밀 AppArmor 프로파일 | ❌ | node 경로 기준 적용 난이도 + 업데이트 시 재검토 부담 |
 | 에이전트별 Docker 세션 제어 | ❌(불가) | Docker 호출은 Gateway 레벨, 스키마에 해당 제어 없음 |
@@ -339,7 +355,7 @@ sysctl kernel.apparmor_restrict_unprivileged_userns   # → 0 이어야 정상
 
 ## 10. 알려진 제약 / 주의사항
 
-- **에이전트별 인증 비상속:** Anthropic 인증은 에이전트별이라 새 에이전트는 default(manager)의 키를 상속하지 않는다. 키를 에이전트마다 넣기 번거로우면 `~/.openclaw/.env`의 `ANTHROPIC_API_KEY`(gateway 전역 env)로 두는 편이 깔끔하다.
+- **에이전트별 인증 비상속:** Anthropic 인증은 에이전트별이라 새 에이전트는 default(manager)의 키를 상속하지 않는다. 키를 에이전트마다 넣기 번거로우면 `~/.openclaw/.env`의 `ANTHROPIC_API_KEY`(gateway 전역 env)로 두는 편이 깔끔하다. 단 전역 키는 웹이 열린 reader도 읽을 수 있으므로, §3.2 보완 1의 egress allowlist를 함께 둬서 "키를 읽어도 보낼 곳이 없게" 만드는 것을 전제로 한다.
 - **`openclaw onboard --install-daemon`은 wizard 전체를 실행한다** — 기존 config가 있는 환경에서 실행하면 onboarding 플로우가 트리거되어 config가 덮어쓰일 위험이 있다. 사용 금지.
 - **`openclaw daemon *`는 systemctl을 sudo로 호출한다** — sudoers에 없는 openclaw 서비스 계정에서는 항상 실패한다. Gateway는 수동 작성한 systemd user unit으로 운영한다.
 - **per-agent에 spawn 제한 키 금지** — `maxSpawnDepth` 등을 per-agent에 두면 config reload가 거부된다(§6.2).

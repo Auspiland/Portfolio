@@ -9,6 +9,8 @@
 ```
 /
 ├── index.html        # 메인 페이지 (CSS·JS 모두 인라인)
+├── references/       # 설계 매뉴얼 등 본문 근거 자료
+│   └── openclaw-agent-design-manual.md
 ├── _old/             # 이전 버전 스냅샷
 │   └── index_v0.0.1.html
 └── README.md
