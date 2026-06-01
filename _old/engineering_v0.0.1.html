@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!--
+  ============================================================
+  auspiland — Engineering Casebook (engineering.html)
+  ------------------------------------------------------------
+  KPF 미디어 AI 인프라 실무 사례집 (4 기둥 + side).
+  index.html과 동일한 디자인 언어(다크+라임), CSS·JS 인라인.
+  독립 페이지 — index에서 링크하지 않음.
+  실제 시크릿(비밀번호/IP/API키)은 의도적으로 비포함.
+  ============================================================
+-->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>auspiland — Engineering Casebook</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap');
+
+:root{
+  --ink:#0c0d11; --ink-2:#13141a; --panel:#15171e; --line:#262932;
+  --bone:#ece7dd; --bone-dim:#9b988f; --bone-faint:#5b5950;
+  --signal:#c9f23f; --signal-deep:#9cc01e; --coral:#ff6a4d; --slate:#5f7a8c;
+  --display:'Fraunces','Gowun Batang',Georgia,serif;
+  --body:'IBM Plex Sans KR',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink); color:var(--bone); font-family:var(--body);
+  font-weight:300; line-height:1.7; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden; position:relative;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:radial-gradient(var(--line) 1px, transparent 1px);
+  background-size:26px 26px; opacity:.35;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(700px 500px at 85% -5%, rgba(201,242,63,.10), transparent 60%),
+    radial-gradient(600px 500px at 5% 30%, rgba(95,122,140,.10), transparent 60%);
+}
+.wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 28px}
+@keyframes rise{from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:none}}
+.rise{opacity:0; animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+
+.kicker{font-family:var(--mono); font-size:12px; letter-spacing:.32em;
+  text-transform:uppercase; color:var(--signal-deep); display:flex; align-items:center; gap:12px}
+.kicker::before{content:""; width:26px; height:1px; background:var(--signal-deep)}
+section{padding:96px 0; border-top:1px solid var(--line)}
+h2.section-title{font-family:var(--display); font-weight:400; font-size:clamp(28px,4.2vw,46px);
+  line-height:1.08; letter-spacing:-.01em; margin:18px 0 8px}
+.section-lead{color:var(--bone-dim); max-width:62ch; font-size:16px}
+
+/* ===== HERO ===== */
+header{padding:112px 0 88px; position:relative}
+.topbar{display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.12em;
+  color:var(--bone-faint); margin-bottom:80px}
+.topbar .live{display:flex; align-items:center; gap:9px; color:var(--bone-dim)}
+.dot{width:8px; height:8px; border-radius:50%; background:var(--signal);
+  box-shadow:0 0 0 0 rgba(201,242,63,.6); animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,242,63,.5)}70%{box-shadow:0 0 0 10px rgba(201,242,63,0)}100%{box-shadow:0 0 0 0 rgba(201,242,63,0)}}
+.hero-eyebrow{font-family:var(--mono); font-size:13px; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--signal-deep); margin-bottom:26px}
+h1{font-family:var(--display); font-weight:400; font-size:clamp(38px,6.6vw,80px);
+  line-height:1.03; letter-spacing:-.02em; margin-bottom:28px}
+h1 em{font-style:italic; color:var(--signal)}
+.hero-sub{font-size:clamp(15px,1.9vw,18px); color:var(--bone-dim);
+  max-width:60ch; font-weight:300; margin-bottom:42px}
+.meta-strip{display:flex; flex-wrap:wrap; gap:10px 0; align-items:center;
+  font-family:var(--mono); font-size:12.5px; color:var(--bone-dim);
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:16px 0}
+.meta-strip span{padding:0 16px; border-right:1px solid var(--line)}
+.meta-strip span:first-child{padding-left:0}
+.meta-strip span:last-child{border-right:0}
+.meta-strip b{color:var(--bone); font-weight:500}
+
+/* ===== 공통 원칙 ===== */
+.principles{display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); margin-top:44px}
+.principle-card{background:var(--ink-2); padding:28px 24px 30px}
+.principle-card .pn{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--signal-deep)}
+.principle-card h4{font-family:var(--display); font-weight:400; font-size:21px; margin:12px 0 9px; letter-spacing:-.01em}
+.principle-card p{font-size:14px; color:var(--bone-dim)}
+.principle-card code{font-family:var(--mono); font-size:.9em; color:var(--signal)}
+
+/* ===== CASE (기둥) ===== */
+.case{border:1px solid var(--line); background:var(--panel); border-radius:4px;
+  padding:42px 44px; margin-top:30px; position:relative; overflow:hidden}
+.case::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent,var(--signal))}
+.case.c2{--accent:var(--slate)} .case.c3{--accent:var(--coral)} .case.c4{--accent:var(--signal-deep)}
+.case .chead{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px}
+.case .ctag{font-family:var(--mono); font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent,var(--signal-deep))}
+.case .cno{font-family:var(--mono); font-size:12px; color:var(--bone-faint)}
+.case h3{font-family:var(--display); font-weight:400; font-size:clamp(26px,3.4vw,38px); letter-spacing:-.015em; line-height:1.06; margin-top:4px}
+.case .oneliner{color:var(--bone); font-size:16.5px; margin:13px 0 8px; max-width:62ch}
+.cbody{display:grid; grid-template-columns:1.12fr .88fr; gap:40px; align-items:start; margin-top:18px}
+
+/* STAR */
+.star{display:grid; gap:0; margin-top:4px}
+.star-row{display:grid; grid-template-columns:48px 1fr; gap:15px; padding:12px 0; border-top:1px solid rgba(38,41,50,.7)}
+.star-row:first-child{border-top:0; padding-top:0}
+.star-k{font-family:var(--mono); line-height:1}
+.star-k b{font-size:16px; font-weight:600; display:block}
+.star-k small{font-size:9.5px; letter-spacing:.12em; color:var(--bone-faint)}
+.star-row.s .star-k b,.star-row.t .star-k b{color:var(--bone-dim)}
+.star-row.a .star-k b{color:var(--signal)}
+.star-row.r .star-k b{color:var(--coral)}
+.star-row p{font-size:14px; color:var(--bone-dim)}
+.star-row.a p,.star-row.r p{color:var(--bone); font-weight:300}
+.star-row em{font-style:normal; color:var(--signal); font-weight:500}
+.star-row .rc{color:var(--coral); font-style:normal; font-weight:500}
+
+/* 우측 패널 */
+.panel-side{display:flex; flex-direction:column; gap:18px}
+.metrics{display:flex; gap:26px; flex-wrap:wrap}
+.metric .v{font-family:var(--display); font-size:30px; color:var(--accent,var(--signal)); line-height:1}
+.metric .l{font-family:var(--mono); font-size:10.5px; color:var(--bone-faint); letter-spacing:.08em; text-transform:uppercase; margin-top:5px}
+.chips{display:flex; flex-wrap:wrap; gap:7px}
+.chip{font-family:var(--mono); font-size:11.5px; color:var(--bone); background:var(--ink);
+  border:1px solid var(--line); border-radius:3px; padding:5px 11px}
+.chip.hi{border-color:var(--accent,var(--signal)); color:var(--accent,var(--signal))}
+
+/* 미니 다이어그램 공통 */
+.viz{background:var(--ink); border:1px solid var(--line); border-radius:4px; padding:16px}
+.viz-cap{font-family:var(--mono); font-size:10px; color:var(--bone-faint); margin-top:10px; line-height:1.5; letter-spacing:.04em}
+
+/* P1 보존 다이어그램 */
+.preserve{display:grid; grid-template-columns:auto auto 1fr; gap:10px; align-items:center; font-size:12.5px}
+.pbox{background:var(--ink-2); border:1px solid var(--line); border-radius:3px; padding:10px 12px; text-align:center}
+.pbox small{display:block; font-family:var(--mono); font-size:9.5px; color:var(--bone-faint); margin-top:3px}
+.parrow{font-family:var(--mono); font-size:9.5px; color:var(--signal-deep); text-align:center; line-height:1.4}
+.parrow::before{content:"→ "; }
+.pcol{display:grid; gap:7px}
+.pmatch,.pnew{font-family:var(--mono); font-size:11px; padding:7px 10px; border-radius:3px; border:1px solid var(--line)}
+.pmatch{color:var(--signal); border-color:rgba(201,242,63,.4)}
+.pnew{color:var(--coral); border-color:rgba(255,106,77,.4)}
+
+/* P2 플로우 체인 */
+.flow{display:flex; align-items:stretch; gap:0; flex-wrap:wrap}
+.fnode{flex:1 1 78px; background:var(--ink-2); border:1px solid var(--line); padding:11px 8px;
+  text-align:center; position:relative; min-width:78px}
+.fnode b{display:block; font-size:12px; font-weight:500}
+.fnode small{font-family:var(--mono); font-size:9px; color:var(--bone-faint)}
+.fnode.hot{border-color:var(--slate); background:rgba(95,122,140,.12)}
+.fnode.hot b{color:var(--slate)}
+.fnode:not(:last-child){border-right:0}
+.fnode:not(:last-child)::after{content:"›"; position:absolute; right:-6px; top:50%; transform:translateY(-50%);
+  color:var(--slate); font-size:14px; z-index:2; background:var(--panel); padding:0 1px}
+
+/* P3 레이어 격자 */
+.layers{display:grid; gap:9px}
+.layer{display:grid; grid-template-columns:78px 1fr; gap:12px; align-items:center}
+.layer .ll{font-family:var(--mono); font-size:10px; color:var(--bone-dim); text-align:right; letter-spacing:.04em}
+.layer .dots{display:flex; gap:3px; flex-wrap:wrap}
+.dotc{width:11px; height:13px; border-radius:2px; background:var(--line)}
+.dotc.on{background:var(--coral)}
+.layer.full .dotc.on{background:var(--signal-deep)}
+
+/* P4 파이프라인 */
+.pipeline{display:flex; align-items:stretch; gap:0}
+.stage{flex:1; background:var(--ink-2); border:1px solid var(--line); padding:14px 12px; position:relative}
+.stage:not(:last-child){border-right:0}
+.stage .sn{font-family:var(--mono); font-size:10px; color:var(--signal-deep); letter-spacing:.15em}
+.stage b{display:block; font-weight:500; font-size:13px; margin:5px 0 3px}
+.stage small{color:var(--bone-faint); font-size:11px; line-height:1.4; display:block}
+.stage.fix{border-color:var(--signal); background:rgba(201,242,63,.06)}
+.stage::after{content:"→"; position:absolute; right:-8px; top:50%; transform:translateY(-50%);
+  color:var(--signal-deep); font-size:13px; z-index:2; background:var(--panel); padding:2px}
+.stage:last-child::after{display:none}
+.fixnote{font-family:var(--mono); font-size:11px; color:var(--signal); margin-top:12px;
+  border:1px dashed rgba(201,242,63,.4); border-radius:3px; padding:8px 11px}
+.fixnote .x{color:var(--coral)}
+
+/* side */
+.sides{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line);
+  border:1px solid var(--line); margin-top:30px}
+.side{background:var(--ink-2); padding:24px 22px}
+.side .stag{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint)}
+.side h4{font-family:var(--display); font-weight:400; font-size:19px; margin:9px 0 7px}
+.side p{font-size:13.5px; color:var(--bone-dim)}
+
+/* footer */
+footer{padding:84px 0 66px; border-top:1px solid var(--line)}
+.foot-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:28px}
+footer .big{font-family:var(--display); font-weight:400; font-size:clamp(26px,3.6vw,42px); letter-spacing:-.02em; line-height:1.12}
+footer .big em{font-style:italic; color:var(--signal)}
+.links{display:flex; flex-direction:column; gap:10px; font-family:var(--mono); font-size:14px}
+.links a{color:var(--bone-dim); text-decoration:none; transition:.2s; display:flex; gap:10px; align-items:center}
+.links a:hover{color:var(--signal)}
+.links a span{color:var(--bone-faint)}
+.copyright{font-family:var(--mono); font-size:11px; color:var(--bone-faint); margin-top:54px; letter-spacing:.08em}
+
+/* 반응형 */
+@media (max-width:820px){
+  .principles{grid-template-columns:1fr}
+  .case{padding:30px 24px}
+  .cbody{grid-template-columns:1fr; gap:26px}
+  .sides{grid-template-columns:1fr}
+  .pipeline{flex-direction:column}
+  .stage:not(:last-child){border-right:1px solid var(--line); border-bottom:0}
+  .stage::after{content:"↓"; right:50%; top:auto; bottom:-9px; transform:translateX(50%)}
+  .preserve{grid-template-columns:1fr}
+  .layer{grid-template-columns:64px 1fr}
+  .meta-strip span{border-right:0; padding:2px 14px 2px 0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <header>
+    <div class="topbar rise">
+      <span>AUSPILAND / CASEBOOK</span>
+      <div style="display:flex;align-items:center;gap:20px">
+        <span class="live"><i class="dot"></i> KPF MEDIA AI · FIELD WORK</span>
+        <button onclick="downloadHTML()" style="font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);background:var(--signal);border:none;border-radius:3px;padding:6px 14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='var(--signal-deep)'" onmouseout="this.style.background='var(--signal)'">↓ Download</button>
+      </div>
+    </div>
+
+    <div class="hero-eyebrow rise" style="animation-delay:.05s">Engineering Casebook · 2026</div>
+    <h1 class="rise" style="animation-delay:.12s">
+      복잡한 AI 미디어 인프라를<br>
+      <em>설계</em>하고, <em>꿰뚫고</em>, 굴립니다
+    </h1>
+    <p class="hero-sub rise" style="animation-delay:.22s">
+      KPF(한국언론진흥재단) 미디어 AI 인프라 — NCP Kubernetes 위의 Spark 파이프라인,
+      T3Q.DL 추론 서비스, OpenSearch·HDFS 데이터레이크 — 에서 맡아온 실제 작업을
+      <b>설계 · 역추적 · 진단 · 운영</b> 네 갈래로 정리했습니다. 데모가 아니라 운영 현장의 기록입니다.
+    </p>
+
+    <div class="meta-strip rise" style="animation-delay:.32s">
+      <span><b>@auspiland</b></span>
+      <span>GraphRAG</span>
+      <span>Spark</span>
+      <span>Kubernetes</span>
+      <span>OpenSearch</span>
+      <span>NiFi · HDFS</span>
+    </div>
+  </header>
+
+  <!-- ============ 공통 원칙 ============ -->
+  <section id="principles">
+    <div class="kicker">00 / 일하는 방식</div>
+    <h2 class="section-title">진단보다 먼저, 태도</h2>
+    <p class="section-lead">
+      운영 시스템을 다루는 일은 "고치는 것"보다 "함부로 건드리지 않는 것"에서 출발합니다.
+      네 사례 모두를 관통하는 세 가지 원칙입니다.
+    </p>
+    <div class="principles">
+      <div class="principle-card rise">
+        <div class="pn">01</div>
+        <h4>read-only 우선</h4>
+        <p>운영·개발 서버는 승인 없이 쓰지 않습니다. 진단은 <code>get·cat·describe·SELECT</code> 같은 읽기로만 끝내고, 변경은 반드시 확인 후에.</p>
+      </div>
+      <div class="principle-card rise" style="animation-delay:.08s">
+        <div class="pn">02</div>
+        <h4>다중 증거 수렴</h4>
+        <p>단일 신호로 단정하지 않습니다. <code>mtime·파일권한·md5·디컴파일·DB row</code>가 한 방향을 가리킬 때 비로소 결론을 못 박습니다.</p>
+      </div>
+      <div class="principle-card rise" style="animation-delay:.16s">
+        <div class="pn">03</div>
+        <h4>가설 → 검증 → 정정</h4>
+        <p>매끄러운 추론으로 빈틈을 메우지 않습니다. 코드로 확인한 사실과 정황을 구분하고, 틀린 가설은 보고서에 <em>정정 노트</em>로 남깁니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 기둥 1 · 설계 ============ -->
+  <section id="design">
+    <div class="kicker">01 / 설계</div>
+    <h2 class="section-title">비용을 아는 설계</h2>
+
+    <article class="case c1">
+      <div class="chead">
+        <div>
+          <span class="ctag">Design · GraphRAG</span>
+          <h3>GraphRAG 증분 인덱싱</h3>
+        </div>
+        <span class="cno">CASE 01</span>
+      </div>
+      <p class="oneliner">이미 LLM 비용을 들여 만든 지식그래프 인덱스를, 전체 재빌드 없이 새 문서만 싸게 덧붙입니다.</p>
+
+      <div class="cbody">
+        <div class="star">
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>문서가 계속 추가되는 GraphRAG 인덱스. 개체·관계·커뮤니티 리포트를 LLM으로 생성하는 구조라 전체 재빌드는 비용·시간상 불가능했습니다.</p></div>
+          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>기존 <code>uuid4</code> ID와 요약·리포트 자산을 보존하면서 증분만 반영하는 설계를 확정하고 구현하기.</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>12개 쟁점을 결정값으로 닫았습니다. <em>정규화 제목 lookup</em>으로 기존 ID를 승계하고 no-match만 새로 발급, <em>Seeded Leiden + 멤버 overlap 1:1</em>로 커뮤니티 ID를 안정 승계, <em>변화량 임계</em>(재요약 3 / 리포트 0.2) 기반으로 LLM 재계산을 스킵. 정규화 규칙을 바꾸면 ID 승계가 깨지므로 <code>canonicalization_version</code> 게이트로 변경 시에만 full reconcile을 강제했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>Phase 1~3 구현 + <span class="rc">128개 테스트</span> 통과. <span class="rc">ID 재발급 0</span>으로 LanceDB·OpenSearch·serving의 참조 붕괴 위험을 원천 차단. 구현 중 재검토로 설계 사각(Prev Rows Carry-Over)을 발견해 문서를 v1→v1.1로 동기화했습니다.</p></div>
+        </div>
+
+        <div class="panel-side">
+          <div class="metrics">
+            <div class="metric"><div class="v">128</div><div class="l">Tests Pass</div></div>
+            <div class="metric"><div class="v">12</div><div class="l">설계 결정</div></div>
+            <div class="metric"><div class="v">0</div><div class="l">ID 재발급</div></div>
+          </div>
+          <div class="viz">
+            <div class="preserve">
+              <div class="pbox">이전 run<small>entities · communities</small></div>
+              <div class="parrow">canonical_title<br>lookup</div>
+              <div class="pcol">
+                <div class="pmatch">match → prev.id 승계</div>
+                <div class="pnew">no-match → 새 uuid4</div>
+              </div>
+            </div>
+            <div class="viz-cap">preservation via lookup — 비싼 ID는 보존, 새 것만 발급.</div>
+          </div>
+          <div class="chips">
+            <span class="chip hi">증분 인덱싱</span><span class="chip">Seeded Leiden</span>
+            <span class="chip">LanceDB</span><span class="chip">OpenSearch</span><span class="chip">Python · pytest</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ 기둥 2 · 역추적 ============ -->
+  <section id="trace">
+    <div class="kicker">02 / 리버스 엔지니어링</div>
+    <h2 class="section-title">URL 한 줄에서 시스템 전체로</h2>
+
+    <article class="case c2">
+      <div class="chead">
+        <div>
+          <span class="ctag">Reverse Engineering</span>
+          <h3>CMS ↔ t3q AI 아키텍처 역추적</h3>
+        </div>
+        <span class="cno">CASE 02</span>
+      </div>
+      <p class="oneliner">매뉴얼 없는 레거시 미디어 CMS에서, 브라우저에 찍힌 요청 URL 하나로 다계층 분산 시스템 전체를 코드로 재구성했습니다.</p>
+
+      <div class="cbody">
+        <div class="star">
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>인수인계 문서가 없는 운영 CMS. 호출하는 외부 API <code>api.kpf-dev.t3q.ai</code>의 서버측 실체가 외부 SaaS인지 내부 서비스인지조차 불명확했습니다.</p></div>
+          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>업로드 → 표지 자동생성 → 검색 색인까지 전 과정을, 외부/내부 경계와 호출 주체까지 코드 근거로 확정하기.</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>요청 URL 문자열을 grep해 컨트롤러 → 매퍼 → 테이블 → NAS 경로로 내려갔습니다. 외부처럼 보이던 도메인은 <em>kubectl exec로 파드 안 FastAPI 라우터를 직접 읽어</em> 같은 클러스터 내부의 in-house <code>t3q-search-svc</code>임을 확정. 썸네일 생성자는 코드 디렉토리명(algo_9)에 속지 않고 <em>serving 이미지 → 파드 로그 → 호출자 IP 역조회 → NiFi flow.xml</em>까지 교차검증해 operservice-15 + NiFi로 못 박고, 초기 가설을 정정했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>CMS→t3q-search-svc→OpenSearch 흐름과 NiFi·Spark 처리 경로를 단일 End-to-End 문서로 통합. 외부 API <span class="rc">13종</span>을 호출 8·미호출 4·콜백 2로 인벤토리화하고, 표지 placeholder 자동 채움/잔존 조건을 시나리오 매트릭스로 확정해 운영 진단 기준을 만들었습니다.</p></div>
+        </div>
+
+        <div class="panel-side">
+          <div class="metrics">
+            <div class="metric"><div class="v">13</div><div class="l">외부 API 인벤토리</div></div>
+            <div class="metric"><div class="v">7</div><div class="l">추적 보고서</div></div>
+            <div class="metric"><div class="v">5+</div><div class="l">계층 횡단</div></div>
+          </div>
+          <div class="viz">
+            <div class="flow">
+              <div class="fnode"><b>Browser</b><small>F12 URL</small></div>
+              <div class="fnode"><b>WAS</b><small>Spring·eGov</small></div>
+              <div class="fnode hot"><b>t3q-search-svc</b><small>FastAPI</small></div>
+              <div class="fnode"><b>NiFi</b><small>flow.xml</small></div>
+              <div class="fnode"><b>Spark</b><small>operservice</small></div>
+              <div class="fnode"><b>OpenSearch</b><small>HDFS</small></div>
+            </div>
+            <div class="viz-cap">외부 SaaS처럼 보인 노드가 실은 클러스터 내부 서비스 — 컨테이너 실측으로 확정.</div>
+          </div>
+          <div class="chips">
+            <span class="chip hi">Kubernetes</span><span class="chip">FastAPI</span>
+            <span class="chip">Apache NiFi</span><span class="chip">Spring · eGov</span><span class="chip">OpenSearch</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ 기둥 3 · 진단 ============ -->
+  <section id="forensics">
+    <div class="kicker">03 / 진단</div>
+    <h2 class="section-title">증거로 좁히는 데이터 포렌식</h2>
+
+    <article class="case c3">
+      <div class="chead">
+        <div>
+          <span class="ctag">Forensics · RCA</span>
+          <h3>데이터레이크 누락 추적</h3>
+        </div>
+        <span class="cno">CASE 03</span>
+      </div>
+      <p class="oneliner">HDFS·Delta·NAS에 흩어진 수십만 파일에서, "누가 만들었고 왜 누락됐나"를 여러 레이어의 증거로 규명했습니다.</p>
+
+      <div class="cbody">
+        <div class="star">
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>17개 청크로 분할된 잡지 중 특정 청크가 CMS 검색에서 잡히지 않았습니다. 데이터 결함인지 처리 흐름 문제인지 불명확.</p></div>
+          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>파일 실체(NAS·HDFS)와 메타(OpenSearch·DB) 양쪽에서 누락의 정확한 기점과 원인을 규명하기. (모든 원격 작업은 read-only)</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p><em>NAS·HDFS·OpenSearch·PostgreSQL 4개 레이어를 교차 대조</em>했습니다. 17개 PDF는 모두 정상·동일 특성인데 HDFS엔 일부만 적재돼 있었고, read-only로 DB(<code>t_comm_file_inf</code>)를 직접 조회하니 <em>표지 JPG row가 그 일부 청크에만 존재</em>하고 JPG row만 갱신 시각이 뒤늦게 찍혀 있었습니다. 운영 Spark가 OOM(exit 137)으로 막히는 통계 작업은 로컬 venv + DuckDB로 우회했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>"데이터 결함이 아니라 <span class="rc">표지 JPG row 생성이 후속 색인의 게이트</span>인데 일부만 성공했기 때문"임을 4-레이어+DB 증거로 확정. JPG row를 INSERT한 코드는 디컴파일 미확인이라 단정 대신 "정황"으로 정정·명시했습니다. (부수: 72만 파일 인벤토리로 "표지=JPG / PNG=HWP 섹션" 규칙화.)</p></div>
+        </div>
+
+        <div class="panel-side">
+          <div class="metrics">
+            <div class="metric"><div class="v">4</div><div class="l">레이어 교차</div></div>
+            <div class="metric"><div class="v">72만</div><div class="l">파일 인벤토리</div></div>
+            <div class="metric"><div class="v">RO</div><div class="l">read-only 진단</div></div>
+          </div>
+          <div class="viz">
+            <div class="layers" id="layerViz">
+              <div class="layer full" data-n="17" data-lit="all"><div class="ll">NAS·PDF</div><div class="dots"></div></div>
+              <div class="layer" data-n="17" data-lit="1,7,8"><div class="ll">HDFS</div><div class="dots"></div></div>
+              <div class="layer" data-n="17" data-lit="1,7,8"><div class="ll">OpenSearch</div><div class="dots"></div></div>
+              <div class="layer" data-n="17" data-lit="1,7,8"><div class="ll">DB·JPG row</div><div class="dots"></div></div>
+            </div>
+            <div class="viz-cap">17청크 전부 업로드됐지만, 표지 JPG row가 생긴 것만 색인까지 흐른다.</div>
+          </div>
+          <div class="chips">
+            <span class="chip hi">HDFS · Delta</span><span class="chip">OpenSearch</span>
+            <span class="chip">PostgreSQL</span><span class="chip">DuckDB</span><span class="chip">md5 정합성</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ 기둥 4 · 운영 ============ -->
+  <section id="ops">
+    <div class="kicker">04 / 현장 엔지니어링</div>
+    <h2 class="section-title">레이어를 격리해, 한 줄까지</h2>
+
+    <article class="case c4">
+      <div class="chead">
+        <div>
+          <span class="ctag">Debugging · Ops</span>
+          <h3>Spark 파이프라인 부활</h3>
+        </div>
+        <span class="cno">CASE 04</span>
+      </div>
+      <p class="oneliner">비활성화된 PDF 청킹 라인을 되살리며, 고장의 진짜 원인을 yaml 한 줄까지 좁혔습니다 — 운영은 멈추지 않고.</p>
+
+      <div class="cbody">
+        <div class="star">
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>스캔 PDF 청킹 3단 Spark 라인(batch→chunk→indexing)이 의도적으로 비활성화된 상태. "yaml 하나만 추가하면 되살아나나?"라는 검토 요청.</p></div>
+          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>부활 가능 여부와 스키마 정합을 검증하고, 가능하면 실제 데이터를 흘려 정상화하기.</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>세 단계가 <code>batch_start_page</code> 컬럼으로 묶인 불가분 세트임을 입증하고, cold-start는 순차 apply로 우회. 터진 <code>pandas_udf</code> RuntimeError를 잡으려 <em>활성 driver 파드 안에서 inference 엔드포인트를 직접 POST 프로빙</em>했더니, operservice-1이 HDFS 접근 실패 dict를 반환하고 클라이언트가 그걸 list처럼 순회해 폭주함을 코드 라인까지 추적. operservice-1(HDFS env 없음)과 operservice-2(보유)가 같은 이미지의 다른 인스턴스임을 규명했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>진짜 원인은 코드가 아니라 <span class="rc">yaml의 INFERENCE_URL을 operservice-1→2로 바꾸는 한 줄</span>. 모든 부활 시도는 rollback해 <span class="rc">운영을 시도 전과 100% 동일</span>하게 복구했습니다. (부수: Spark Operator "pod 안 뜸"을 단위 표기 + JSON 오타 2단 원인으로 분해, Helm 무중단 증설, 멱등·안전가드 14GB 이관.)</p></div>
+        </div>
+
+        <div class="panel-side">
+          <div class="metrics">
+            <div class="metric"><div class="v">1줄</div><div class="l">근본 수정</div></div>
+            <div class="metric"><div class="v">100%</div><div class="l">무손상 롤백</div></div>
+            <div class="metric"><div class="v">14GB</div><div class="l">안전 이관</div></div>
+          </div>
+          <div class="viz">
+            <div class="pipeline">
+              <div class="stage"><div class="sn">01</div><b>batch</b><small>PDF → 멀티페이지 분할</small></div>
+              <div class="stage fix"><div class="sn">02</div><b>chunk</b><small>inference로 청크 분해</small></div>
+              <div class="stage"><div class="sn">03</div><b>indexing</b><small>임베딩 → ES 색인</small></div>
+            </div>
+            <div class="fixnote">원인은 chunk 단계 INFERENCE_URL — <span class="x">operservice-1 ✗</span> → operservice-2 ✓ (단 한 줄)</div>
+          </div>
+          <div class="chips">
+            <span class="chip hi">Apache Spark</span><span class="chip">Kubernetes</span>
+            <span class="chip">Spark Operator</span><span class="chip">Helm</span><span class="chip">Delta · HDFS</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ side ============ -->
+  <section id="more">
+    <div class="kicker">+ / 그 외</div>
+    <h2 class="section-title">곁다리로 한 일</h2>
+    <p class="section-lead">위 네 기둥만큼 비중은 아니지만, 폭을 보여주는 작업들.</p>
+    <div class="sides">
+      <div class="side">
+        <div class="stag">Side · 설계 컨설팅</div>
+        <h4>디지털트윈 데이터 파이프라인 설계</h4>
+        <p>이기종 센서·문서 JSON을 공통 envelope + <code style="font-family:var(--mono);font-size:.9em;color:var(--signal)">data_category</code> 라우팅으로 다루고, 시계열은 윈도우 통계의 자연어화·문서는 chunk로 인덱싱하는 GraphRAG 기반 운영 모니터링 디지털트윈 아키텍처를 제안했습니다.</p>
+      </div>
+      <div class="side">
+        <div class="stag">Small · 운영 위생</div>
+        <h4>인프라 핸드오프 & SSH 픽스</h4>
+        <p>자격정보를 본문에 노출하지 않고 래퍼 호출만으로 재현 가능한 인프라 핸드오프 문서를 작성하고, SSH ProxyCommand의 <code style="font-family:var(--mono);font-size:.9em;color:var(--signal)">%p</code> 치환 버그(점프 포트 미적용)를 진단·수정·검증했습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="foot-grid">
+      <div class="big">
+        매뉴얼이 없어도<br>
+        시스템은 <em>읽어내면</em> 됩니다.
+      </div>
+      <div class="links">
+        <a href="mailto:hello@example.com"><span>↳</span> hello@example.com</a>
+        <a href="https://github.com/auspiland"><span>↳</span> github.com/auspiland</a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 AUSPILAND · ENGINEERING CASEBOOK · KPF MEDIA AI</div>
+  </footer>
+
+</div>
+
+<script>
+function downloadHTML(){
+  const blob = new Blob([document.documentElement.outerHTML], { type:'text/html' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'engineering.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// P3 레이어 격자 점 생성
+document.querySelectorAll('#layerViz .layer').forEach((row) => {
+  const n = +row.dataset.n;
+  const lit = row.dataset.lit;
+  const set = lit === 'all' ? null : new Set(lit.split(',').map(Number));
+  const box = row.querySelector('.dots');
+  for (let i = 1; i <= n; i++){
+    const d = document.createElement('i');
+    d.className = 'dotc' + ((set === null || set.has(i)) ? ' on' : '');
+    box.appendChild(d);
+  }
+});
+
+// 스크롤 진입 등장
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting){
+      e.target.style.animation = 'rise .8s cubic-bezier(.2,.7,.2,1) forwards';
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('section, .case').forEach((el) => {
+  el.style.opacity = '0';
+  io.observe(el);
+});
+</script>
+</body>
+</html>

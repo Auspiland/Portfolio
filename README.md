@@ -8,11 +8,14 @@
 
 ```
 /
-├── index.html        # 메인 페이지 (CSS·JS 모두 인라인)
-├── references/       # 설계 매뉴얼 등 본문 근거 자료
-│   └── openclaw-agent-design-manual.md
-├── _old/             # 이전 버전 스냅샷
-│   └── index_v0.0.1.html
+├── index.html         # 메인 페이지 (CSS·JS 모두 인라인)
+├── engineering.html   # 실무 사례집 — KPF 미디어 AI 인프라 (독립 페이지)
+├── references/        # 설계 매뉴얼 등 본문 근거 자료
+│   ├── openclaw-agent-design-manual.md
+│   └── star_method_guide.md
+├── _old/              # 이전 버전 스냅샷
+│   ├── index_v0.0.1.html
+│   └── engineering_v0.0.1.html
 └── README.md
 ```
 
