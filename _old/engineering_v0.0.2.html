@@ -102,18 +102,8 @@ h1 em{font-style:italic; color:var(--signal)}
 .case .ctag{font-family:var(--mono); font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent,var(--signal-deep))}
 .case .cno{font-family:var(--mono); font-size:12px; color:var(--bone-faint)}
 .case h3{font-family:var(--display); font-weight:400; font-size:clamp(26px,3.4vw,38px); letter-spacing:-.015em; line-height:1.06; margin-top:4px}
-.case .oneliner{color:var(--bone); font-size:16.5px; margin:13px 0 14px; max-width:62ch}
-
-/* 진짜 원인 — punchline 배너 ("그래서 답이 뭐였나"를 한눈에) */
-.rootcause{display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start;
-  background:var(--ink); border:1px solid var(--line); border-left:3px solid var(--accent,var(--signal));
-  border-radius:4px; padding:14px 18px; margin-top:6px}
-.rootcause .rk{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--accent,var(--signal-deep)); white-space:nowrap; padding-top:4px}
-.rootcause p{font-size:14.5px; color:var(--bone); font-weight:400; line-height:1.6}
-.rootcause em{font-style:normal; color:var(--accent,var(--signal)); font-weight:600}
-
-.cbody{display:grid; grid-template-columns:1.12fr .88fr; gap:40px; align-items:start; margin-top:22px}
+.case .oneliner{color:var(--bone); font-size:16.5px; margin:13px 0 8px; max-width:62ch}
+.cbody{display:grid; grid-template-columns:1.12fr .88fr; gap:40px; align-items:start; margin-top:18px}
 
 /* STAR */
 .star{display:grid; gap:0; margin-top:4px}
@@ -220,7 +210,6 @@ footer .big em{font-style:italic; color:var(--signal)}
   .stage:not(:last-child){border-right:1px solid var(--line); border-bottom:0}
   .stage::after{content:"↓"; right:50%; top:auto; bottom:-9px; transform:translateX(50%)}
   .preserve{grid-template-columns:1fr}
-  .rootcause{grid-template-columns:1fr; gap:6px}
   .layer{grid-template-columns:64px 1fr}
   .meta-strip span{border-right:0; padding:2px 14px 2px 0}
 }
@@ -244,14 +233,13 @@ footer .big em{font-style:italic; color:var(--signal)}
 
     <div class="hero-eyebrow rise" style="animation-delay:.05s">Engineering Casebook · 2026</div>
     <h1 class="rise" style="animation-delay:.12s">
-      매뉴얼 없는 AI 미디어 인프라를<br>
-      <em>증거</em>로 읽고, <em>원인</em>까지 좁힙니다
+      복잡한 AI 미디어 인프라를<br>
+      <em>설계</em>하고, <em>꿰뚫고</em>, 굴립니다
     </h1>
     <p class="hero-sub rise" style="animation-delay:.22s">
       KPF(한국언론진흥재단) 미디어 AI 인프라 — NCP Kubernetes 위의 Spark 파이프라인,
-      T3Q.DL 추론 서비스, OpenSearch·HDFS 데이터레이크 — 에서 마주친 실제 문제를
-      <b>프로젝트별 트러블슈팅 4건</b>으로 정리했습니다. 각 사례는
-      <b>증상 → 추적 → 진짜 원인 → 처치</b>로 읽힙니다. 데모가 아니라 운영 현장의 기록입니다.
+      T3Q.DL 추론 서비스, OpenSearch·HDFS 데이터레이크 — 에서 맡아온 실제 작업을
+      <b>설계 · 역추적 · 진단 · 운영</b> 네 갈래로 정리했습니다. 데모가 아니라 운영 현장의 기록입니다.
     </p>
 
     <div class="meta-strip rise" style="animation-delay:.32s">
@@ -293,7 +281,7 @@ footer .big em{font-style:italic; color:var(--signal)}
 
   <!-- ============ 기둥 1 · 설계 ============ -->
   <section id="design">
-    <div class="kicker">01 / GraphRAG 인덱싱</div>
+    <div class="kicker">01 / 설계</div>
     <h2 class="section-title">비용을 아는 설계</h2>
 
     <article class="case c1">
@@ -304,28 +292,21 @@ footer .big em{font-style:italic; color:var(--signal)}
         </div>
         <span class="cno">CASE 01</span>
       </div>
-      <p class="oneliner">문서가 계속 쌓이는 GraphRAG 인덱스 — 새 문서 몇 건 때문에 LLM 비용을 들인 전체 그래프를 매번 다시 만들 순 없었습니다.</p>
-
-      <div class="rootcause">
-        <span class="rk">진짜 원인 · 해법</span>
-        <p>핵심은 <em>"비싼 건 보존, 새 것만 발급"</em>. 제목을 정규화해 기존 개체의 ID를 그대로 물려주고 매칭 안 되는 것만 새로 만들면, 전체 재빌드 없이 새 문서만 그래프에 싸게 덧붙는다.</p>
-      </div>
+      <p class="oneliner">이미 LLM 비용을 들여 만든 지식그래프 인덱스를, 전체 재빌드 없이 새 문서만 싸게 덧붙입니다.</p>
 
       <div class="cbody">
         <div class="star">
-          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>개체·관계·커뮤니티 리포트를 전부 LLM으로 생성하는 구조라, 문서가 추가될 때마다 전체 재빌드를 도는 건 비용·시간상 현실적으로 불가능했습니다.</p></div>
-          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>LLM이 이미 돈을 들여 만든 자산(개체 ID·요약·리포트)을 깨뜨리지 않으면서, 새 문서만 그래프에 덧붙이는 방식을 설계하고 구현하기.</p></div>
-          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>세 가지로 풀었습니다. ① <em>개체</em> — 정규화한 제목으로 이전 실행의 ID를 찾아 그대로 승계하고, 못 찾은 것만 새 ID 발급 → 참조가 끊기지 않음. ② <em>커뮤니티</em> — Seeded Leiden + 멤버 겹침 1:1 매칭으로 군집 ID를 안정적으로 이어받음. ③ <em>LLM 재계산</em> — 변화량이 임계 미만이면 요약·리포트 재생성을 건너뜀. 단, 정규화 규칙 자체가 바뀌면 승계가 깨지므로 <code>canonicalization_version</code>이 바뀔 때만 전체 재정합을 강제하는 안전장치를 뒀습니다.</p></div>
-          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p><span class="rc">ID 재발급 0건</span>으로 LanceDB·OpenSearch·서빙의 참조 붕괴를 원천 차단하고, 증분 실행만으로 그래프를 갱신. 전체 재빌드 대비 LLM 재계산을 <span class="rc">약 87%</span> 줄였습니다. (128개 테스트 통과로 검증, 구현 중 설계 사각을 스스로 발견해 문서를 v1.1로 정정.)</p></div>
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>문서가 계속 추가되는 GraphRAG 인덱스. 개체·관계·커뮤니티 리포트를 LLM으로 생성하는 구조라 전체 재빌드는 비용·시간상 불가능했습니다.</p></div>
+          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>기존 <code>uuid4</code> ID와 요약·리포트 자산을 보존하면서 증분만 반영하는 설계를 확정하고 구현하기.</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>12개 쟁점을 결정값으로 닫았습니다. <em>정규화 제목 lookup</em>으로 기존 ID를 승계하고 no-match만 새로 발급, <em>Seeded Leiden + 멤버 overlap 1:1</em>로 커뮤니티 ID를 안정 승계, <em>변화량 임계</em>(재요약 3 / 리포트 0.2) 기반으로 LLM 재계산을 스킵. 정규화 규칙을 바꾸면 ID 승계가 깨지므로 <code>canonicalization_version</code> 게이트로 변경 시에만 full reconcile을 강제했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>Phase 1~3 구현 + <span class="rc">128개 테스트</span> 통과. <span class="rc">ID 재발급 0</span>으로 LanceDB·OpenSearch·serving의 참조 붕괴 위험을 원천 차단. 구현 중 재검토로 설계 사각(Prev Rows Carry-Over)을 발견해 문서를 v1→v1.1로 동기화했습니다.</p></div>
         </div>
 
         <div class="panel-side">
           <div class="metrics">
-            <!-- PLACEHOLDER P-01A (LLM 재계산 절감률): 더미 87% — _reports/engineering-placeholders.md -->
-            <div class="metric"><div class="v">↓87%</div><div class="l">LLM 재계산</div></div>
+            <div class="metric"><div class="v">128</div><div class="l">Tests Pass</div></div>
+            <div class="metric"><div class="v">12</div><div class="l">설계 결정</div></div>
             <div class="metric"><div class="v">0</div><div class="l">ID 재발급</div></div>
-            <!-- PLACEHOLDER P-01B (갱신 시간 단축): 더미 '분 단위' -->
-            <div class="metric"><div class="v">분 단위</div><div class="l">증분 갱신</div></div>
           </div>
           <div class="viz">
             <div class="preserve">
@@ -349,7 +330,7 @@ footer .big em{font-style:italic; color:var(--signal)}
 
   <!-- ============ 기둥 2 · 역추적 ============ -->
   <section id="trace">
-    <div class="kicker">02 / 레거시 CMS</div>
+    <div class="kicker">02 / 리버스 엔지니어링</div>
     <h2 class="section-title">URL 한 줄에서 시스템 전체로</h2>
 
     <article class="case c2">
@@ -360,24 +341,20 @@ footer .big em{font-style:italic; color:var(--signal)}
         </div>
         <span class="cno">CASE 02</span>
       </div>
-      <p class="oneliner">인수인계 문서가 한 장도 없는 레거시 미디어 CMS — 가진 단서는 브라우저 개발자도구에 찍힌 요청 URL 한 줄뿐이었습니다.</p>
-
-      <div class="rootcause">
-        <span class="rk">진짜 원인 · 발견</span>
-        <p>외부 SaaS인 줄 알았던 <code>api.kpf-dev.t3q.ai</code>가, 알고 보니 <em>같은 쿠버네티스 클러스터 안에서 도는 자체 제작 FastAPI 서비스</em>였다 — 컨테이너에 직접 들어가 라우터 코드를 읽고 확정.</p>
-      </div>
+      <p class="oneliner">매뉴얼 없는 레거시 미디어 CMS에서, 브라우저에 찍힌 요청 URL 하나로 다계층 분산 시스템 전체를 코드로 재구성했습니다.</p>
 
       <div class="cbody">
         <div class="star">
-          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>운영 중인 CMS인데 매뉴얼이 없고, 호출하는 외부 API의 서버측 실체가 외부 SaaS인지 내부 서비스인지조차 알 수 없었습니다.</p></div>
-          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>업로드 → 표지 자동생성 → 검색 색인까지 전 과정을, "어디까지가 외부이고 누가 호출하는가"를 추측이 아니라 코드 근거로 확정하기.</p></div>
-          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>요청 URL 문자열을 코드에서 grep해 <em>컨트롤러 → 매퍼 → 테이블 → NAS 경로</em>로 한 단계씩 따라 내려갔습니다. 외부처럼 보이던 도메인은 <em>kubectl로 파드 안에 들어가 FastAPI 라우터를 직접 읽어</em> 내부 서비스임을 확정. 표지를 만든 주체도 디렉터리 이름(algo_9)에 속지 않고 <em>서빙 이미지 → 파드 로그 → 호출자 IP 역조회 → NiFi 설정</em>까지 교차검증해, 처음 세운 가설을 뒤집고 실제 주체를 바로잡았습니다.</p></div>
-          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>CMS → 내부 검색 서비스 → OpenSearch 흐름과 NiFi·Spark 경로를 하나의 End-to-End 문서로 통합. 외부 API <span class="rc">13종</span>을 호출 8·미호출 4·콜백 2로 분류해 인벤토리화하고, 표지 누락 시 진단 기준(시나리오 매트릭스)을 만들어 운영 기준선을 세웠습니다.</p></div>
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>인수인계 문서가 없는 운영 CMS. 호출하는 외부 API <code>api.kpf-dev.t3q.ai</code>의 서버측 실체가 외부 SaaS인지 내부 서비스인지조차 불명확했습니다.</p></div>
+          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>업로드 → 표지 자동생성 → 검색 색인까지 전 과정을, 외부/내부 경계와 호출 주체까지 코드 근거로 확정하기.</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>요청 URL 문자열을 grep해 컨트롤러 → 매퍼 → 테이블 → NAS 경로로 내려갔습니다. 외부처럼 보이던 도메인은 <em>kubectl exec로 파드 안 FastAPI 라우터를 직접 읽어</em> 같은 클러스터 내부의 in-house <code>t3q-search-svc</code>임을 확정. 썸네일 생성자는 코드 디렉토리명(algo_9)에 속지 않고 <em>serving 이미지 → 파드 로그 → 호출자 IP 역조회 → NiFi flow.xml</em>까지 교차검증해 operservice-15 + NiFi로 못 박고, 초기 가설을 정정했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>CMS→t3q-search-svc→OpenSearch 흐름과 NiFi·Spark 처리 경로를 단일 End-to-End 문서로 통합. 외부 API <span class="rc">13종</span>을 호출 8·미호출 4·콜백 2로 인벤토리화하고, 표지 placeholder 자동 채움/잔존 조건을 시나리오 매트릭스로 확정해 운영 진단 기준을 만들었습니다.</p></div>
         </div>
 
         <div class="panel-side">
           <div class="metrics">
             <div class="metric"><div class="v">13</div><div class="l">외부 API 인벤토리</div></div>
+            <div class="metric"><div class="v">7</div><div class="l">추적 보고서</div></div>
             <div class="metric"><div class="v">5+</div><div class="l">계층 횡단</div></div>
           </div>
           <div class="viz">
@@ -402,7 +379,7 @@ footer .big em{font-style:italic; color:var(--signal)}
 
   <!-- ============ 기둥 3 · 진단 ============ -->
   <section id="forensics">
-    <div class="kicker">03 / 데이터레이크</div>
+    <div class="kicker">03 / 진단</div>
     <h2 class="section-title">증거로 좁히는 데이터 포렌식</h2>
 
     <article class="case c3">
@@ -413,27 +390,21 @@ footer .big em{font-style:italic; color:var(--signal)}
         </div>
         <span class="cno">CASE 03</span>
       </div>
-      <p class="oneliner">17개로 쪼갠 잡지 중 특정 청크만 CMS 검색에 안 잡힘 — 데이터가 깨진 건지, 처리 흐름이 막힌 건지 알 수 없었습니다.</p>
-
-      <div class="rootcause">
-        <span class="rk">진짜 원인 · 규명</span>
-        <p>데이터 결함이 아니었다. <em>표지 JPG 레코드가 생겨야만 색인이 진행되는 구조(= 색인의 관문)</em>인데, 그 레코드가 일부 청크에만 만들어졌던 것.</p>
-      </div>
+      <p class="oneliner">HDFS·Delta·NAS에 흩어진 수십만 파일에서, "누가 만들었고 왜 누락됐나"를 여러 레이어의 증거로 규명했습니다.</p>
 
       <div class="cbody">
         <div class="star">
-          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>17개 청크로 분할된 잡지 중 일부가 CMS 검색에서 누락. 원본이 깨진 건지, 처리 흐름이 막힌 건지 불명확했습니다.</p></div>
-          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>파일 실체(NAS·HDFS)와 메타데이터(OpenSearch·DB) 양쪽에서 누락이 "어디서 처음 끊겼는지"와 원인을 규명하기. (모든 원격 작업은 read-only 원칙 준수)</p></div>
-          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p><em>NAS·HDFS·OpenSearch·PostgreSQL 네 레이어를 같은 17청크 기준으로 나란히 대조</em>했습니다. PDF 17개는 NAS에 모두 정상 적재됐지만 HDFS·색인·DB로 갈수록 일부만 남았고, DB(<code>t_comm_file_inf</code>)를 read-only로 조회하니 <em>표지 JPG 레코드가 누락된 청크에만 없었고</em> 갱신 시각도 뒤늦게 찍혀 있었습니다. 운영 Spark가 OOM(exit 137)으로 막던 집계는 로컬 DuckDB로 우회해 끝냈습니다.</p></div>
-          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>"<span class="rc">표지 JPG 레코드 생성이 색인의 관문</span>인데 일부만 성공했기 때문"임을 4레이어+DB 증거로 확정. JPG 레코드를 넣은 코드는 디컴파일로 확인하지 못해, 단정 대신 "정황"으로 명시했습니다. 부수로 72만 파일을 인벤토리화해 "표지=JPG / PNG=HWP 섹션" 규칙을 정리했습니다.</p></div>
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>17개 청크로 분할된 잡지 중 특정 청크가 CMS 검색에서 잡히지 않았습니다. 데이터 결함인지 처리 흐름 문제인지 불명확.</p></div>
+          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>파일 실체(NAS·HDFS)와 메타(OpenSearch·DB) 양쪽에서 누락의 정확한 기점과 원인을 규명하기. (모든 원격 작업은 read-only)</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p><em>NAS·HDFS·OpenSearch·PostgreSQL 4개 레이어를 교차 대조</em>했습니다. 17개 PDF는 모두 정상·동일 특성인데 HDFS엔 일부만 적재돼 있었고, read-only로 DB(<code>t_comm_file_inf</code>)를 직접 조회하니 <em>표지 JPG row가 그 일부 청크에만 존재</em>하고 JPG row만 갱신 시각이 뒤늦게 찍혀 있었습니다. 운영 Spark가 OOM(exit 137)으로 막히는 통계 작업은 로컬 venv + DuckDB로 우회했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>"데이터 결함이 아니라 <span class="rc">표지 JPG row 생성이 후속 색인의 게이트</span>인데 일부만 성공했기 때문"임을 4-레이어+DB 증거로 확정. JPG row를 INSERT한 코드는 디컴파일 미확인이라 단정 대신 "정황"으로 정정·명시했습니다. (부수: 72만 파일 인벤토리로 "표지=JPG / PNG=HWP 섹션" 규칙화.)</p></div>
         </div>
 
         <div class="panel-side">
           <div class="metrics">
             <div class="metric"><div class="v">4</div><div class="l">레이어 교차</div></div>
             <div class="metric"><div class="v">72만</div><div class="l">파일 인벤토리</div></div>
-            <!-- PLACEHOLDER P-03A (근본원인 규명 소요): 더미 '1일 내' -->
-            <div class="metric"><div class="v">1일 내</div><div class="l">원인 규명</div></div>
+            <div class="metric"><div class="v">RO</div><div class="l">read-only 진단</div></div>
           </div>
           <div class="viz">
             <div class="layers" id="layerViz">
@@ -455,7 +426,7 @@ footer .big em{font-style:italic; color:var(--signal)}
 
   <!-- ============ 기둥 4 · 운영 ============ -->
   <section id="ops">
-    <div class="kicker">04 / Spark 파이프라인</div>
+    <div class="kicker">04 / 현장 엔지니어링</div>
     <h2 class="section-title">레이어를 격리해, 한 줄까지</h2>
 
     <article class="case c4">
@@ -466,27 +437,21 @@ footer .big em{font-style:italic; color:var(--signal)}
         </div>
         <span class="cno">CASE 04</span>
       </div>
-      <p class="oneliner">의도적으로 꺼져 있던 스캔 PDF 청킹 3단 Spark 라인 — "yaml 하나만 넣으면 되살아나냐"는 검토 요청에서 시작했습니다.</p>
-
-      <div class="rootcause">
-        <span class="rk">진짜 원인 · 처치</span>
-        <p>코드 버그가 아니었다. chunk 단계가 바라보던 <em>추론 서버 주소가 HDFS 권한 없는 인스턴스(operservice-1)를 가리켰고</em>, 그게 돌려준 에러 응답을 클라이언트가 리스트처럼 순회하다 터진 것. 답은 <em>yaml의 주소를 operservice-2로 바꾸는 한 줄</em>이었다.</p>
-      </div>
+      <p class="oneliner">비활성화된 PDF 청킹 라인을 되살리며, 고장의 진짜 원인을 yaml 한 줄까지 좁혔습니다 — 운영은 멈추지 않고.</p>
 
       <div class="cbody">
         <div class="star">
-          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>batch→chunk→indexing 3단 Spark 라인이 비활성 상태. "yaml 하나만 추가하면 되살아나나?"라는 검토 요청이 들어왔습니다.</p></div>
-          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>부활 가능 여부와 스키마 정합을 검증하고, 가능하면 실제 데이터를 흘려 정상화하기 — 단, 운영은 멈추지 않게.</p></div>
-          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>세 단계가 <code>batch_start_page</code> 컬럼으로 묶인 불가분 세트임을 확인하고 순차 적용으로 cold-start를 우회. chunk 단계에서 터지던 RuntimeError를 잡으려 <em>살아있는 driver 파드 안에서 추론 엔드포인트를 직접 POST로 찔러보니</em>, operservice-1이 "HDFS 접근 실패" 응답(dict)을 돌려주고 클라이언트가 그걸 리스트처럼 순회하다 폭주함을 코드 라인까지 추적. operservice-1과 2가 같은 이미지의 다른 인스턴스인데 <em>1에만 HDFS 환경변수가 없다</em>는 차이를 찾아냈습니다.</p></div>
-          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>진짜 원인은 코드가 아니라 <span class="rc">추론 서버 주소를 operservice-1→2로 바꾸는 yaml 한 줄</span>. 모든 부활 시도는 롤백해 <span class="rc">운영을 시도 전과 100% 동일</span>하게 복구했습니다. (부수: Spark Operator "pod 안 뜸"을 단위 표기 + JSON 오타 2단 원인으로 분해, Helm 무중단 증설, 멱등·안전가드 기반 대용량 이관.)</p></div>
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>스캔 PDF 청킹 3단 Spark 라인(batch→chunk→indexing)이 의도적으로 비활성화된 상태. "yaml 하나만 추가하면 되살아나나?"라는 검토 요청.</p></div>
+          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>부활 가능 여부와 스키마 정합을 검증하고, 가능하면 실제 데이터를 흘려 정상화하기.</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>세 단계가 <code>batch_start_page</code> 컬럼으로 묶인 불가분 세트임을 입증하고, cold-start는 순차 apply로 우회. 터진 <code>pandas_udf</code> RuntimeError를 잡으려 <em>활성 driver 파드 안에서 inference 엔드포인트를 직접 POST 프로빙</em>했더니, operservice-1이 HDFS 접근 실패 dict를 반환하고 클라이언트가 그걸 list처럼 순회해 폭주함을 코드 라인까지 추적. operservice-1(HDFS env 없음)과 operservice-2(보유)가 같은 이미지의 다른 인스턴스임을 규명했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>진짜 원인은 코드가 아니라 <span class="rc">yaml의 INFERENCE_URL을 operservice-1→2로 바꾸는 한 줄</span>. 모든 부활 시도는 rollback해 <span class="rc">운영을 시도 전과 100% 동일</span>하게 복구했습니다. (부수: Spark Operator "pod 안 뜸"을 단위 표기 + JSON 오타 2단 원인으로 분해, Helm 무중단 증설, 멱등·안전가드 14GB 이관.)</p></div>
         </div>
 
         <div class="panel-side">
           <div class="metrics">
             <div class="metric"><div class="v">1줄</div><div class="l">근본 수정</div></div>
             <div class="metric"><div class="v">100%</div><div class="l">무손상 롤백</div></div>
-            <!-- PLACEHOLDER P-04A (부활 후 처리량 / 방치 기간): 더미 '정상화' -->
-            <div class="metric"><div class="v">정상화</div><div class="l">부활 결과</div></div>
+            <div class="metric"><div class="v">14GB</div><div class="l">안전 이관</div></div>
           </div>
           <div class="viz">
             <div class="pipeline">
