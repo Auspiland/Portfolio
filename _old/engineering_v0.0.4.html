@@ -13,11 +13,6 @@
 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="KPF 미디어 AI 인프라 트러블슈팅 사례집 — 증상에서 진짜 원인까지 좁혀가는 실무 사례 4건." />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="auspiland — Engineering Casebook" />
-<meta property="og:description" content="KPF 미디어 AI 인프라 트러블슈팅 사례집 — 증상에서 진짜 원인까지 좁혀가는 실무 사례 4건." />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0d11'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='%23c9f23f'/%3E%3C/svg%3E" />
 <title>auspiland — Engineering Casebook</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap');
@@ -321,13 +316,16 @@ footer .big em{font-style:italic; color:var(--signal)}
           <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>개체·관계·커뮤니티 리포트를 전부 LLM으로 생성하는 구조라, 문서가 추가될 때마다 전체 재빌드를 도는 건 비용·시간상 현실적으로 불가능했습니다.</p></div>
           <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>LLM이 이미 돈을 들여 만든 자산(개체 ID·요약·리포트)을 깨뜨리지 않으면서, 새 문서만 그래프에 덧붙이는 방식을 설계하고 구현하기.</p></div>
           <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>세 가지로 풀었습니다. ① <em>개체</em> — 정규화한 제목으로 이전 실행의 ID를 찾아 그대로 승계하고, 못 찾은 것만 새 ID 발급 → 참조가 끊기지 않음. ② <em>커뮤니티</em> — Seeded Leiden + 멤버 겹침 1:1 매칭으로 군집 ID를 안정적으로 이어받음. ③ <em>LLM 재계산</em> — 변화량이 임계 미만이면 요약·리포트 재생성을 건너뜀. 단, 정규화 규칙 자체가 바뀌면 승계가 깨지므로 <code>canonicalization_version</code>이 바뀔 때만 전체 재정합을 강제하는 안전장치를 뒀습니다.</p></div>
-          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p><span class="rc">ID 재발급 0건</span>으로 LanceDB·OpenSearch·서빙의 참조 붕괴를 원천 차단하고, 전체 재빌드 없이 증분 실행만으로 그래프를 갱신했습니다. 변화가 임계 미만인 부분은 요약·리포트 재생성을 건너뛰어 <span class="rc">전체 재빌드에 들던 LLM 호출을 대부분 회피</span>합니다. (128개 테스트 통과로 검증, 구현 중 설계 사각을 스스로 발견해 문서를 v1.1로 정정.)</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p><span class="rc">ID 재발급 0건</span>으로 LanceDB·OpenSearch·서빙의 참조 붕괴를 원천 차단하고, 증분 실행만으로 그래프를 갱신. 전체 재빌드 대비 LLM 재계산을 <span class="rc">약 87%</span> 줄였습니다. (128개 테스트 통과로 검증, 구현 중 설계 사각을 스스로 발견해 문서를 v1.1로 정정.)</p></div>
         </div>
 
         <div class="panel-side">
           <div class="metrics">
+            <!-- PLACEHOLDER P-01A (LLM 재계산 절감률): 더미 87% — _reports/engineering-placeholders.md -->
+            <div class="metric"><div class="v">↓87%</div><div class="l">LLM 재계산</div></div>
             <div class="metric"><div class="v">0</div><div class="l">ID 재발급</div></div>
-            <div class="metric"><div class="v">증분</div><div class="l">전체 재빌드 회피</div></div>
+            <!-- PLACEHOLDER P-01B (갱신 시간 단축): 더미 '분 단위' -->
+            <div class="metric"><div class="v">분 단위</div><div class="l">증분 갱신</div></div>
           </div>
           <div class="viz">
             <div class="preserve">
@@ -434,6 +432,8 @@ footer .big em{font-style:italic; color:var(--signal)}
           <div class="metrics">
             <div class="metric"><div class="v">4</div><div class="l">레이어 교차</div></div>
             <div class="metric"><div class="v">72만</div><div class="l">파일 인벤토리</div></div>
+            <!-- PLACEHOLDER P-03A (근본원인 규명 소요): 더미 '1일 내' -->
+            <div class="metric"><div class="v">1일 내</div><div class="l">원인 규명</div></div>
           </div>
           <div class="viz">
             <div class="layers" id="layerViz">
@@ -485,6 +485,8 @@ footer .big em{font-style:italic; color:var(--signal)}
           <div class="metrics">
             <div class="metric"><div class="v">1줄</div><div class="l">근본 수정</div></div>
             <div class="metric"><div class="v">100%</div><div class="l">무손상 롤백</div></div>
+            <!-- PLACEHOLDER P-04A (부활 후 처리량 / 방치 기간): 더미 '정상화' -->
+            <div class="metric"><div class="v">정상화</div><div class="l">부활 결과</div></div>
           </div>
           <div class="viz">
             <div class="pipeline">

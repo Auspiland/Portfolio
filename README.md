@@ -19,9 +19,9 @@ HTML 페이지로 운영하는 포트폴리오. 프로필 홈에서 두 갈래(A
 ├── _reports/          # 본문 placeholder(임시 더미값)의 실제 정의서
 │   └── engineering-placeholders.md
 ├── _old/              # 이전 버전 스냅샷 (파일명 prefix + vX.Y.Z)
-│   ├── index_v0.0.1.html
-│   ├── ai_ability_v0.0.1~3.html
-│   └── engineering_v0.0.1~2.html
+│   ├── index_v0.0.1~4.html
+│   ├── ai_ability_v0.0.1~5.html
+│   └── engineering_v0.0.1~4.html
 └── README.md
 ```
 
