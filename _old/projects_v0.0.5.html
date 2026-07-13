@@ -98,8 +98,6 @@ h1 em{font-style:italic; color:var(--signal)}
 .strong-card .sn{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--signal-deep)}
 .strong-card h4{font-family:var(--display); font-weight:400; font-size:20px; margin:11px 0 8px; letter-spacing:-.01em}
 .strong-card p{font-size:13.5px; color:var(--bone-dim)}
-.strong-card.fill{display:flex; align-items:center; justify-content:center}
-.strong-card.fill::after{content:""; width:7px; height:7px; border-radius:50%; background:var(--line)}
 .know{display:grid; gap:0; margin-top:34px; border:1px solid var(--line); border-radius:5px; overflow:hidden}
 .know-row{display:grid; grid-template-columns:150px 1fr; gap:18px; align-items:center;
   padding:15px 20px; background:var(--ink-2); border-top:1px solid var(--line)}
@@ -252,19 +250,20 @@ footer .big em{font-style:italic; color:var(--signal)}
         <p>triplet(S-P-O) 추출·그래프 적재, GNN 기반 링크 예측.</p>
       </div>
       <div class="strong-card rise" style="animation-delay:.2s">
-        <div class="sn">STRONG 05</div><h4>Docker</h4>
+        <div class="sn">STRONG 05</div><h4>Kubernetes</h4>
+        <p>컨테이너 기반 프로덕션 배포·운영.</p>
+      </div>
+      <div class="strong-card rise" style="animation-delay:.25s">
+        <div class="sn">STRONG 06</div><h4>Docker</h4>
         <p>재현 가능한 파이프라인 컨테이너화.</p>
       </div>
-      <div class="strong-card fill rise" style="animation-delay:.25s" aria-hidden="true"></div>
     </div>
 
     <div class="know">
-      <div class="know-row"><span class="kl">Knowledge</span>
-        <div class="chips">
-          <span class="chip hi">Kubernetes</span><span class="chip hi">Spark</span>
-          <span class="chip">Kafka</span><span class="chip">Airflow</span><span class="chip">HDFS</span>
-          <span class="chip">NiFi</span><span class="chip">Flink</span><span class="chip">Delta Lake</span><span class="chip">PyTorch</span>
-        </div></div>
+      <div class="know-row"><span class="kl">Streaming · 처리</span>
+        <div class="chips"><span class="chip hi">Kafka</span><span class="chip">Flink</span><span class="chip">NiFi</span></div></div>
+      <div class="know-row"><span class="kl">저장 · 오케스트레이션</span>
+        <div class="chips"><span class="chip">HDFS</span><span class="chip">MinIO</span><span class="chip hi">Airflow</span></div></div>
     </div>
   </section>
 
