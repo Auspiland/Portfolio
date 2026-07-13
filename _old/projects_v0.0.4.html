@@ -115,29 +115,18 @@ h1 em{font-style:italic; color:var(--signal)}
   background:var(--accent,var(--signal)); z-index:3}
 .project.p2{--accent:var(--slate)} .project.p3{--accent:var(--coral)}
 
-/* 사진 캐러셀 — 한 컷씩 중앙 스냅 */
-.carousel{position:relative}
-.gallery{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
-  border-bottom:1px solid var(--line); background:var(--ink-2); scrollbar-width:none}
-.gallery::-webkit-scrollbar{display:none}
-.gallery figure{flex:0 0 100%; scroll-snap-align:center; scroll-snap-stop:always;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; padding:26px 22px 20px}
-.gallery img{max-width:100%; max-height:400px; width:auto; height:auto; object-fit:contain;
-  border:1px solid var(--line); border-radius:4px; background:var(--ink)}
-.gcap{font-family:var(--mono); font-size:10px; color:var(--bone-faint); letter-spacing:.05em;
-  margin-top:12px; text-align:center; line-height:1.4}
-/* 캐러셀 컨트롤 (이미지 2컷 이상일 때 JS가 삽입) */
-.cbtn{position:absolute; top:50%; transform:translateY(-50%); z-index:4;
-  width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
-  background:rgba(12,13,17,.68); color:var(--bone); font-family:var(--display); font-size:24px; line-height:1;
-  cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.18s;
-  -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px)}
-.cbtn:hover{border-color:var(--signal); color:var(--signal)}
-.cbtn.prev{left:16px} .cbtn.next{right:16px}
-.cbtn[disabled]{opacity:.25; cursor:default; border-color:var(--line); color:var(--bone)}
-.dots{position:absolute; bottom:14px; left:0; right:0; z-index:4; display:flex; gap:7px; justify-content:center}
-.dots i{width:7px; height:7px; border-radius:50%; background:var(--bone-faint); cursor:pointer; transition:.22s}
-.dots i.on{background:var(--signal); width:22px; border-radius:4px}
+/* 사진 갤러리 — 좌우 스크롤 */
+.gallery{display:flex; gap:12px; overflow-x:auto; padding:16px 18px; border-bottom:1px solid var(--line);
+  scroll-snap-type:x proximity; scrollbar-width:thin; scrollbar-color:var(--bone-faint) transparent}
+.gallery::-webkit-scrollbar{height:9px}
+.gallery::-webkit-scrollbar-thumb{background:var(--line); border-radius:5px}
+.gallery::-webkit-scrollbar-thumb:hover{background:var(--bone-faint)}
+.gallery::-webkit-scrollbar-track{background:transparent}
+.gallery figure{flex:0 0 auto; scroll-snap-align:start; border:1px solid var(--line);
+  border-radius:4px; overflow:hidden; background:var(--ink)}
+.gallery img{display:block; height:320px; width:auto; max-width:none}
+.gcap{font-family:var(--mono); font-size:9.5px; color:var(--bone-faint); letter-spacing:.05em;
+  padding:7px 11px; line-height:1.4; background:var(--ink-2); border-top:1px solid var(--line)}
 
 .p-inner{padding:32px 40px 0}
 .p-head{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px}
@@ -184,8 +173,7 @@ footer .big em{font-style:italic; color:var(--signal)}
   .know-row{grid-template-columns:1fr; gap:9px}
   .p-inner{padding:26px 24px 0}
   .p-body{grid-template-columns:1fr; gap:26px}
-  .gallery img{max-height:280px}
-  .cbtn{width:34px; height:34px; font-size:20px}
+  .gallery img{height:230px}
   .meta-strip span{border-right:0; padding:2px 14px 2px 0}
 }
 </style>
@@ -209,7 +197,7 @@ footer .big em{font-style:italic; color:var(--signal)}
       <em>추론되는 지식</em>으로
     </h1>
     <p class="hero-sub rise" style="animation-delay:.22s">
-      넓게 보고 깊이 탐구하는 <b>AI Surfer</b>. 깊은 사고로 문제의 구조를 넓게 조망하고,
+      넓게 보고 깊이 탐구하는 <b>AI Surfer</b>. 물리학적 사고로 문제의 구조를 넓게 조망하고,
       <b>지식 그래프</b>와 <b>RAG 파이프라인</b>으로 깊이 파고듭니다.
       비정형 텍스트·이미지를 의미 단위로 구조화해, 검색·추론이 가능한 시스템으로 만든 프로젝트 세 가지입니다.
     </p>
@@ -368,7 +356,7 @@ footer .big em{font-style:italic; color:var(--signal)}
           <span class="p-no">PROJECT 03</span>
           <div class="p-tags"><span class="ptag">#플랫폼개발</span><span class="ptag">#MSA</span><span class="ptag">#모듈화</span></div>
         </div>
-        <h3>EDPP <span class="pname">Platform</span></h3>
+        <h3>EDPP <span class="pname">RAG Platform</span></h3>
         <p class="p-oneliner">멀티모달 데이터를 가공해 구축하는 RAG 파이프라인을 쉽게 만들 수 있도록, MSA 형태의 개발/운영자 친화 플랫폼을 개발했습니다.</p>
 
         <div class="p-body">
@@ -421,54 +409,6 @@ footer .big em{font-style:italic; color:var(--signal)}
 </div>
 
 <script>
-// 사진 캐러셀 — 한 컷씩 중앙 스냅, 화살표·점 인디케이터
-document.querySelectorAll('.gallery').forEach((gal) => {
-  const slides = Array.from(gal.querySelectorAll(':scope > figure'));
-  const car = document.createElement('div');
-  car.className = 'carousel';
-  gal.parentNode.insertBefore(car, gal);
-  car.appendChild(gal);
-  if (slides.length < 2) return;            // 사진 1컷이면 컨트롤 없음
-
-  const dots = document.createElement('div');
-  dots.className = 'dots';
-  slides.forEach((_, i) => {
-    const d = document.createElement('i');
-    d.addEventListener('click', () => go(i));
-    dots.appendChild(d);
-  });
-  const prev = document.createElement('button');
-  prev.type = 'button'; prev.className = 'cbtn prev';
-  prev.setAttribute('aria-label', '이전 사진'); prev.textContent = '‹';
-  const next = document.createElement('button');
-  next.type = 'button'; next.className = 'cbtn next';
-  next.setAttribute('aria-label', '다음 사진'); next.textContent = '›';
-  car.appendChild(prev); car.appendChild(next); car.appendChild(dots);
-
-  let cur = 0;
-  function go(i){
-    cur = Math.max(0, Math.min(slides.length - 1, i));
-    gal.scrollTo({ left: cur * gal.clientWidth, behavior: 'smooth' });
-  }
-  prev.addEventListener('click', () => go(cur - 1));
-  next.addEventListener('click', () => go(cur + 1));
-
-  let raf = 0;
-  function sync(){
-    const i = Math.round(gal.scrollLeft / gal.clientWidth);
-    cur = Math.max(0, Math.min(slides.length - 1, i));
-    Array.from(dots.children).forEach((d, k) => d.classList.toggle('on', k === cur));
-    prev.disabled = cur === 0;
-    next.disabled = cur === slides.length - 1;
-  }
-  gal.addEventListener('scroll', () => {
-    if (raf) cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(sync);
-  });
-  window.addEventListener('resize', sync);
-  sync();
-});
-
 // 스크롤 진입 등장
 const io = new IntersectionObserver((entries) => {
   entries.forEach((e) => {
