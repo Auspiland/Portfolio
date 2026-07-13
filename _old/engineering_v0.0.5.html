@@ -13,10 +13,10 @@
 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="추측이 아니라 증거로 — 설계·역추적·포렌식·운영 실무 사례 4건, 증상에서 진짜 원인까지 좁혀간 기록." />
+<meta name="description" content="KPF 미디어 AI 인프라 트러블슈팅 사례집 — 증상에서 진짜 원인까지 좁혀가는 실무 사례 4건." />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="auspiland — Engineering Casebook" />
-<meta property="og:description" content="추측이 아니라 증거로 — 설계·역추적·포렌식·운영 실무 사례 4건, 증상에서 진짜 원인까지 좁혀간 기록." />
+<meta property="og:description" content="KPF 미디어 AI 인프라 트러블슈팅 사례집 — 증상에서 진짜 원인까지 좁혀가는 실무 사례 4건." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0d11'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='%23c9f23f'/%3E%3C/svg%3E" />
 <title>auspiland — Engineering Casebook</title>
 <style>
@@ -196,6 +196,14 @@ h1 em{font-style:italic; color:var(--signal)}
   border:1px dashed rgba(201,242,63,.4); border-radius:3px; padding:8px 11px}
 .fixnote .x{color:var(--coral)}
 
+/* side */
+.sides{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line);
+  border:1px solid var(--line); margin-top:30px}
+.side{background:var(--ink-2); padding:24px 22px}
+.side .stag{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint)}
+.side h4{font-family:var(--display); font-weight:400; font-size:19px; margin:9px 0 7px}
+.side p{font-size:13.5px; color:var(--bone-dim)}
+
 /* footer */
 footer{padding:84px 0 66px; border-top:1px solid var(--line)}
 .foot-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:28px}
@@ -212,6 +220,7 @@ footer .big em{font-style:italic; color:var(--signal)}
   .principles{grid-template-columns:1fr}
   .case{padding:30px 24px}
   .cbody{grid-template-columns:1fr; gap:26px}
+  .sides{grid-template-columns:1fr}
   .pipeline{flex-direction:column}
   .stage:not(:last-child){border-right:1px solid var(--line); border-bottom:0}
   .stage::after{content:"↓"; right:50%; top:auto; bottom:-9px; transform:translateX(50%)}
@@ -240,14 +249,14 @@ footer .big em{font-style:italic; color:var(--signal)}
 
     <div class="hero-eyebrow rise" style="animation-delay:.05s">Engineering Casebook · 2026</div>
     <h1 class="rise" style="animation-delay:.12s">
-      추측이 아니라 <em>증거</em>로,<br>
-      시스템을 읽고 <em>원인</em>을 좁힙니다
+      매뉴얼 없는 AI 미디어 인프라를<br>
+      <em>증거</em>로 읽고, <em>원인</em>까지 좁힙니다
     </h1>
     <p class="hero-sub rise" style="animation-delay:.22s">
-      <b>설계 · 역추적 · 포렌식 · 운영</b> — 성격이 다른 실무 문제 4건이지만, 관통하는 방식은 하나입니다.
-      함부로 건드리지 않고, 다중 증거를 수렴시켜, 가설을 검증하고 틀리면 정정한다.
-      매뉴얼 없는 시스템에서도 <b>증상에서 진짜 원인까지</b> 좁혀간 기록입니다.
-      <span style="color:var(--bone-faint)">— 무대는 KPF 미디어 AI 인프라 · Spark · Kubernetes · OpenSearch · HDFS.</span>
+      KPF(한국언론진흥재단) 미디어 AI 인프라 — NCP Kubernetes 위의 Spark 파이프라인,
+      T3Q.DL 추론 서비스, OpenSearch·HDFS 데이터레이크 — 에서 마주친 실제 문제를
+      <b>프로젝트별 트러블슈팅 4건</b>으로 정리했습니다. 각 사례는
+      <b>증상 → 추적 → 진짜 원인 → 처치</b>로 읽힙니다. 데모가 아니라 운영 현장의 기록입니다.
     </p>
 
     <div class="meta-strip rise" style="animation-delay:.32s">
@@ -492,6 +501,25 @@ footer .big em{font-style:italic; color:var(--signal)}
         </div>
       </div>
     </article>
+  </section>
+
+  <!-- ============ side ============ -->
+  <section id="more">
+    <div class="kicker">+ / 그 외</div>
+    <h2 class="section-title">곁다리로 한 일</h2>
+    <p class="section-lead">위 네 기둥만큼 비중은 아니지만, 폭을 보여주는 작업들.</p>
+    <div class="sides">
+      <div class="side">
+        <div class="stag">Side · 설계 컨설팅</div>
+        <h4>디지털트윈 데이터 파이프라인 설계</h4>
+        <p>이기종 센서·문서 JSON을 공통 envelope + <code style="font-family:var(--mono);font-size:.9em;color:var(--signal)">data_category</code> 라우팅으로 다루고, 시계열은 윈도우 통계의 자연어화·문서는 chunk로 인덱싱하는 GraphRAG 기반 운영 모니터링 디지털트윈 아키텍처를 제안했습니다.</p>
+      </div>
+      <div class="side">
+        <div class="stag">Small · 운영 위생</div>
+        <h4>인프라 핸드오프 & SSH 픽스</h4>
+        <p>자격정보를 본문에 노출하지 않고 래퍼 호출만으로 재현 가능한 인프라 핸드오프 문서를 작성하고, SSH ProxyCommand의 <code style="font-family:var(--mono);font-size:.9em;color:var(--signal)">%p</code> 치환 버그(점프 포트 미적용)를 진단·수정·검증했습니다.</p>
+      </div>
+    </div>
   </section>
 
   <!-- ============ FOOTER ============ -->

@@ -1,6 +1,6 @@
 # auspiland — Portfolio
 
-HTML 페이지로 운영하는 포트폴리오. 프로필 홈에서 두 갈래(AI 활용 / 엔지니어링 사례)로 분기.
+HTML 페이지로 운영하는 포트폴리오. 프로필 홈에서 두 갈래(Projects / 엔지니어링 사례)로 분기.
 
 ---
 
@@ -8,9 +8,10 @@ HTML 페이지로 운영하는 포트폴리오. 프로필 홈에서 두 갈래(A
 
 ```
 /
-├── index.html         # 홈 — 프로필 랜딩 (여기서 아래 두 페이지로 링크)
-├── ai_ability.html    # AI 활용 포트폴리오 (멀티에이전트·RAG·자동화) — 뒤로가기로 홈 복귀
-├── engineering.html   # 엔지니어링 사례집 — KPF 미디어 AI 인프라 — 뒤로가기로 홈 복귀
+├── index.html         # 홈 — 프로필 랜딩 (여기서 Projects·Engineering로 링크)
+├── projects.html      # 프로젝트 모음 (지식 그래프·RAG) — 뒤로가기로 홈 복귀
+├── engineering.html   # 엔지니어링 사례집 (증거 기반 트러블슈팅 4건) — 뒤로가기로 홈 복귀
+├── ai_ability.html    # AI 활용 포트폴리오 — 현재 홈에서 미연결(파일 보존)
 ├── images/            # info.png(프로필 원본) 등 이미지
 ├── references/        # 설계 매뉴얼 등 본문 근거 자료
 │   ├── openclaw-agent-design-manual.md
@@ -19,9 +20,10 @@ HTML 페이지로 운영하는 포트폴리오. 프로필 홈에서 두 갈래(A
 ├── _reports/          # 본문 placeholder(임시 더미값)의 실제 정의서
 │   └── engineering-placeholders.md
 ├── _old/              # 이전 버전 스냅샷 (파일명 prefix + vX.Y.Z)
-│   ├── index_v0.0.1~4.html
+│   ├── index_v0.0.1~5.html
+│   ├── projects_v0.0.1.html
 │   ├── ai_ability_v0.0.1~5.html
-│   └── engineering_v0.0.1~4.html
+│   └── engineering_v0.0.1~5.html
 └── README.md
 ```
 
