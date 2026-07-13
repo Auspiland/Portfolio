@@ -10,7 +10,7 @@ HTML 페이지로 운영하는 포트폴리오. 프로필 홈에서 두 갈래(P
 /
 ├── index.html         # 홈 — 프로필 랜딩 (여기서 Projects·Engineering로 링크)
 ├── projects.html      # 프로젝트 모음 (지식 그래프·RAG) — 뒤로가기로 홈 복귀
-├── engineering.html   # 엔지니어링 사례집 (증거 기반 트러블슈팅 4건) — 뒤로가기로 홈 복귀
+├── engineering.html   # 엔지니어링 사례집 (증거 기반 트러블슈팅 5건) — 뒤로가기로 홈 복귀
 ├── ai_ability.html    # AI 활용 포트폴리오 — 현재 홈에서 미연결(파일 보존)
 ├── images/            # info.png(프로필 원본) 등 이미지
 ├── references/        # 설계 매뉴얼 등 본문 근거 자료

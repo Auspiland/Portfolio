@@ -13,10 +13,10 @@
 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="추측이 아니라 증거로 — 설계·역추적·포렌식·재처리·스트리밍 실무 사례 5건, 증상에서 진짜 원인까지 좁혀간 기록." />
+<meta name="description" content="추측이 아니라 증거로 — 설계·역추적·포렌식·운영 실무 사례 4건, 증상에서 진짜 원인까지 좁혀간 기록." />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="auspiland — Engineering Casebook" />
-<meta property="og:description" content="추측이 아니라 증거로 — 설계·역추적·포렌식·재처리·스트리밍 실무 사례 5건, 증상에서 진짜 원인까지 좁혀간 기록." />
+<meta property="og:description" content="추측이 아니라 증거로 — 설계·역추적·포렌식·운영 실무 사례 4건, 증상에서 진짜 원인까지 좁혀간 기록." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0d11'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='%23c9f23f'/%3E%3C/svg%3E" />
 <title>auspiland — Engineering Casebook</title>
 <style>
@@ -102,7 +102,7 @@ h1 em{font-style:italic; color:var(--signal)}
 .case{border:1px solid var(--line); background:var(--panel); border-radius:4px;
   padding:42px 44px; margin-top:30px; position:relative; overflow:hidden}
 .case::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent,var(--signal))}
-.case.c2{--accent:var(--slate)} .case.c3{--accent:var(--coral)} .case.c4{--accent:var(--signal-deep)} .case.c5{--accent:var(--slate)}
+.case.c2{--accent:var(--slate)} .case.c3{--accent:var(--coral)} .case.c4{--accent:var(--signal-deep)}
 .case .chead{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px}
 .case .ctag{font-family:var(--mono); font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent,var(--signal-deep))}
 .case .cno{font-family:var(--mono); font-size:12px; color:var(--bone-faint)}
@@ -244,16 +244,16 @@ footer .big em{font-style:italic; color:var(--signal)}
       시스템을 읽고 <em>원인</em>을 좁힙니다
     </h1>
     <p class="hero-sub rise" style="animation-delay:.22s">
-      <b>설계 · 역추적 · 포렌식 · 재처리 · 스트리밍</b> — 성격이 다른 실무 문제 5건이지만, 관통하는 방식은 하나입니다.
+      <b>설계 · 역추적 · 포렌식 · 운영</b> — 성격이 다른 실무 문제 4건이지만, 관통하는 방식은 하나입니다.
       함부로 건드리지 않고, 다중 증거를 수렴시켜, 가설을 검증하고 틀리면 정정한다.
       매뉴얼 없는 시스템에서도 <b>증상에서 진짜 원인까지</b> 좁혀간 기록입니다.
-      <span style="color:var(--bone-faint)">— 무대는 KPF 미디어 AI 인프라 · Spark · Kafka · Kubernetes · OpenSearch · HDFS.</span>
+      <span style="color:var(--bone-faint)">— 무대는 KPF 미디어 AI 인프라 · Spark · Kubernetes · OpenSearch · HDFS.</span>
     </p>
 
     <div class="meta-strip rise" style="animation-delay:.32s">
       <span><b>@auspiland</b></span>
       <span>GraphRAG</span>
-      <span>Spark · Kafka</span>
+      <span>Spark</span>
       <span>Kubernetes</span>
       <span>OpenSearch</span>
       <span>NiFi · HDFS</span>
@@ -266,7 +266,7 @@ footer .big em{font-style:italic; color:var(--signal)}
     <h2 class="section-title">진단보다 먼저, 태도</h2>
     <p class="section-lead">
       운영 시스템을 다루는 일은 "고치는 것"보다 "함부로 건드리지 않는 것"에서 출발합니다.
-      다섯 사례 모두를 관통하는 세 가지 원칙입니다.
+      네 사례 모두를 관통하는 세 가지 원칙입니다.
     </p>
     <div class="principles">
       <div class="principle-card rise">
@@ -444,104 +444,50 @@ footer .big em{font-style:italic; color:var(--signal)}
     </article>
   </section>
 
-  <!-- ============ 기둥 4 · 재처리 ============ -->
-  <section id="reprocess">
-    <div class="kicker">04 / 재처리 파이프라인</div>
-    <h2 class="section-title">추측하지 말고, 측정하라</h2>
+  <!-- ============ 기둥 4 · 운영 ============ -->
+  <section id="ops">
+    <div class="kicker">04 / Spark 파이프라인</div>
+    <h2 class="section-title">레이어를 격리해, 한 줄까지</h2>
 
     <article class="case c4">
       <div class="chead">
         <div>
-          <span class="ctag">Scale · Data Pipeline</span>
-          <h3>대용량 재처리 파이프라인</h3>
+          <span class="ctag">Debugging · Ops</span>
+          <h3>Spark 파이프라인 부활</h3>
         </div>
         <span class="cno">CASE 04</span>
       </div>
-      <p class="oneliner">파싱된 문서 18만 행을 운영 검색 인덱스로 재적재하는 파이프라인 — 작게 돌 때 멀쩡하던 구조가 규모에서 연달아 무너졌습니다.</p>
+      <p class="oneliner">의도적으로 꺼져 있던 스캔 PDF 청킹 3단 Spark 라인 — "yaml 하나만 넣으면 되살아나냐"는 검토 요청에서 시작했습니다.</p>
 
       <div class="rootcause">
-        <span class="rk">진짜 원인 · 해법</span>
-        <p><em>"병목은 늘 예상 밖에서 터진다."</em> 스키마 경계·고정 지연·재실행 누적처럼 추측으론 안 보이던 지점을 로그와 수치로 찾아, 단위별 검증과 <em>멱등성</em>을 설계에 넣어 규모에서도 안 깨지게 만들었다.</p>
+        <span class="rk">진짜 원인 · 처치</span>
+        <p>코드 버그가 아니었다. chunk 단계가 바라보던 <em>추론 서버 주소가 HDFS 권한 없는 인스턴스(operservice-1)를 가리켰고</em>, 그게 돌려준 에러 응답을 클라이언트가 리스트처럼 순회하다 터진 것. 답은 <em>yaml의 주소를 operservice-2로 바꾸는 한 줄</em>이었다.</p>
       </div>
 
       <div class="cbody">
         <div class="star">
-          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>Upstage로 파싱된 182,486행을 재청킹·재임베딩해 운영 OpenSearch 벡터 인덱스로 다시 적재해야 했습니다. 소규모에선 멀쩡하던 코드가 전체 규모에서 스키마·지연·중복으로 연쇄적으로 무너졌습니다.</p></div>
-          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>대용량에서 조용히 깨지는 지점을 추측이 아니라 <em>측정</em>으로 규명하고, 재실행해도 안전한(멱등한) 파이프라인으로 완성하기.</p></div>
-          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>세 겹으로 풀었습니다. ① <em>스키마</em> — 임베딩 실패행의 빈 벡터를 고정 크기 리스트에 쓰다 특정 구간(shard 152)에서 붕괴, 앞 구간과 혼재해 2차 붕괴까지 났습니다. → 가변 리스트로 통일하고 원자적 쓰기(<code>.tmp→rename</code>) + 재실행 skip을 넣음. ② <em>멱등성</em> — 운영 인덱스가 원본 대비 4.7배로 부푼 원인을 <code>chunk_order</code> 분포로 추적하니 재인덱싱 누적이 약 80%였습니다. → <code>chunk_id</code>를 결정적 값(UUIDv5)으로 발급해 재실행해도 같은 id로 upsert. ③ <em>처리량</em> — 지연을 직접 측정하니 입력 크기와 무관한 고정 17~23s였습니다. → 배치를 32→100으로 키워 호출 수를 1/3로 줄이고, 실패 배치만 1건씩 격리 재시도.</p></div>
-          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>15만 청크 임베딩을 <span class="rc">실패 0건</span>으로 완주하고, 한 문서 기준 운영 12,581청크를 dedup 후 67청크로(<span class="rc">약 188배</span>) 정합했습니다. 이후 만들기 전에 단위(shard·batch)별로 검증하고 멱등성·관측 지표를 설계에 먼저 넣는 방식으로 일하게 됐습니다. (데이터 품질 검증도 길이 비교 대신 MD5 5축 전수검증으로 전환 — 손상 의심 4건이 실은 HWP·PPTX의 페이지 분할 불가에 따른 복제임을 규명.)</p></div>
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>batch→chunk→indexing 3단 Spark 라인이 비활성 상태. "yaml 하나만 추가하면 되살아나나?"라는 검토 요청이 들어왔습니다.</p></div>
+          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>부활 가능 여부와 스키마 정합을 검증하고, 가능하면 실제 데이터를 흘려 정상화하기 — 단, 운영은 멈추지 않게.</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>세 단계가 <code>batch_start_page</code> 컬럼으로 묶인 불가분 세트임을 확인하고 순차 적용으로 cold-start를 우회. chunk 단계에서 터지던 RuntimeError를 잡으려 <em>살아있는 driver 파드 안에서 추론 엔드포인트를 직접 POST로 찔러보니</em>, operservice-1이 "HDFS 접근 실패" 응답(dict)을 돌려주고 클라이언트가 그걸 리스트처럼 순회하다 폭주함을 코드 라인까지 추적. operservice-1과 2가 같은 이미지의 다른 인스턴스인데 <em>1에만 HDFS 환경변수가 없다</em>는 차이를 찾아냈습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>진짜 원인은 코드가 아니라 <span class="rc">추론 서버 주소를 operservice-1→2로 바꾸는 yaml 한 줄</span>. 모든 부활 시도는 롤백해 <span class="rc">운영을 시도 전과 100% 동일</span>하게 복구했습니다. (부수: Spark Operator "pod 안 뜸"을 단위 표기 + JSON 오타 2단 원인으로 분해, Helm 무중단 증설, 멱등·안전가드 기반 대용량 이관.)</p></div>
         </div>
 
         <div class="panel-side">
           <div class="metrics">
-            <div class="metric"><div class="v">0</div><div class="l">임베딩 실패 · 15.9만 완주</div></div>
-            <div class="metric"><div class="v">188×</div><div class="l">재실행 중복 제거</div></div>
+            <div class="metric"><div class="v">1줄</div><div class="l">근본 수정</div></div>
+            <div class="metric"><div class="v">100%</div><div class="l">무손상 롤백</div></div>
           </div>
           <div class="viz">
-            <div class="flow">
-              <div class="fnode"><b>재처리</b><small>159,018 청크</small></div>
-              <div class="fnode hot"><b>측정</b><small>지연 17~23s<br>batch 32→100</small></div>
-              <div class="fnode"><b>검증</b><small>가변 스키마<br>MD5 5축</small></div>
-              <div class="fnode"><b>멱등 upsert</b><small>chunk_id<br>= UUIDv5</small></div>
-              <div class="fnode"><b>운영 인덱스</b><small>749,494<br>→ dedup</small></div>
+            <div class="pipeline">
+              <div class="stage"><div class="sn">01</div><b>batch</b><small>PDF → 멀티페이지 분할</small></div>
+              <div class="stage fix"><div class="sn">02</div><b>chunk</b><small>inference로 청크 분해</small></div>
+              <div class="stage"><div class="sn">03</div><b>indexing</b><small>임베딩 → ES 색인</small></div>
             </div>
-            <div class="viz-cap">measure, don't guess — 단위별 검증과 멱등성으로 규모에서도 안 깨지는 파이프라인.</div>
+            <div class="fixnote">원인은 chunk 단계 INFERENCE_URL — <span class="x">operservice-1 ✗</span> → operservice-2 ✓ (단 한 줄)</div>
           </div>
           <div class="chips">
-            <span class="chip hi">대용량 재처리</span><span class="chip">PyArrow · Parquet</span>
-            <span class="chip">임베딩 파이프라인</span><span class="chip">멱등성 · UUIDv5</span><span class="chip">OpenSearch</span><span class="chip">Python</span>
-          </div>
-        </div>
-      </div>
-    </article>
-  </section>
-
-  <!-- ============ 기둥 5 · 스트리밍 ============ -->
-  <section id="streaming">
-    <div class="kicker">05 / 스트리밍 · Kafka</div>
-    <h2 class="section-title">추측을 계약으로</h2>
-
-    <article class="case c5">
-      <div class="chead">
-        <div>
-          <span class="ctag">Streaming · Schema</span>
-          <h3>스트리밍 스키마 계약</h3>
-        </div>
-        <span class="cno">CASE 05</span>
-      </div>
-      <p class="oneliner">여러 스트리밍 앱이 Kafka로 이어지는 파이프라인 — 스키마가 어긋나도 저장 직전까지 조용히 흘러가 디버깅 비용이 컸습니다.</p>
-
-      <div class="rootcause">
-        <span class="rk">진짜 원인 · 해법</span>
-        <p><em>"스키마는 추측이 아니라 계약."</em> 토픽명으로 스키마를 추측하고 실패하면 조용히 기본값으로 진행하던 구조를, <em>계약을 강제하고 앞단에서 검증</em>해 실패를 저장 시점이 아닌 진입 시점에 드러나게 했다.</p>
-      </div>
-
-      <div class="cbody">
-        <div class="star">
-          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>기존 파이프라인은 Kafka 스키마를 토픽명으로 딕셔너리에서 "추측"하고, 못 찾으면 부분 문자열 매칭, 그래도 없으면 조용히 기본 스키마(<code>video_topic</code>)로 fallback했습니다. 잘못된 스키마가 런타임 끝(저장 시점)까지 노출되지 않았습니다.</p></div>
-          <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>흩어진 스키마 정의를 한 곳으로 모으고, 스키마 오류를 조용한 fallback이 아니라 즉시·명시적으로 드러내 <em>실패를 앞단으로 당기기</em>.</p></div>
-          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>개선에 앞서 Airflow의 스키마 관리 방식(Params·검증·데이터 리니지)과 벤치마크 비교표를 먼저 만들어 격차를 진단했습니다. 그 위에서 ① <em>계약 강제</em> — 공통 추상(<code>BaseSparkApp</code>)으로 입·출력 스키마와 변환 모듈 지정을 필수화하고, 소스에 <code>READ_SCHEMA</code>가 없으면 즉시 <code>ValueError</code>로 자동 추측을 제거. ② <em>앞단 검증</em> — 출력 스키마를 변환 직후와 저장 직전 2회 교차검증. ③ <em>관측</em> — 스키마 불일치를 삼키지 않고 Kafka 이벤트(<code>schema_errors</code>)로 발행. 리팩터 중 잠복해 있던 <code>importlib</code> 미정의 오류도 코드 정독으로 함께 제거했습니다.</p></div>
-          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>"토픽명으로 추측 → 실패 시 조용히 엉뚱한 스키마" 경로를 없애고, <span class="rc">스키마 오류가 진입 시점에 즉시</span> 드러나도록 바꿔 디버깅 비용을 크게 줄였습니다. 스키마 정의가 한 곳에 모여, 새 스트리밍 앱을 추가할 때 <span class="rc">계약만 지키면</span> 되도록 확장성도 확보했습니다.</p></div>
-        </div>
-
-        <div class="panel-side">
-          <div class="metrics">
-            <div class="metric"><div class="v">즉시</div><div class="l">오류 노출 · 저장→진입</div></div>
-            <div class="metric"><div class="v">2회</div><div class="l">출력 스키마 교차검증</div></div>
-          </div>
-          <div class="viz">
-            <div class="preserve" style="grid-template-columns:auto 1fr">
-              <div class="pbox">Kafka 토픽<small>schema?</small></div>
-              <div class="pcol">
-                <div class="pnew">before — 추측 → 부분매칭 → 조용한 fallback → 저장 시점 폭발</div>
-                <div class="pmatch">after — READ_SCHEMA 강제 · 2회 검증 · schema_errors 발행</div>
-              </div>
-            </div>
-            <div class="viz-cap">schema as contract — 실패를 저장 시점에서 진입 시점으로 당긴다.</div>
-          </div>
-          <div class="chips">
-            <span class="chip hi">Spark Structured Streaming</span><span class="chip">Kafka</span>
-            <span class="chip">Delta Lake</span><span class="chip">스키마 계약·검증</span><span class="chip">Python</span>
+            <span class="chip hi">Apache Spark</span><span class="chip">Kubernetes</span>
+            <span class="chip">Spark Operator</span><span class="chip">Helm</span><span class="chip">Delta · HDFS</span>
           </div>
         </div>
       </div>
