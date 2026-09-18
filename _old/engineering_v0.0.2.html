@@ -5,7 +5,7 @@
   ============================================================
   auspiland — Engineering Casebook (engineering.html)
   ------------------------------------------------------------
-  KPF 미디어 AI 인프라 실무 사례집 (4 기둥 + side).
+  미디어 AI 인프라 실무 사례집 (4 기둥 + side).
   index.html과 동일한 디자인 언어(다크+라임), CSS·JS 인라인.
   독립 페이지 — index에서 링크하지 않음.
   실제 시크릿(비밀번호/IP/API키)은 의도적으로 비포함.
@@ -226,7 +226,7 @@ footer .big em{font-style:italic; color:var(--signal)}
         <span>AUSPILAND / CASEBOOK</span>
       </div>
       <div style="display:flex;align-items:center;gap:20px">
-        <span class="live"><i class="dot"></i> KPF MEDIA AI · FIELD WORK</span>
+        <span class="live"><i class="dot"></i> MEDIA AI · FIELD WORK</span>
         <button onclick="downloadHTML()" style="font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);background:var(--signal);border:none;border-radius:3px;padding:6px 14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='var(--signal-deep)'" onmouseout="this.style.background='var(--signal)'">↓ Download</button>
       </div>
     </div>
@@ -237,7 +237,7 @@ footer .big em{font-style:italic; color:var(--signal)}
       <em>설계</em>하고, <em>꿰뚫고</em>, 굴립니다
     </h1>
     <p class="hero-sub rise" style="animation-delay:.22s">
-      KPF(한국언론진흥재단) 미디어 AI 인프라 — NCP Kubernetes 위의 Spark 파이프라인,
+      언론·미디어 기관 AI 인프라 — Kubernetes 위의 Spark 파이프라인,
       T3Q.DL 추론 서비스, OpenSearch·HDFS 데이터레이크 — 에서 맡아온 실제 작업을
       <b>설계 · 역추적 · 진단 · 운영</b> 네 갈래로 정리했습니다. 데모가 아니라 운영 현장의 기록입니다.
     </p>
@@ -337,7 +337,7 @@ footer .big em{font-style:italic; color:var(--signal)}
       <div class="chead">
         <div>
           <span class="ctag">Reverse Engineering</span>
-          <h3>CMS ↔ t3q AI 아키텍처 역추적</h3>
+          <h3>CMS ↔ AI 플랫폼 아키텍처 역추적</h3>
         </div>
         <span class="cno">CASE 02</span>
       </div>
@@ -345,10 +345,10 @@ footer .big em{font-style:italic; color:var(--signal)}
 
       <div class="cbody">
         <div class="star">
-          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>인수인계 문서가 없는 운영 CMS. 호출하는 외부 API <code>api.kpf-dev.t3q.ai</code>의 서버측 실체가 외부 SaaS인지 내부 서비스인지조차 불명확했습니다.</p></div>
+          <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>인수인계 문서가 없는 운영 CMS. 호출하는 외부 API <code>api.***.ai</code>의 서버측 실체가 외부 SaaS인지 내부 서비스인지조차 불명확했습니다.</p></div>
           <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>업로드 → 표지 자동생성 → 검색 색인까지 전 과정을, 외부/내부 경계와 호출 주체까지 코드 근거로 확정하기.</p></div>
-          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>요청 URL 문자열을 grep해 컨트롤러 → 매퍼 → 테이블 → NAS 경로로 내려갔습니다. 외부처럼 보이던 도메인은 <em>kubectl exec로 파드 안 FastAPI 라우터를 직접 읽어</em> 같은 클러스터 내부의 in-house <code>t3q-search-svc</code>임을 확정. 썸네일 생성자는 코드 디렉토리명(algo_9)에 속지 않고 <em>serving 이미지 → 파드 로그 → 호출자 IP 역조회 → NiFi flow.xml</em>까지 교차검증해 operservice-15 + NiFi로 못 박고, 초기 가설을 정정했습니다.</p></div>
-          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>CMS→t3q-search-svc→OpenSearch 흐름과 NiFi·Spark 처리 경로를 단일 End-to-End 문서로 통합. 외부 API <span class="rc">13종</span>을 호출 8·미호출 4·콜백 2로 인벤토리화하고, 표지 placeholder 자동 채움/잔존 조건을 시나리오 매트릭스로 확정해 운영 진단 기준을 만들었습니다.</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>요청 URL 문자열을 grep해 컨트롤러 → 매퍼 → 테이블 → NAS 경로로 내려갔습니다. 외부처럼 보이던 도메인은 <em>kubectl exec로 파드 안 FastAPI 라우터를 직접 읽어</em> 같은 클러스터 내부의 in-house <code>search-svc</code>임을 확정. 썸네일 생성자는 코드 디렉토리명(알고리즘 번호 폴더)에 속지 않고 <em>serving 이미지 → 파드 로그 → 호출자 IP 역조회 → NiFi flow.xml</em>까지 교차검증해 운영 배치 잡 + NiFi로 못 박고, 초기 가설을 정정했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>CMS→search-svc→OpenSearch 흐름과 NiFi·Spark 처리 경로를 단일 End-to-End 문서로 통합. 외부 API <span class="rc">13종</span>을 호출 8·미호출 4·콜백 2로 인벤토리화하고, 표지 placeholder 자동 채움/잔존 조건을 시나리오 매트릭스로 확정해 운영 진단 기준을 만들었습니다.</p></div>
         </div>
 
         <div class="panel-side">
@@ -361,9 +361,9 @@ footer .big em{font-style:italic; color:var(--signal)}
             <div class="flow">
               <div class="fnode"><b>Browser</b><small>F12 URL</small></div>
               <div class="fnode"><b>WAS</b><small>Spring·eGov</small></div>
-              <div class="fnode hot"><b>t3q-search-svc</b><small>FastAPI</small></div>
+              <div class="fnode hot"><b>search-svc</b><small>FastAPI</small></div>
               <div class="fnode"><b>NiFi</b><small>flow.xml</small></div>
-              <div class="fnode"><b>Spark</b><small>operservice</small></div>
+              <div class="fnode"><b>Spark</b><small>운영 배치</small></div>
               <div class="fnode"><b>OpenSearch</b><small>HDFS</small></div>
             </div>
             <div class="viz-cap">외부 SaaS처럼 보인 노드가 실은 클러스터 내부 서비스 — 컨테이너 실측으로 확정.</div>
@@ -396,7 +396,7 @@ footer .big em{font-style:italic; color:var(--signal)}
         <div class="star">
           <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>17개 청크로 분할된 잡지 중 특정 청크가 CMS 검색에서 잡히지 않았습니다. 데이터 결함인지 처리 흐름 문제인지 불명확.</p></div>
           <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>파일 실체(NAS·HDFS)와 메타(OpenSearch·DB) 양쪽에서 누락의 정확한 기점과 원인을 규명하기. (모든 원격 작업은 read-only)</p></div>
-          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p><em>NAS·HDFS·OpenSearch·PostgreSQL 4개 레이어를 교차 대조</em>했습니다. 17개 PDF는 모두 정상·동일 특성인데 HDFS엔 일부만 적재돼 있었고, read-only로 DB(<code>t_comm_file_inf</code>)를 직접 조회하니 <em>표지 JPG row가 그 일부 청크에만 존재</em>하고 JPG row만 갱신 시각이 뒤늦게 찍혀 있었습니다. 운영 Spark가 OOM(exit 137)으로 막히는 통계 작업은 로컬 venv + DuckDB로 우회했습니다.</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p><em>NAS·HDFS·OpenSearch·PostgreSQL 4개 레이어를 교차 대조</em>했습니다. 17개 PDF는 모두 정상·동일 특성인데 HDFS엔 일부만 적재돼 있었고, read-only로 DB(파일 메타 테이블)를 직접 조회하니 <em>표지 JPG row가 그 일부 청크에만 존재</em>하고 JPG row만 갱신 시각이 뒤늦게 찍혀 있었습니다. 운영 Spark가 OOM(exit 137)으로 막히는 통계 작업은 로컬 venv + DuckDB로 우회했습니다.</p></div>
           <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>"데이터 결함이 아니라 <span class="rc">표지 JPG row 생성이 후속 색인의 게이트</span>인데 일부만 성공했기 때문"임을 4-레이어+DB 증거로 확정. JPG row를 INSERT한 코드는 디컴파일 미확인이라 단정 대신 "정황"으로 정정·명시했습니다. (부수: 72만 파일 인벤토리로 "표지=JPG / PNG=HWP 섹션" 규칙화.)</p></div>
         </div>
 
@@ -443,8 +443,8 @@ footer .big em{font-style:italic; color:var(--signal)}
         <div class="star">
           <div class="star-row s"><div class="star-k"><b>S</b><small>상황</small></div><p>스캔 PDF 청킹 3단 Spark 라인(batch→chunk→indexing)이 의도적으로 비활성화된 상태. "yaml 하나만 추가하면 되살아나나?"라는 검토 요청.</p></div>
           <div class="star-row t"><div class="star-k"><b>T</b><small>과제</small></div><p>부활 가능 여부와 스키마 정합을 검증하고, 가능하면 실제 데이터를 흘려 정상화하기.</p></div>
-          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>세 단계가 <code>batch_start_page</code> 컬럼으로 묶인 불가분 세트임을 입증하고, cold-start는 순차 apply로 우회. 터진 <code>pandas_udf</code> RuntimeError를 잡으려 <em>활성 driver 파드 안에서 inference 엔드포인트를 직접 POST 프로빙</em>했더니, operservice-1이 HDFS 접근 실패 dict를 반환하고 클라이언트가 그걸 list처럼 순회해 폭주함을 코드 라인까지 추적. operservice-1(HDFS env 없음)과 operservice-2(보유)가 같은 이미지의 다른 인스턴스임을 규명했습니다.</p></div>
-          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>진짜 원인은 코드가 아니라 <span class="rc">yaml의 INFERENCE_URL을 operservice-1→2로 바꾸는 한 줄</span>. 모든 부활 시도는 rollback해 <span class="rc">운영을 시도 전과 100% 동일</span>하게 복구했습니다. (부수: Spark Operator "pod 안 뜸"을 단위 표기 + JSON 오타 2단 원인으로 분해, Helm 무중단 증설, 멱등·안전가드 14GB 이관.)</p></div>
+          <div class="star-row a"><div class="star-k"><b>A</b><small>행동</small></div><p>세 단계가 <code>batch_start_page</code> 컬럼으로 묶인 불가분 세트임을 입증하고, cold-start는 순차 apply로 우회. 터진 <code>pandas_udf</code> RuntimeError를 잡으려 <em>활성 driver 파드 안에서 inference 엔드포인트를 직접 POST 프로빙</em>했더니, 인스턴스 A가 HDFS 접근 실패 dict를 반환하고 클라이언트가 그걸 list처럼 순회해 폭주함을 코드 라인까지 추적. 인스턴스 A(HDFS env 없음)와 B(보유)가 같은 이미지의 다른 인스턴스임을 규명했습니다.</p></div>
+          <div class="star-row r"><div class="star-k"><b>R</b><small>결과</small></div><p>진짜 원인은 코드가 아니라 <span class="rc">yaml의 INFERENCE_URL을 A→B로 바꾸는 한 줄</span>. 모든 부활 시도는 rollback해 <span class="rc">운영을 시도 전과 100% 동일</span>하게 복구했습니다. (부수: Spark Operator "pod 안 뜸"을 단위 표기 + JSON 오타 2단 원인으로 분해, Helm 무중단 증설, 멱등·안전가드 14GB 이관.)</p></div>
         </div>
 
         <div class="panel-side">
@@ -459,7 +459,7 @@ footer .big em{font-style:italic; color:var(--signal)}
               <div class="stage fix"><div class="sn">02</div><b>chunk</b><small>inference로 청크 분해</small></div>
               <div class="stage"><div class="sn">03</div><b>indexing</b><small>임베딩 → ES 색인</small></div>
             </div>
-            <div class="fixnote">원인은 chunk 단계 INFERENCE_URL — <span class="x">operservice-1 ✗</span> → operservice-2 ✓ (단 한 줄)</div>
+            <div class="fixnote">원인은 chunk 단계 INFERENCE_URL — <span class="x">인스턴스 A ✗</span> → 인스턴스 B ✓ (단 한 줄)</div>
           </div>
           <div class="chips">
             <span class="chip hi">Apache Spark</span><span class="chip">Kubernetes</span>
@@ -501,7 +501,7 @@ footer .big em{font-style:italic; color:var(--signal)}
         <a href="https://github.com/auspiland"><span>↳</span> github.com/auspiland</a>
       </div>
     </div>
-    <div class="copyright">© 2026 AUSPILAND · ENGINEERING CASEBOOK · KPF MEDIA AI</div>
+    <div class="copyright">© 2026 AUSPILAND · ENGINEERING CASEBOOK · MEDIA AI</div>
   </footer>
 
 </div>

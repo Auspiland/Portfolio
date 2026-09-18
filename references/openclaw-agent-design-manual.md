@@ -1,8 +1,9 @@
 # OpenClaw 에이전트 설계 매뉴얼
 
+> **공개본:** 네트워크 대역·포트·계정·시크릿 경로 등 실환경 값은 마스킹했다.
 > **대상 시스템:** miniland (Intel N100 / 16GB / Ubuntu Server 24.04)
 > **OpenClaw 버전:** 2026.4.14 (323493f)
-> **실행 주체:** `openclaw` 서비스 계정 (uid=999, nologin)
+> **실행 주체:** `openclaw` 서비스 계정 (nologin)
 > **문서 목적:** 4-에이전트 오케스트레이션 구조의 소개, 설계 근거, 설정 레퍼런스, 운영 가이드를 단일 문서로 제공.
 
 ---
@@ -27,17 +28,17 @@ miniland의 OpenClaw는 단일 만능 에이전트가 아니라, **역할별로 
 |------|----------|----------|
 | L1 네트워크 경계 | `ip_forward=0` · UFW(deny in/out/routed) · Tailscale ACL · LAN 아웃바운드 DROP | LAN/Tailscale 전파·외부 C&C 차단 |
 | L2 호스트 접근 제어 | SSH 키 전용(`restrict,from=`) · sshd 강화 · fail2ban · auditd | 침입 표면을 SSH 하나로 수렴 |
-| L3 서비스 계정 격리 | `openclaw` uid=999 · nologin · sudo 없음 · 홈 `/srv/openclaw` 봉쇄 | 침해 시 피해를 `/srv/openclaw`에 봉쇄 |
+| L3 서비스 계정 격리 | `openclaw` 전용 계정 · nologin · sudo 없음 · 홈 `/srv/openclaw` 봉쇄 | 침해 시 피해를 `/srv/openclaw`에 봉쇄 |
 | L4 컨테이너 격리 | rootless Docker · readOnlyRoot · capDrop ALL · seccomp · net none | 컨테이너 탈출·권한 상승 방어 |
 | **L5 에이전트 분리** | **manager / reader / worker / auditor 권한 교차 제한** | **프롬프트 인젝션 전파 차단 (본 문서)** |
 
 구체적인 외부 계층 값(L1~L3)은 운영 환경 기준 다음과 같다. 에이전트 설계의 전제 조건이므로 함께 명시한다.
 
-- **L1 네트워크:** UFW 기본 정책은 incoming/outgoing/routed 모두 `deny`. 인바운드는 `tailscale0`의 22/tcp만, 아웃바운드는 53·80·443·41641(udp)만 허용. `before.rules`에서 `192.168.0.0/16` 아웃바운드를 DROP하되 공유기 DNS(192.168.1.1:53)만 예외. `ip_forward=0`으로 패킷 포워더 악용을 커널 레벨에서 차단하고, Tailscale subnet router/exit node도 비활성. 단 이 호스트 정책은 *목적지 포트*만 좁히고 *목적지 도메인*은 열어두므로, 웹 에이전트의 유출 경로는 §3.2 보완 1의 egress allowlist로 추가로 좁힌다.
-- **L2 접근 제어:** `PermitRootLogin no`, `PasswordAuthentication no`, 공개키 전용. authorized_keys 키에 `restrict,pty,port-forwarding,from="192.168.1.0/24,100.64.0.0/10"` 적용. fail2ban이 SSH 브루트포스를 차단(maxretry 3, bantime 24h)하고, auditd가 sudoers·passwd·shadow·SSH키·`/srv/openclaw`·UFW 변경을 감시.
-- **L3 계정:** `auspiland`(uid=1000, sudo 풀권한, admin), `ops`(uid=1002, 제한 sudo), `openclaw`(uid=999, nologin, 서비스 전용). 에이전트는 모두 `openclaw` 계정 아래에서 동작하므로, 에이전트가 무엇을 하든 그 권한 상한은 sudo 없는 uid=999다.
+- **L1 네트워크:** UFW 기본 정책은 incoming/outgoing/routed 모두 `deny`. 인바운드는 Tailscale 인터페이스의 SSH만, 아웃바운드는 DNS·HTTP(S)·Tailscale 필수 포트만 허용. `before.rules`에서 사설 LAN 대역 아웃바운드를 DROP하되 공유기 DNS만 예외. `ip_forward=0`으로 패킷 포워더 악용을 커널 레벨에서 차단하고, Tailscale subnet router/exit node도 비활성. 단 이 호스트 정책은 *목적지 포트*만 좁히고 *목적지 도메인*은 열어두므로, 웹 에이전트의 유출 경로는 §3.2 보완 1의 egress allowlist로 추가로 좁힌다.
+- **L2 접근 제어:** `PermitRootLogin no`, `PasswordAuthentication no`, 공개키 전용. authorized_keys 키에 `restrict,pty,port-forwarding,from="<LAN 대역>,<Tailscale 대역>"` 적용. fail2ban이 SSH 브루트포스를 차단(시도 횟수·차단 시간 제한)하고, auditd가 sudoers·passwd·shadow·SSH키·`/srv/openclaw`·UFW 변경을 감시.
+- **L3 계정:** 관리자 계정(sudo 풀권한), 운영 계정(제한 sudo), `openclaw`(nologin, 서비스 전용). 에이전트는 모두 `openclaw` 계정 아래에서 동작하므로, 에이전트가 무엇을 하든 그 권한 상한은 sudo 없는 서비스 계정이다.
 
-> Telegram Bot(KoreaUniClawbot)은 보안 알림 채널로, hourly-health.sh가 이상 탐지 시(디스크 80%·메모리 90%·fail2ban 차단·UFW 비활성·Tailscale 끊김) 알림을 보낸다. 시크릿은 `/etc/openclaw-secrets.env`(600/root)에 보관.
+> Telegram Bot(보안 알림 전용)은 보안 알림 채널로, hourly-health.sh가 이상 탐지 시(디스크 80%·메모리 90%·fail2ban 차단·UFW 비활성·Tailscale 끊김) 알림을 보낸다. 시크릿은 root 전용(600) 환경 파일에 보관.
 
 ---
 

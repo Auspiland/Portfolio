@@ -1,0 +1,37 @@
+# ── 기본 정책: 루트의 모든 것을 무시하고, 포트폴리오에 필요한 것만 명시적으로 허용 ──
+# 새 파일·디렉터리가 생겨도 아래 허용 목록에 적지 않으면 커밋되지 않는다.
+/*
+
+# 포트폴리오 페이지
+!/index.html
+!/projects.html
+!/engineering.html
+!/ai_ability.html
+!/README.md
+!/.gitignore
+
+# 이미지: 디렉터리는 열되 이미지 확장자만 허용
+!/images/
+/images/*
+!/images/*.png
+!/images/*.jpg
+!/images/*.jpeg
+!/images/*.webp
+!/images/*.svg
+
+# 이전 버전 스냅샷: HTML만 허용 (자소서 등 .md 스냅샷은 제외)
+!/_old/
+/_old/*
+!/_old/*.html
+
+# 본문 근거 자료: 파일 단위로만 허용
+!/references/
+/references/*
+!/references/openclaw-agent-design-manual.md
+!/references/star_method_guide.md
+!/references/engineering-rework-notes.md
+
+# placeholder 정의서: 파일 단위로만 허용
+!/_reports/
+/_reports/*
+!/_reports/engineering-placeholders.md
