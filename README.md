@@ -1,6 +1,8 @@
 # auspiland — Portfolio
 
-HTML 페이지로 운영하는 포트폴리오. 프로필 홈에서 두 갈래(Projects / 엔지니어링 사례)로 분기.
+HTML 페이지로 운영하는 포트폴리오. 배포: https://auspiland.github.io/Portfolio/
+
+홈에서 "반복해서 만난 문제 3개"를 세우고, 세 갈래(Work / Casebook / AI Operations)의 카드가 그것을 증명하는 구조다.
 
 ---
 
@@ -8,42 +10,35 @@ HTML 페이지로 운영하는 포트폴리오. 프로필 홈에서 두 갈래(P
 
 ```
 /
-├── index.html         # 홈 — 프로필 랜딩 (여기서 Projects·Engineering로 링크)
-├── projects.html      # 프로젝트 모음 (지식 그래프·RAG) — 뒤로가기로 홈 복귀
-├── engineering.html   # 엔지니어링 사례집 (증거 기반 트러블슈팅 5건) — 뒤로가기로 홈 복귀
-├── ai_ability.html    # AI 활용 포트폴리오 — 현재 홈에서 미연결(파일 보존)
-├── images/            # info.png(프로필 원본) 등 이미지
-├── references/        # 설계 매뉴얼 등 본문 근거 자료
-│   ├── openclaw-agent-design-manual.md
-│   ├── star_method_guide.md
-│   └── engineering-rework-notes.md   # 사례집 재정리 작업 메모
-├── _reports/          # 본문 placeholder(임시 더미값)의 실제 정의서
-│   └── engineering-placeholders.md
+├── index.html         # 홈 — 가치 한 줄 · 문제 3개 · 세 갈래 분기 · 최소 프로필
+├── projects.html      # Work — 지구다(연구) · 미디어 AI(운영) · 데이터 설계(구조) · 설비 상태 트윈(검증)
+├── engineering.html   # Casebook — 스키마 계약 · 재처리 · 지표 함정 · 어댑터와 자원 회수
+├── ai_ability.html    # AI Operations — OpenClaw · Paper-Trading Supervisor
+├── images/            # 카드 이미지, og-home.png
+├── references/        # 본문 근거 자료(설계 매뉴얼은 마스킹 공개본)
+├── _reports/          # placeholder 정의서(해결됨, 기록용)
 ├── _old/              # 이전 버전 스냅샷 (파일명 prefix + vX.Y.Z)
-│   ├── index_v0.0.1~5.html
-│   ├── projects_v0.0.1.html
-│   ├── ai_ability_v0.0.1~5.html
-│   └── engineering_v0.0.1~5.html
+├── .gitignore         # 허용 목록 방식 — 루트 전체 무시 후 위 파일만 허용
 └── README.md
 ```
 
-각 페이지는 CSS·JS를 인라인으로 담은 독립 HTML. 홈(`index.html`)이 허브이고, 서브 페이지는 상단 `← Home` 버튼으로 복귀.
+각 페이지는 CSS·JS를 인라인으로 담은 독립 HTML. 홈이 허브이고, 서브 페이지는 상단 `← Home`으로 복귀. 홈의 문제 카드는 각 페이지의 앵커(`#p-jiguda` `#p-data` `#p-twin` `#case-schema` `#case-reprocess` `#case-metric` `#openclaw` `#trading`)로 이어진다.
 
 ---
 
 ## 규칙
 
-**HTML 수정 전**
-`index.html`을 `_old/index_vX.Y.Z.html`로 복사한 뒤 작업.
+**HTML 수정 전** 해당 파일을 `_old/{이름}_vX.Y.Z.html`로 복사한 뒤 작업하고, 편집 후 main에 커밋·푸시한다.
 
-**페이지 추가 시** (버튼 클릭으로 다른 페이지 연결)
-```
-/
-├── index.html
-├── projects.html
-├── _old/
-│   ├── index_v0.0.1.html
-│   └── projects_v0.0.1.html
-└── README.md
-```
-각 페이지마다 동일하게 CSS·JS 인라인, `_old/`에 파일명 prefix로 버전 보관.
+**내용 규칙**
+- 카드마다 내 몫·팀·AI 수행을 분리하고, 설계·프로토타입·운영 단계를 명시하고, 한계 한 줄을 둔다.
+- 숫자는 카드당 최대 1개(쌍이면 1쌍). 과정 수치(배치 크기·초·테스트 개수·행 수)는 쓰지 않는다.
+- 고객사·내부 도메인·테이블명·IP·비용은 쓰지 않는다. 고객은 "언론·미디어 기관", "공공 연구기관"처럼 도메인으로.
+
+**저장소 규칙**
+- `.gitignore`가 허용 목록 방식이라, 새 파일을 커밋하려면 목록에 추가해야 한다. 이미지는 확장자로 허용된다.
+- `_old/`에는 HTML만 커밋된다.
+
+## 스냅샷 현황
+
+index v0.0.1~8 · projects v0.0.1~7 · engineering v0.0.1~9 · ai_ability v0.0.1~6
