@@ -10,7 +10,7 @@ HTML 페이지로 운영하는 포트폴리오. 배포: https://auspiland.github
 
 ```
 /
-├── index.html         # 홈 — 이름·한 줄 소개 · 강점 3(주장 + 드러난 프로젝트) · 경험 6(한 일·기술 스택) · 프로필
+├── index.html         # 홈 — 두 단(왼쪽 고정: 이름·소개·목차·연락 / 오른쪽: About · 강점 3 · 경험 6 · 프로필), 가는 선 줄 목록
 ├── projects.html      # Work — 지구다(연구) · 미디어 AI(운영) · 데이터 설계(구조) · 설비 상태 트윈(검증)
 ├── engineering.html   # Casebook — 스키마 계약 · 재처리 · 지표 함정 · 어댑터와 자원 회수
 ├── ai_ability.html    # AI Operations — OpenClaw · Paper-Trading Supervisor
@@ -41,4 +41,4 @@ HTML 페이지로 운영하는 포트폴리오. 배포: https://auspiland.github
 
 ## 스냅샷 현황
 
-index v0.0.1~10 · projects v0.0.1~7 · engineering v0.0.1~9 · ai_ability v0.0.1~6
+index v0.0.1~11 · projects v0.0.1~7 · engineering v0.0.1~9 · ai_ability v0.0.1~6

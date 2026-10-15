@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!--
+  ============================================================
+  auspiland — Portfolio Home (index.html)
+  ------------------------------------------------------------
+  프로필(Profile) 랜딩 페이지. 다크+라임 테마.
+  이름·한 줄 소개 → 강점 3(주장 한 줄 + 드러난 프로젝트 링크)
+  → 경험 6(구분·한 일 한 줄·기술 스택, 클릭하면 상세 페이지) → 프로필.
+  홈은 요약만 둔다. 세부는 projects·engineering·ai_ability.
+  CSS·JS 인라인.
+  ============================================================
+-->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="윤정한(auspiland) — 데이터 파이프라인과 AI 시스템을 만들고 운영합니다. 강점 셋(도전적 실행력·추진력·정의부터 맞추는 소통)과 그것이 드러난 프로젝트, 경험별 기술 스택." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="auspiland — Profile" />
+<meta property="og:description" content="새로운 방법이 떠오르면 모르는 부분은 배워 가며 직접 만들어 확인합니다. 세 가지 강점과 그것이 드러난 프로젝트." />
+<meta property="og:image" content="https://auspiland.github.io/Portfolio/images/og-home.png" />
+<meta property="og:url" content="https://auspiland.github.io/Portfolio/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0d11'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='%23c9f23f'/%3E%3C/svg%3E" />
+<title>auspiland — Profile</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap');
+
+:root{
+  /* 다른 페이지(projects·engineering)와 동일한 다크+라임 팔레트 */
+  --paper:#0c0d11; --paper-2:#14161c;
+  --ink:#eeeae2; --ink-soft:#d3cec4; --dim:#a29f97; --faint:#6f6d66; --line:#262932;
+  --lime:#c9f23f; --lime-deep:#a9cf27;
+  --body:'IBM Plex Sans KR',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper); color:var(--ink); font-family:var(--body); font-size:16px;
+  line-height:1.7; word-break:keep-all; -webkit-font-smoothing:antialiased; overflow-x:hidden; position:relative}
+body::before{content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:radial-gradient(var(--line) 1px, transparent 1px); background-size:26px 26px; opacity:.35;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%)}
+body::after{content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(700px 500px at 85% -5%, rgba(201,242,63,.08), transparent 60%)}
+.wrap{position:relative; z-index:1; max-width:1040px; margin:0 auto; padding:0 32px}
+a{color:inherit; text-decoration:none}
+
+@keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+.rise{opacity:0; animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+
+/* 상단 바 */
+.topbar{display:flex; justify-content:space-between; align-items:center; font-size:14px; color:var(--dim); padding:28px 0 0}
+.topbar nav{display:flex; gap:22px}
+.topbar nav a:hover{color:var(--lime)}
+
+/* 섹션 머리 */
+section{border-top:1px solid var(--line); padding:72px 0}
+.kicker{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--lime-deep); margin-bottom:10px}
+.sec-title{font-size:28px; font-weight:700; letter-spacing:-.02em; line-height:1.3}
+.sec-lead{font-size:16px; color:var(--dim); margin:8px 0 32px}
+
+/* HERO */
+.hero{padding:96px 0 80px}
+.hero h1{font-size:clamp(44px,6vw,60px); font-weight:700; letter-spacing:-.03em; line-height:1.1; margin-top:6px}
+.lead{font-size:clamp(19px,2.2vw,23px); color:var(--ink-soft); margin-top:20px; line-height:1.6}
+.lead mark{background:none; color:var(--lime); font-weight:600}
+.facts{display:grid; grid-template-columns:repeat(4,1fr); margin-top:48px; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--paper-2)}
+.facts div{padding:16px 20px; border-left:1px solid var(--line)}
+.facts div:first-child{border-left:0}
+.facts dt{font-family:var(--mono); font-size:12px; color:var(--faint); letter-spacing:.08em}
+.facts dd{font-size:15px; color:var(--ink); margin-top:2px}
+
+/* 카드 공통 */
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+.card{background:var(--paper-2); border:1px solid var(--line); border-radius:12px; padding:28px; display:flex; flex-direction:column}
+.pn{font-family:var(--mono); font-size:12px; color:var(--lime-deep)}
+.card h3{font-size:22px; font-weight:700; letter-spacing:-.01em; line-height:1.35; margin:8px 0 10px}
+.card .def{font-size:16.5px; color:var(--ink); line-height:1.6}
+.card .one{font-size:15px; color:var(--dim); line-height:1.65; margin-top:12px; flex:1}
+.links{display:grid; gap:6px; margin-top:20px; padding-top:16px; border-top:1px solid var(--line)}
+.links a{font-size:14px; color:var(--ink-soft)}
+.links a::after{content:" →"; color:var(--faint)}
+.links a:hover{color:var(--lime)}
+
+/* 강점: 주장 | 드러난 곳 */
+.claims{border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--paper-2)}
+.claim{display:grid; grid-template-columns:1.25fr 1fr; gap:32px; align-items:center; padding:26px 28px; border-top:1px solid var(--line)}
+.claim:first-child{border-top:0}
+.claim h3{font-size:22px; font-weight:700; letter-spacing:-.01em; margin-top:2px}
+.claim p{font-size:16px; color:var(--dim); margin-top:4px}
+.where{display:flex; flex-wrap:wrap; gap:8px}
+.where span{width:100%; font-family:var(--mono); font-size:12px; color:var(--faint); letter-spacing:.08em}
+.pill{font-size:14.5px; color:var(--ink); border:1px solid #343844; border-radius:99px; padding:6px 14px; transition:.2s}
+.pill:hover{border-color:var(--lime); color:var(--lime)}
+
+/* 경험: 이름·한 일 | 스택 */
+.exps{border:1px solid var(--line); border-radius:12px; overflow:hidden}
+.exp{display:grid; grid-template-columns:150px 1fr 280px 20px; gap:24px; align-items:center; padding:22px 28px;
+  border-top:1px solid var(--line); background:var(--paper-2); transition:background .2s}
+.exp:first-child{border-top:0}
+.exp:hover{background:#1a1d24}
+.exp .when{font-size:14px; color:var(--dim); line-height:1.5}
+.exp .when b{display:block; font-family:var(--mono); font-size:12px; font-weight:400; color:var(--lime-deep); letter-spacing:.08em}
+.exp h3{font-size:19px; font-weight:700; letter-spacing:-.01em}
+.exp p{font-size:15.5px; color:var(--ink-soft); margin-top:2px}
+.stack{display:flex; flex-wrap:wrap; gap:6px}
+.stack i{font-style:normal; font-family:var(--mono); font-size:13px; color:var(--ink-soft); background:#1d2028; border-radius:6px; padding:3px 9px}
+.exp .arr{color:var(--faint); font-size:18px}
+.exp:hover .arr{color:var(--lime)}
+.more-row{margin-top:18px; font-size:15px; color:var(--dim)}
+.more-row a{color:var(--ink); border-bottom:1px solid #3a3e4a} .more-row a:hover{color:var(--lime); border-color:var(--lime)}
+
+/* 프로필 */
+.info-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px}
+.ih{font-size:19px; font-weight:600; padding-bottom:12px; border-bottom:1px solid var(--line)}
+.ih.spaced{margin-top:40px}
+.rows{list-style:none}
+.row{display:grid; grid-template-columns:96px 1fr; gap:16px; align-items:baseline; padding:13px 2px; border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row .k{font-family:var(--mono); font-size:13px; color:var(--dim)}
+.row .v{font-size:15.5px; color:var(--ink-soft)}
+.row .v a:hover{color:var(--lime)}
+.career{display:grid; gap:10px}
+.cline{display:grid; grid-template-columns:150px 1fr; gap:14px; align-items:baseline}
+.cline .cd{font-size:14px; color:var(--dim); white-space:nowrap}
+.cline .ct{font-size:15.5px; color:var(--ink-soft)}
+
+footer{padding:48px 0 64px; border-top:1px solid var(--line)}
+.foot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:14px; color:var(--faint)}
+.foot a{color:var(--dim)} .foot a:hover{color:var(--lime)}
+
+@media (max-width:900px){
+  .claim{grid-template-columns:1fr; gap:14px}
+  .exp{grid-template-columns:1fr; gap:8px}
+  .exp .arr{display:none}
+  .facts{grid-template-columns:1fr 1fr}
+  .facts div:nth-child(3){border-left:0}
+  .facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .topbar nav{display:none}
+  .info-grid{grid-template-columns:1fr; gap:40px}
+}
+@media (max-width:520px){
+  .wrap{padding:0 18px}
+  .hero{padding:64px 0 56px} section{padding:56px 0}
+  .facts{grid-template-columns:1fr}
+  .facts div{border-left:0; border-bottom:1px solid var(--line)}
+  .facts div:last-child{border-bottom:0}
+  .claim,.exp{padding:22px 20px}
+  .cline{grid-template-columns:1fr; gap:0}
+  .row{grid-template-columns:72px 1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar rise">
+    <span>auspiland · Portfolio</span>
+    <nav><a href="projects.html">Work</a><a href="engineering.html">Casebook</a><a href="ai_ability.html">AI Operations</a><a href="#profile">Profile</a></nav>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero rise" style="animation-delay:.06s">
+    <p class="kicker">Data &amp; AI Engineer</p>
+    <h1>윤정한</h1>
+    <p class="lead">데이터 파이프라인과 AI 시스템을 만들고 운영합니다.<br>강점은 <mark>도전적인 실행력</mark>입니다.</p>
+    <dl class="facts">
+      <div><dt>NOW</dt><dd>T3Q 데이터서비스팀</dd></div>
+      <div><dt>EDU</dt><dd>고려대학교 물리학과</dd></div>
+      <div><dt>MAIN</dt><dd>Python · RAG · Spark</dd></div>
+      <div><dt>OPS</dt><dd>Kubernetes · Kafka · OpenSearch</dd></div>
+    </dl>
+  </header>
+
+  <!-- ===== 강점: 주장과 드러난 곳 ===== -->
+  <section class="str-section rise" id="strengths">
+    <p class="kicker">Strengths</p>
+    <h2 class="sec-title">강점</h2>
+    <p class="sec-lead">세 가지 강점과, 그것이 드러난 프로젝트입니다.</p>
+    <div class="claims">
+      <div class="claim">
+        <div><span class="pn">01</span><h3>도전적 실행력</h3><p>모르는 부분은 배워 가며 직접 만들어 확인합니다.</p></div>
+        <div class="where"><span>드러난 곳</span><a class="pill" href="projects.html#p-media">미디어 AI Hybrid RAG</a><a class="pill" href="engineering.html#case-adapter">구형 GPU 어댑터</a></div>
+      </div>
+      <div class="claim">
+        <div><span class="pn">02</span><h3>추진력</h3><p>시키지 않아도 시작하고, 실제로 쓰이게 만들어야 끝냅니다.</p></div>
+        <div class="where"><span>드러난 곳</span><a class="pill" href="ai_ability.html#openclaw">OpenClaw</a><a class="pill" href="ai_ability.html#trading">모의투자 감독</a></div>
+      </div>
+      <div class="claim">
+        <div><span class="pn">03</span><h3>정의부터 맞추는 소통</h3><p>설득하기 전에, 같은 질문에 답하고 있는지부터 맞춥니다.</p></div>
+        <div class="where"><span>드러난 곳</span><a class="pill" href="projects.html#p-data">EDPP 데이터 설계</a><a class="pill" href="projects.html#p-jiguda">지구다</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 경험: 한 일과 기술 스택 ===== -->
+  <section class="exp-section rise" id="experience">
+    <p class="kicker">Experience</p>
+    <h2 class="sec-title">경험</h2>
+    <p class="sec-lead">무엇을 했고 어떤 기술을 썼는지입니다. 누르면 자세한 내용이 나옵니다.</p>
+    <div class="exps">
+      <a class="exp" href="projects.html#p-media">
+        <div class="when"><b>운영</b>2026 상반기</div>
+        <div><h3>미디어 AI Hybrid RAG</h3><p>검색 경로 설계와 재처리 파이프라인을 맡았습니다.</p></div>
+        <div class="stack"><i>Graph RAG</i><i>OpenSearch</i><i>Neo4j</i><i>Reranking</i></div>
+        <span class="arr">→</span>
+      </a>
+      <a class="exp" href="projects.html#p-data">
+        <div class="when"><b>설계</b>2026 하반기</div>
+        <div><h3>EDPP 데이터 설계</h3><p>다시 돌려도 같은 ID가 나오는 식별자와 카탈로그를 설계했습니다.</p></div>
+        <div class="stack"><i>Spark</i><i>Kafka</i><i>Kubernetes</i><i>Delta Lake</i></div>
+        <span class="arr">→</span>
+      </a>
+      <a class="exp" href="projects.html#p-twin">
+        <div class="when"><b>개인</b>2026.09</div>
+        <div><h3>설비 상태 트윈</h3><p>센서가 함께 틀리면 판단을 보류하는 상태 판별 모델을 만들었습니다.</p></div>
+        <div class="stack"><i>Python</i><i>RandomForest</i><i>JSON Schema</i></div>
+        <span class="arr">→</span>
+      </a>
+      <a class="exp" href="projects.html#p-jiguda">
+        <div class="when"><b>4인 팀</b>2025</div>
+        <div><h3>지구다</h3><p>경제 지식그래프에서 구문 분리 모델을 학습하고 같은 뜻 판별을 실험했습니다.</p></div>
+        <div class="stack"><i>KF-DeBERTa</i><i>PyTorch</i><i>Neo4j</i></div>
+        <span class="arr">→</span>
+      </a>
+      <a class="exp" href="ai_ability.html#openclaw">
+        <div class="when"><b>개인 운영</b>2026</div>
+        <div><h3>OpenClaw</h3><p>웹과 실행 권한을 나눈 멀티 에이전트를 집 서버에서 운영합니다.</p></div>
+        <div class="stack"><i>Multi-Agent</i><i>Rootless Docker</i><i>Claude API</i></div>
+        <span class="arr">→</span>
+      </a>
+      <a class="exp" href="ai_ability.html#trading">
+        <div class="when"><b>개인 운영</b>2026</div>
+        <div><h3>모의투자 감독</h3><p>규칙은 코드가, 판단은 LLM이 맡는 무인 운영 시스템입니다.</p></div>
+        <div class="stack"><i>Python</i><i>systemd</i><i>LLM</i></div>
+        <span class="arr">→</span>
+      </a>
+    </div>
+    <p class="more-row">운영 중 틀린 지점을 찾아 고친 사례는 <a href="engineering.html">Casebook</a>에 따로 모았습니다.</p>
+  </section>
+
+  <section class="info-section rise" id="profile">
+    <p class="kicker">Profile</p>
+    <h2 class="sec-title" style="margin-bottom:32px">프로필</h2>
+    <div class="info-grid">
+      <div class="info-col">
+        <h2 class="ih">Introduction</h2>
+        <ul class="rows">
+          <li class="row"><span class="k">Name</span><span class="v">윤정한</span></li>
+          <li class="row"><span class="k">Role</span><span class="v">데이터 파이프라인과 AI 시스템을 만들고 운영합니다</span></li>
+          <li class="row"><span class="k">E.mail</span><span class="v"><a href="mailto:cubejh04@gmail.com">cubejh04@gmail.com</a></span></li>
+          <li class="row"><span class="k">GitHub</span><span class="v"><a href="https://github.com/auspiland">github.com/auspiland</a></span></li>
+          <li class="row"><span class="k">College</span><span class="v">2025.08 &nbsp;고려대학교 물리학과 졸업</span></li>
+        </ul>
+      </div>
+
+      <div class="info-col">
+        <h2 class="ih">Certification</h2>
+        <ul class="rows">
+          <li class="row"><span class="k">Subject</span><span class="v">2025.09 &nbsp;OPIc&nbsp; IM</span></li>
+        </ul>
+
+        <h2 class="ih spaced">Experience</h2>
+        <ul class="rows">
+          <li class="row">
+            <span class="k">Career</span>
+            <span class="v career">
+              <span class="cline"><span class="cd">2024.09 - 2024.12</span><span class="ct">고려대학교 초전도 양자 컴퓨터 연구실 연구생</span></span>
+              <span class="cline"><span class="cd">2025.02 - 2025.06</span><span class="ct">한국경제신문 SW 지능정보 아카데미 6기 수료</span></span>
+              <span class="cline"><span class="cd">2025.07 - 재직중</span><span class="ct">T3Q 데이터서비스팀 정규직</span></span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="foot">
+      <span>© 2026 YUN JEONGHAN · PORTFOLIO</span>
+      <span><a href="https://github.com/auspiland">github.com/auspiland</a> &nbsp;·&nbsp; <a href="mailto:cubejh04@gmail.com">cubejh04@gmail.com</a></span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// 스크롤 진입 시 등장
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting){
+      e.target.style.animation = 'rise .8s cubic-bezier(.2,.7,.2,1) forwards';
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.str-section, .exp-section, .info-section').forEach((el) => { el.style.opacity = '0'; io.observe(el); });
+</script>
+</body>
+</html>
