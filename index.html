@@ -6,16 +6,18 @@
   auspiland — Portfolio Home (index.html)
   ------------------------------------------------------------
   프로필(Profile) 랜딩 페이지. 다크+라임 테마.
-  가치 한 줄 → 반복해서 만난 문제 3개 → Work / Casebook / AI Operations 세 갈래로 분기.
+  강점 헤드라인(도전적 실행력) → 강점 3 카드(장면·링크·그림자)
+  → 그림자와 지금의 방식 → 프로필 → 반복해서 만난 문제 3개
+  → Work / Casebook / AI Operations 세 갈래로 분기.
   CSS·JS 인라인.
   ============================================================
 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="윤정한(auspiland) — 데이터 파이프라인과 AI 시스템을 만들고 운영합니다. 반복해서 만난 세 가지 문제와, 그것을 프로젝트마다 다르게 푼 기록." />
+<meta name="description" content="윤정한(auspiland) — 데이터 파이프라인과 AI 시스템을 만들고 운영합니다. 도전적 실행력·추진력·정의부터 맞추는 소통, 그 그림자를 메우며 생긴 일하는 방식, 그리고 그것을 증명하는 프로젝트 기록." />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="auspiland — Profile" />
-<meta property="og:description" content="데이터 파이프라인과 AI 시스템을 만들고 운영합니다. 반복해서 만난 세 가지 문제와, 그것을 프로젝트마다 다르게 푼 기록." />
+<meta property="og:description" content="새로운 방법이 떠오르면 모르는 부분은 배워 가며 직접 만들어 확인합니다. 세 가지 강점과 그 그림자, 그리고 지금 일하는 방식." />
 <meta property="og:image" content="https://auspiland.github.io/Portfolio/images/og-home.png" />
 <meta property="og:url" content="https://auspiland.github.io/Portfolio/" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0d11'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='%23c9f23f'/%3E%3C/svg%3E" />
@@ -69,24 +71,71 @@ body::after{
   font-family:var(--body); font-weight:400; font-size:13px; letter-spacing:.03em; color:var(--dim);
   padding:30px 0 0}
 .topbar .center{color:var(--ink-soft)}
+.topbar a{color:var(--dim); text-decoration:none; border-bottom:1px solid transparent}
+.topbar a:hover{color:var(--lime-deep); border-color:var(--lime)}
 
-/* ===== HERO ===== */
-.hero{display:grid; grid-template-columns:1.05fr .95fr; align-items:center;
-  gap:40px; padding:46px 0 80px}
+/* ===== 공통 섹션 머리 ===== */
+.nav-kicker{font-family:var(--mono); font-size:12px; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--lime-deep); display:flex; align-items:center; gap:12px; margin-bottom:16px}
+.nav-kicker::before{content:""; width:26px; height:1px; background:var(--lime-deep)}
+.nav-lead{font-family:var(--display); font-style:italic; font-size:clamp(20px,2.6vw,28px);
+  color:var(--ink); margin-bottom:34px}
+
+/* ===== HERO · 강점 헤드라인 ===== */
+.hero{display:grid; grid-template-columns:1.15fr .85fr; align-items:end;
+  gap:40px; padding:46px 0 64px}
+.hero .nav-kicker{margin-bottom:22px}
 .profile{font-family:var(--body); font-weight:700; color:var(--lime);
-  font-size:clamp(72px,12.5vw,148px); line-height:.86; letter-spacing:-.035em}
+  font-size:clamp(56px,9.6vw,112px); line-height:.98; letter-spacing:-.04em}
+.hero-sub{margin-top:22px; font-size:14px; color:var(--dim); letter-spacing:.01em}
+.hero-sub b{font-weight:500; color:var(--ink-soft)}
 .quote{justify-self:end; max-width:34ch; position:relative;
   font-family:var(--serif-ko); font-style:italic; font-weight:400;
-  font-size:clamp(18px,2.2vw,25px); line-height:1.55; color:var(--ink-soft);
-  padding:6px 0 0 10px}
+  font-size:clamp(18px,2.1vw,24px); line-height:1.6; color:var(--ink-soft);
+  padding:6px 0 10px 10px}
 .quote::before{content:"\201C"; position:absolute; left:-30px; top:-20px;
   font-family:var(--serif-ko); font-weight:700; font-style:normal;
   font-size:54px; color:var(--ink); line-height:1}
 .quote .q-end{font-family:var(--serif-ko); font-weight:700; font-style:normal;
   color:var(--ink); font-size:34px; margin-left:5px; line-height:0; vertical-align:-14px}
 
+/* ===== 강점 3 카드 ===== */
+.str-section{border-top:1px solid var(--line); padding:64px 0 10px}
+.strs{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:8px; overflow:hidden}
+.str{background:var(--paper-2); padding:28px 26px 24px; display:flex; flex-direction:column; gap:12px}
+.pn{font-family:var(--mono); font-size:11px; letter-spacing:.22em; color:var(--lime-deep)}
+.str h3{font-family:var(--display); font-weight:400; font-size:clamp(22px,2.5vw,27px); line-height:1.2; letter-spacing:-.01em}
+.str .def{font-family:var(--serif-ko); font-size:15px; color:var(--ink); line-height:1.65}
+.str .scene{font-size:13.5px; color:var(--dim); line-height:1.7; flex:1}
+.ex{font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; color:var(--ink-soft); display:grid; gap:6px;
+  padding-top:12px; border-top:1px solid var(--line)}
+.ex a{color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--line)}
+.ex a:hover{color:var(--lime-deep); border-color:var(--lime)}
+.ex span{color:var(--faint)}
+.str .shadow{font-size:12.5px; color:var(--dim); line-height:1.6; padding-top:12px; border-top:1px dashed var(--line)}
+.str .shadow b{font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:.18em; color:var(--faint); margin-right:8px}
+
+/* ===== 그림자와 지금의 방식 ===== */
+.style-section{padding:54px 0 20px}
+.style-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:8px; overflow:hidden}
+.style-shadow,.style-now{background:var(--paper-2); padding:30px 28px 28px}
+.style-shadow{display:flex; flex-direction:column; gap:14px}
+.style-shadow h3{font-family:var(--display); font-weight:400; font-size:clamp(22px,2.6vw,28px); line-height:1.2; letter-spacing:-.01em}
+.style-shadow p{font-size:14px; color:var(--dim); line-height:1.7}
+.style-shadow .src{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--faint); margin-top:auto; padding-top:14px; border-top:1px solid var(--line)}
+.ways{list-style:none; display:grid; gap:0; margin-top:14px}
+.ways li{padding:14px 0; border-top:1px solid var(--line); font-size:13.5px; color:var(--dim); line-height:1.7}
+.ways li:first-child{border-top:0; padding-top:4px}
+.ways b{display:block; font-weight:500; color:var(--ink); font-size:14.5px; margin-bottom:2px}
+.ways a{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; color:var(--ink-soft); text-decoration:none;
+  border-bottom:1px solid var(--line); margin-left:6px; white-space:nowrap}
+.ways a:hover{color:var(--lime-deep); border-color:var(--lime)}
+
 /* ===== INFO ===== */
-.info-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; padding-bottom:96px}
+.info-section{border-top:1px solid var(--line); padding:64px 0 0}
+.info-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; padding:26px 0 72px}
 .ih{font-family:var(--body); font-weight:600; font-size:20px; letter-spacing:.01em;
   color:var(--ink); padding-bottom:13px; border-bottom:1px solid var(--line);
   margin-bottom:4px}
@@ -105,14 +154,17 @@ body::after{
 .cline .cd{font-size:13px; color:var(--ink-soft); white-space:nowrap; letter-spacing:.01em}
 .cline .ct{font-size:14.5px; color:var(--ink-soft)}
 
+/* ===== 반복해서 만난 문제 3개 ===== */
+.probs-section{border-top:1px solid var(--line); padding:64px 0 10px}
+.probs{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:8px; overflow:hidden}
+.prob{background:var(--paper-2); padding:28px 26px 26px; display:flex; flex-direction:column; gap:12px}
+.prob h3{font-family:var(--display); font-weight:400; font-size:clamp(21px,2.4vw,25px); line-height:1.2; letter-spacing:-.01em}
+.prob p{font-size:14px; color:var(--dim); line-height:1.65; flex:1}
+
 /* ===== 내비게이션 (포트폴리오 분기) ===== */
-.nav-section{border-top:1px solid var(--line); padding:74px 0 30px}
-.nav-kicker{font-family:var(--mono); font-size:12px; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--lime-deep); display:flex; align-items:center; gap:12px; margin-bottom:16px}
-.nav-kicker::before{content:""; width:26px; height:1px; background:var(--lime-deep)}
-.nav-lead{font-family:var(--display); font-style:italic; font-size:clamp(20px,2.6vw,28px);
-  color:var(--ink); margin-bottom:34px}
-.nav-cards{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+.nav-section{border-top:1px solid var(--line); padding:64px 0 30px}
+.nav-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
 .navcard{display:flex; flex-direction:column; gap:14px; text-decoration:none; color:var(--ink);
   background:var(--paper-2); border:1px solid var(--line); border-radius:8px;
   padding:32px 30px 28px; transition:.28s cubic-bezier(.2,.7,.2,1); position:relative; overflow:hidden}
@@ -136,31 +188,16 @@ footer{padding:60px 0 64px}
 .foot a{color:var(--dim); text-decoration:none}
 .foot a:hover{color:var(--lime-deep)}
 
-
-/* ===== 반복해서 만난 문제 3개 ===== */
-.probs-section{border-top:1px solid var(--line); padding:74px 0 10px}
-.probs{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);
-  border:1px solid var(--line); border-radius:8px; overflow:hidden; margin-top:34px}
-.prob{background:var(--paper-2); padding:28px 26px 26px; display:flex; flex-direction:column; gap:12px}
-.prob .pn{font-family:var(--mono); font-size:11px; letter-spacing:.22em; color:var(--lime-deep)}
-.prob h3{font-family:var(--display); font-weight:400; font-size:clamp(21px,2.4vw,25px); line-height:1.2; letter-spacing:-.01em}
-.prob p{font-size:14px; color:var(--dim); line-height:1.65; flex:1}
-.prob .ex{font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; color:var(--ink-soft); display:grid; gap:6px;
-  padding-top:12px; border-top:1px solid var(--line)}
-.prob .ex a{color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--line)}
-.prob .ex a:hover{color:var(--lime-deep); border-color:var(--lime)}
-.prob .ex span{color:var(--faint)}
-.topbar a{color:var(--dim); text-decoration:none; border-bottom:1px solid transparent}
-.topbar a:hover{color:var(--lime-deep); border-color:var(--lime)}
-.nav-cards.three{grid-template-columns:repeat(3,1fr)}
-
-@media (max-width:780px){
+@media (max-width:860px){
+  .strs{grid-template-columns:1fr}
+  .style-grid{grid-template-columns:1fr}
   .probs{grid-template-columns:1fr}
-  .nav-cards.three{grid-template-columns:1fr}
-  .hero{grid-template-columns:1fr; gap:30px; padding:36px 0 56px}
+  .nav-cards{grid-template-columns:1fr}
+}
+@media (max-width:780px){
+  .hero{grid-template-columns:1fr; gap:30px; padding:36px 0 48px; align-items:start}
   .quote{justify-self:start; margin-left:24px}
   .info-grid{grid-template-columns:1fr; gap:40px}
-  .nav-cards{grid-template-columns:1fr}
   .cline{grid-template-columns:124px 1fr}
 }
 </style>
@@ -174,47 +211,122 @@ footer{padding:60px 0 64px}
     <a href="https://github.com/auspiland" rel="me">@auspiland</a>
   </div>
 
-  <!-- ===== HERO ===== -->
+  <!-- ===== HERO · 강점 헤드라인 ===== -->
   <div class="hero">
-    <h1 class="profile rise" style="animation-delay:.06s">Profile.</h1>
+    <div class="rise" style="animation-delay:.06s">
+      <div class="nav-kicker">Strength 01</div>
+      <h1 class="profile">도전적<br>실행력.</h1>
+      <p class="hero-sub"><b>윤정한</b> &nbsp;·&nbsp; 데이터 파이프라인과 AI 시스템을 만들고 운영합니다 &nbsp;·&nbsp; 작지만 끊임없는 혁신을 믿습니다</p>
+    </div>
     <blockquote class="quote rise" style="animation-delay:.16s">
-      데이터를 읽고 해석해 일하는 방식을 조금씩 바꿉니다.<br>
-      작지만 끊임없는 혁신을 믿습니다.<span class="q-end">&rdquo;</span>
+      새로운 방법이 떠오르면, 모르는 부분은 배워 가며 직접 만들어 확인합니다.<br>
+      말로 설득하기 전에 프로토타입을 먼저 보여 드립니다.<span class="q-end">&rdquo;</span>
     </blockquote>
   </div>
 
+  <!-- ===== 강점 3 카드 ===== -->
+  <section class="str-section rise" id="strengths">
+    <div class="nav-kicker">Strengths</div>
+    <p class="nav-lead">스스로 꼽은 세 가지입니다. 각 성향이 드러난 장면과, 같은 성향이 만든 그림자를 함께 적었습니다.</p>
+    <div class="strs">
+      <article class="str">
+        <span class="pn">01</span>
+        <h3>도전적 실행력</h3>
+        <p class="def">새로운 방법이 떠오르면 모르는 부분은 배워 가며 직접 만들어 확인합니다.</p>
+        <p class="scene">검색 답변의 품질 개선을 맡았을 때, 프롬프트를 다듬거나 점수 산정을 조정하는 대신 작은 언어모델이 처리 경로를 판단하도록 흐름 자체를 바꾸자고 제안했습니다. 다른 분이 검토할 수 있게 실행 체계와 프로토타입부터 만들어 팀장님을 설득했고, 기존 범위를 넘어선 고도화를 시도할 수 있었습니다. 프레임워크가 구형 GPU를 지원하지 않을 때는 호출 계약만 맞춘 어댑터 서버를 끼워 모델을 올렸습니다.</p>
+        <div class="ex">
+          <a href="projects.html#p-media">미디어 AI <span>· 답이 부족하면 스스로 다시 묻는 검색</span></a>
+          <a href="engineering.html#case-adapter">어댑터 <span>· 버전 교집합이 없으면 계약만 맞춘다</span></a>
+        </div>
+        <p class="shadow"><b>그림자</b>만드는 데 몰입하다 보면 확인할 기준은 만들고 난 뒤에야 세우곤 했습니다.</p>
+      </article>
+
+      <article class="str">
+        <span class="pn">02</span>
+        <h3>추진력</h3>
+        <p class="def">시키지 않아도 시작하고, 실제로 쓰이게 만들어야 끝냅니다.</p>
+        <p class="scene">공공기관 보도자료 수집이 매일 '완료'로 끝나는데 새 기사가 들어오지 않는 것을 먼저 점검했습니다. 폐지된 통합 수집원을 기관별 주소로 바꾸고, 수집 실패가 정상 완료로 처리되던 부분과 새 기사가 없는 정상 상황을 장애로 보던 부분까지 고쳤습니다. 여러 AI 세션을 동시에 돌리다 흐름을 잃던 제 환경도 세션 대시보드를 만들어 바꿨고, 집에 둔 서버에서 에이전트 두 시스템을 직접 운영하며 고치고 있습니다.</p>
+        <div class="ex">
+          <a href="ai_ability.html#openclaw">OpenClaw <span>· 읽는 손과 실행하는 손을 나눠 운영</span></a>
+          <a href="ai_ability.html#trading">모의투자 감독 <span>· 무인으로 돌아도 경계를 넘지 않게</span></a>
+        </div>
+        <p class="shadow"><b>그림자</b>범위를 넓히면 기한과 부딪힙니다. 열정을 조절하는 쪽도 함께 배우는 중입니다.</p>
+      </article>
+
+      <article class="str">
+        <span class="pn">03</span>
+        <h3>정의부터 맞추는 소통</h3>
+        <p class="def">설득하기 전에, 서로 어떤 질문에 답하고 있는지부터 맞춥니다.</p>
+        <p class="scene">사내 AI 플랫폼을 설계할 때 임원과 구성원이 '온톨로지'를 서로 다르게 이해한 채 같은 설계안을 보고 있었습니다. 세미나와 공유 문서로 정의를 맞추고, 회의 전에 설계안에서 이해되지 않는 지점을 질문으로 준비해 오자고 제안했습니다. 질문을 하나씩 풀어가며 의견을 모으자 설계 의도가 잘 보인다는 평가를 받았습니다. 몇 달 지켜본 팀원들의 강점을 팀장님께 말씀드려 역할을 함께 조율하기도 했습니다.</p>
+        <div class="ex">
+          <a href="projects.html#p-data">데이터 설계 <span>· 같은 이름이 다른 뜻으로 경계를 넘지 못하게</span></a>
+          <a href="projects.html#p-jiguda">지구다 <span>· 4인 팀, 내 몫과 팀의 몫을 나눠 적다</span></a>
+        </div>
+        <p class="shadow"><b>그림자</b>맞춘 정의도 다시 어긋납니다. 되맞추는 법은 지금도 쌓는 중입니다.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== 그림자와 지금의 방식 ===== -->
+  <section class="style-section rise" id="style">
+    <div class="nav-kicker">Style</div>
+    <p class="nav-lead">그림자 하나를 메우며 생긴, 지금 일하는 방식입니다.</p>
+    <div class="style-grid">
+      <div class="style-shadow">
+        <span class="pn">그림자</span>
+        <h3>도전적 실행을 철저한 체계 위에 두지 못했습니다</h3>
+        <p>지구다에서는 모델이 그 과제에 맞는지 보지 못한 채 도입해, 기대한 성능이 나오지 않는 방법에 시간을 들였습니다. 운영에서는 검색 품질을 올리려 청크를 다시 정의할 때마다 전체 데이터를 다시 처리했고, 변경의 효과를 먼저 확인할 검증 구조가 없어 비용과 시간을 많이 썼습니다.</p>
+        <p>그 뒤로는 검증할 단위와 재실행 조건을 먼저 정하고 있습니다. 직접 만들어 보는 성격은 두되, 만들기 전에 확인할 기준을 적는 습관을 쌓는 중입니다.</p>
+        <span class="src">스스로 적은 보완점 · 2026</span>
+      </div>
+      <div class="style-now">
+        <span class="pn">지금은</span>
+        <ul class="ways">
+          <li><b>만들기 전에 확인할 기준과 재실행 조건을 먼저 적습니다.</b>가설을 코드 실행 전에 파일로 고정하고, 기각한 후보는 삭제하지 않고 코드째 남깁니다.<a href="projects.html#p-twin">설비 상태 트윈 →</a></li>
+          <li><b>실행이 성공한 것과 실제로 처리된 것을 따로 셉니다.</b>멈추지 않게 만든 파이프라인일수록 실패가 조용해지기 때문입니다.<a href="engineering.html#case-reprocess">재처리 →</a></li>
+          <li><b>숫자가 좋을수록 무엇을 재고 있었는지부터 확인합니다.</b>재현율 1위였던 후보가 표 구조를 하나도 보존하지 못하고 있었습니다.<a href="engineering.html#case-metric">지표 함정 →</a></li>
+          <li><b>되돌릴 수 없는 상태를 가장 경계합니다.</b>남의 자원과 운영 데이터는 되돌릴 수 있는 방식으로만 건드리고, AI에게는 무엇을 시킬지보다 무엇을 못 하게 할지를 먼저 정합니다.<a href="engineering.html#case-adapter">자원 회수 →</a></li>
+          <li><b>설계와 검증 기준은 제가 정하고, 코드 작성과 반복 실행은 AI에 맡깁니다.</b>카드마다 내 몫·팀·AI 수행을 나눠 적었고, 한계는 한 줄씩 남겼습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== INFO ===== -->
-  <div class="info-grid">
-    <div class="info-col rise" style="animation-delay:.1s">
-      <h2 class="ih">Introduction</h2>
-      <ul class="rows">
-        <li class="row"><span class="k">Name</span><span class="v">윤정한</span></li>
-        <li class="row"><span class="k">Role</span><span class="v">데이터 파이프라인과 AI 시스템을 만들고 운영합니다</span></li>
-        <li class="row"><span class="k">E.mail</span><span class="v"><a href="mailto:cubejh04@gmail.com">cubejh04@gmail.com</a></span></li>
-        <li class="row"><span class="k">GitHub</span><span class="v"><a href="https://github.com/auspiland">github.com/auspiland</a></span></li>
-        <li class="row"><span class="k">College</span><span class="v">2025.08 &nbsp;고려대학교 물리학과 졸업</span></li>
-      </ul>
-    </div>
+  <section class="info-section rise" id="profile">
+    <div class="nav-kicker">Profile</div>
+    <div class="info-grid">
+      <div class="info-col">
+        <h2 class="ih">Introduction</h2>
+        <ul class="rows">
+          <li class="row"><span class="k">Name</span><span class="v">윤정한</span></li>
+          <li class="row"><span class="k">Role</span><span class="v">데이터 파이프라인과 AI 시스템을 만들고 운영합니다</span></li>
+          <li class="row"><span class="k">E.mail</span><span class="v"><a href="mailto:cubejh04@gmail.com">cubejh04@gmail.com</a></span></li>
+          <li class="row"><span class="k">GitHub</span><span class="v"><a href="https://github.com/auspiland">github.com/auspiland</a></span></li>
+          <li class="row"><span class="k">College</span><span class="v">2025.08 &nbsp;고려대학교 물리학과 졸업</span></li>
+        </ul>
+      </div>
 
-    <div class="info-col rise" style="animation-delay:.18s">
-      <h2 class="ih">Certification</h2>
-      <ul class="rows">
-        <li class="row"><span class="k">Subject</span><span class="v">2025.09 &nbsp;OPIc&nbsp; IM</span></li>
-      </ul>
+      <div class="info-col">
+        <h2 class="ih">Certification</h2>
+        <ul class="rows">
+          <li class="row"><span class="k">Subject</span><span class="v">2025.09 &nbsp;OPIc&nbsp; IM</span></li>
+        </ul>
 
-      <h2 class="ih spaced">Experience</h2>
-      <ul class="rows">
-        <li class="row">
-          <span class="k">Career</span>
-          <span class="v career">
-            <span class="cline"><span class="cd">2024.09 - 2024.12</span><span class="ct">고려대학교 초전도 양자 컴퓨터 연구실 연구생</span></span>
-            <span class="cline"><span class="cd">2025.02 - 2025.06</span><span class="ct">한국경제신문 SW 지능정보 아카데미 6기 수료</span></span>
-            <span class="cline"><span class="cd">2025.07 - 재직중</span><span class="ct">T3Q 데이터서비스팀 정규직</span></span>
-          </span>
-        </li>
-      </ul>
+        <h2 class="ih spaced">Experience</h2>
+        <ul class="rows">
+          <li class="row">
+            <span class="k">Career</span>
+            <span class="v career">
+              <span class="cline"><span class="cd">2024.09 - 2024.12</span><span class="ct">고려대학교 초전도 양자 컴퓨터 연구실 연구생</span></span>
+              <span class="cline"><span class="cd">2025.02 - 2025.06</span><span class="ct">한국경제신문 SW 지능정보 아카데미 6기 수료</span></span>
+              <span class="cline"><span class="cd">2025.07 - 재직중</span><span class="ct">T3Q 데이터서비스팀 정규직</span></span>
+            </span>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- ===== 반복해서 만난 문제 3개 ===== -->
   <section class="probs-section rise">
@@ -255,7 +367,7 @@ footer{padding:60px 0 64px}
   <section class="nav-section rise">
     <div class="nav-kicker">Portfolio</div>
     <p class="nav-lead">세 갈래로 정리했습니다. 무엇을 만들었는가, 어디서 틀렸고 어떻게 고쳤는가, AI에게 어떻게 권한을 주는가.</p>
-    <div class="nav-cards three">
+    <div class="nav-cards">
       <a href="projects.html" class="navcard">
         <span class="nk">01 / Work</span>
         <h3>만든 것들</h3>
@@ -297,7 +409,7 @@ const io = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.12 });
-document.querySelectorAll('.probs-section, .nav-section').forEach((el) => { el.style.opacity = '0'; io.observe(el); });
+document.querySelectorAll('.str-section, .style-section, .info-section, .probs-section, .nav-section').forEach((el) => { el.style.opacity = '0'; io.observe(el); });
 </script>
 </body>
 </html>

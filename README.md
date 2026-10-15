@@ -2,7 +2,7 @@
 
 HTML 페이지로 운영하는 포트폴리오. 배포: https://auspiland.github.io/Portfolio/
 
-홈에서 "반복해서 만난 문제 3개"를 세우고, 세 갈래(Work / Casebook / AI Operations)의 카드가 그것을 증명하는 구조다.
+홈은 강점 셋(도전적 실행력 · 추진력 · 정의부터 맞추는 소통)과 그 그림자를 메우며 생긴 일하는 방식으로 열고, 이어서 "반복해서 만난 문제 3개"를 세운다. 세 갈래(Work / Casebook / AI Operations)의 카드가 그것을 증명하는 구조다.
 
 ---
 
@@ -10,7 +10,7 @@ HTML 페이지로 운영하는 포트폴리오. 배포: https://auspiland.github
 
 ```
 /
-├── index.html         # 홈 — 가치 한 줄 · 문제 3개 · 세 갈래 분기 · 최소 프로필
+├── index.html         # 홈 — 강점 헤드라인 · 강점 3 카드(장면·링크·그림자) · 그림자와 지금의 방식 · 최소 프로필 · 문제 3개 · 세 갈래 분기
 ├── projects.html      # Work — 지구다(연구) · 미디어 AI(운영) · 데이터 설계(구조) · 설비 상태 트윈(검증)
 ├── engineering.html   # Casebook — 스키마 계약 · 재처리 · 지표 함정 · 어댑터와 자원 회수
 ├── ai_ability.html    # AI Operations — OpenClaw · Paper-Trading Supervisor
@@ -22,7 +22,7 @@ HTML 페이지로 운영하는 포트폴리오. 배포: https://auspiland.github
 └── README.md
 ```
 
-각 페이지는 CSS·JS를 인라인으로 담은 독립 HTML. 홈이 허브이고, 서브 페이지는 상단 `← Home`으로 복귀. 홈의 문제 카드는 각 페이지의 앵커(`#p-jiguda` `#p-data` `#p-twin` `#case-schema` `#case-reprocess` `#case-metric` `#openclaw` `#trading`)로 이어진다.
+각 페이지는 CSS·JS를 인라인으로 담은 독립 HTML. 홈이 허브이고, 서브 페이지는 상단 `← Home`으로 복귀. 홈의 강점 카드·방식 줄·문제 카드는 각 페이지의 앵커(`#p-jiguda` `#p-data` `#p-twin` `#case-schema` `#case-reprocess` `#case-metric` `#case-adapter` `#openclaw` `#trading`)로 이어진다. 강점 카드의 장면은 자기소개서 자필 문장을 기준으로 쓰고, 카드마다 그림자 한 줄을 둔다.
 
 ---
 
@@ -41,4 +41,4 @@ HTML 페이지로 운영하는 포트폴리오. 배포: https://auspiland.github
 
 ## 스냅샷 현황
 
-index v0.0.1~8 · projects v0.0.1~7 · engineering v0.0.1~9 · ai_ability v0.0.1~6
+index v0.0.1~9 · projects v0.0.1~7 · engineering v0.0.1~9 · ai_ability v0.0.1~6
