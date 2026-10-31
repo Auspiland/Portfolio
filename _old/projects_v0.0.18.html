@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!--
+  auspiland — Work (projects.html)
+  홈(index.html)과 같은 디자인 체계: 베이지 배경, 산세리프 본문, 1px 선, 강조색 테라코타 하나(변수명은 --lime 유지).
+  긴 경위는 <details>로 접는다. 문구는 이 파일에서 직접 고친다.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>검색·데이터 프로젝트 · 윤정한</title>
+<meta name="description" content="문서 검색과 데이터 플랫폼을 개발하며 맡은 작업입니다. 구현한 기능과 설계 중인 부분을 구분하고, 모델 실험에서 확인한 결과도 함께 적었습니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="검색·데이터 프로젝트 · 윤정한">
+<meta property="og:description" content="문서 검색과 데이터 플랫폼을 개발하며 맡은 작업입니다. 구현한 기능과 설계 중인 부분을 구분하고, 모델 실험에서 확인한 결과도 함께 적었습니다.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' rx='3.5' fill='%23f3efe6'/%3E%3Crect x='2' y='2' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='2' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='3' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='3' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='3' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='3' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='8' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='5' y='8' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='6' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='8' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='11' y='8' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='12' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='9' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='5' y='9' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='6' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='9' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='11' y='9' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='12' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='11' width='1.02' height='1.02' fill='%23b5502a'/%3E%3Crect x='8' y='11' width='1.02' height='1.02' fill='%23b5502a'/%3E%3Crect x='9' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --bg:#f3efe6; --panel:#ebe5d8; --fg:#1f1c17; --body:#3d3931; --sub:#6b655a; --line:#cdc2ae; --hair:#e2dacb; --lime:#b5502a;
+    --sans:"Pretendard Variable",Pretendard,system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.7;font-weight:400;
+       letter-spacing:-0.005em;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  b{color:var(--fg);font-weight:600}
+  ::selection{background:var(--lime);color:var(--bg)}
+  :focus-visible{outline:2px solid var(--lime);outline-offset:4px;border-radius:2px}
+
+  .wrap{max-width:960px;margin:0 auto;padding:0 32px}
+  .read{max-width:720px}
+
+  /* 상단 탐색 */
+  .nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;padding:32px 0;border-bottom:1px solid var(--line);
+       font-size:15px}
+  .nav a{text-decoration:none;color:var(--sub);transition:color .15s}
+  .nav a:hover{color:var(--fg)}
+  .nav a.on{color:var(--lime)}
+  .nav .home{margin-right:auto;font-family:var(--mono);font-size:14px}
+
+  /* 페이지 머리 */
+  .head{padding:72px 0 48px}
+  .eyebrow{font-family:var(--mono);font-size:14px;color:var(--sub)}
+  h1{font-size:36px;line-height:46px;font-weight:600;color:var(--fg);letter-spacing:-0.03em;margin-top:8px}
+  .head p{margin-top:16px;font-size:17px;line-height:1.75}
+  .jump{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:32px;font-size:15px}
+  .jump a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--line);transition:color .15s,border-color .15s}
+  .jump a:hover{color:var(--lime);border-color:var(--lime)}
+
+  /* 묶음 */
+  .group{margin-top:72px}
+  .group h2{font-size:24px;line-height:34px;font-weight:600;color:var(--fg);letter-spacing:-0.02em;padding-top:16px;border-top:2px solid var(--fg)}
+  .group > p{margin-top:8px;color:var(--sub);font-size:15px}
+  .group h2,.group > p{max-width:720px}
+  .head + .group{margin-top:0}
+  .head + .group > .item:first-child{border-top:2px solid var(--fg)}
+
+  /* 항목 */
+  .item{max-width:720px;padding:48px 0;border-top:1px solid var(--line);scroll-margin-top:24px}
+  .group .item:first-of-type{margin-top:24px}
+  .meta{font-family:var(--mono);font-size:14px;color:var(--sub)}
+  .item h3{font-size:22px;line-height:32px;font-weight:600;color:var(--fg);letter-spacing:-0.02em;margin-top:6px}
+  .lede{margin-top:8px;font-size:17px;line-height:1.75}
+
+  .figure{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-top:24px}
+  .figure b{font-size:24px;line-height:32px;font-weight:600;color:var(--fg);font-variant-numeric:tabular-nums}
+  .figure span{font-size:14px;color:var(--sub)}
+
+  .facts{display:grid;grid-template-columns:120px 1fr;gap:0;margin-top:24px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+  .facts dt,.facts dd{padding:12px 0}
+  .facts dt{padding-top:14px;line-height:1.6}
+  .facts dd{padding-left:24px}
+  .facts dt ~ dt,.facts dt ~ dt + dd{border-top:1px dashed var(--hair)}
+  .facts dt{font-size:14px;color:var(--sub)}
+  .facts dd{font-size:16px}
+
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .tags span{font-family:var(--mono);font-size:14px;color:var(--sub);border:1px solid var(--line);border-radius:6px;padding:2px 10px}
+
+  .shot{margin-top:32px}
+  .shot a{display:block;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel)}
+  .shot img{display:block;width:100%;height:auto}
+  .shot.tall img{max-height:480px;object-fit:cover;object-position:top}
+  .shot figcaption{margin-top:8px;font-size:14px;color:var(--sub)}
+  .shot figcaption a{display:inline;border:0;background:none;color:var(--sub);text-decoration:underline;text-underline-offset:3px}
+  .shot figcaption a:hover{color:var(--lime)}
+
+  details{margin-top:16px}
+  summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;min-height:44px;padding-top:12px;
+          font-size:15px;color:var(--sub);transition:color .15s}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"+";font-family:var(--mono);width:16px;color:var(--sub)}
+  details[open] summary::before{content:"−"}
+  summary:hover{color:var(--fg)}
+  .more{padding:8px 0 4px}
+  .more h4{font-size:15px;font-weight:600;color:var(--fg);margin-top:20px}
+  .more h4:first-child{margin-top:4px}
+  .more ul{list-style:none;margin-top:8px}
+  .more li{position:relative;padding-left:16px;margin-top:8px}
+  .more li::before{content:"";position:absolute;left:0;top:.8em;width:6px;height:1px;background:var(--sub)}
+  .more .facts{margin-top:8px}
+  .more .shot{margin-top:24px}
+
+  /* 도식 */
+  .steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);margin-top:24px;border:1px solid var(--line);
+         border-radius:6px;overflow:hidden}
+  .steps li{padding:16px;background:var(--panel)}
+  .steps li + li{border-left:1px solid var(--line)}
+  .steps .n{font-family:var(--mono);font-size:14px;color:var(--sub)}
+  .steps b{display:block;font-size:15px;margin-top:4px}
+  .steps small{display:block;font-size:14px;color:var(--sub);line-height:1.6;margin-top:2px}
+  .cap{margin-top:8px;font-size:14px;color:var(--sub)}
+
+  table{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px}
+  th,td{text-align:left;padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:14px;font-weight:400;color:var(--sub)}
+  td.y{color:var(--fg)} td.n{color:var(--sub)}
+  table{table-layout:fixed}
+  col.r{width:40%} col.p{width:30%}
+  tbody th{font-size:15px;color:var(--fg);font-weight:600}
+  tbody th small{display:block;font-size:14px;color:var(--sub);font-weight:400}
+  tr.note td{padding-top:0;font-size:14px;color:var(--sub)}
+  tr.role th,tr.role td{border-bottom:0;padding-bottom:6px}
+
+  .roles{list-style:none;margin-top:24px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .roles li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:14px 16px;background:var(--panel)}
+  .roles li + li{border-top:1px solid var(--line)}
+  .roles span{font-size:14px;color:var(--sub);padding-top:1px}
+
+  /* 바닥 */
+  footer{margin-top:72px;padding:32px 0 48px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 24px;
+         font-size:15px;color:var(--sub)}
+  footer a{text-decoration:none;transition:color .15s}
+  footer a:hover{color:var(--lime)}
+  footer .c{margin-left:auto;font-family:var(--mono);font-size:14px}
+
+
+  /* 색: 라벨 종류별(결론 테라코타 · 확인 초록 · 담당/상황 남색 · 적용 범위 황토) */
+  :root{--green:#3f6b4f; --blue:#3f5c78; --amber:#93641c; --tint:#ece4d4}
+  .meta{color:var(--lime)}
+  .figure b{color:var(--lime)}
+  .facts{background:var(--tint);border:0;border-radius:8px;padding:4px 20px}
+  .facts dt ~ dt,.facts dt ~ dt + dd{border-top:1px dashed #d8ccb6}
+  .facts dt{font-weight:600;position:relative;padding-left:14px}
+  .facts dt::before{content:"";position:absolute;left:0;top:19px;width:6px;height:6px;border-radius:50%;background:currentColor}
+  .facts dt.k-key{color:var(--lime)} .facts dt.k-ok{color:var(--green)} .facts dt.k-own{color:var(--blue)} .facts dt.k-scope{color:var(--amber)}
+  .more .facts{background:transparent;padding:0}
+  .tags span{background:#e9e1d1;border-color:transparent;color:var(--body)}
+  summary{color:var(--lime);font-weight:500}
+  summary::before{color:var(--lime)}
+  .steps li{background:var(--tint)}
+  .steps .n{color:var(--lime)}
+  .roles li{background:var(--tint)}
+  .roles span{color:var(--blue);font-weight:600}
+  td.y{color:var(--green);font-weight:600}
+  .group h2{border-top-color:var(--lime)}
+  .head + .group > .item:first-child{border-top-color:var(--lime)}
+
+  @media (max-width:640px){
+    .wrap{padding:0 20px}
+    .nav{padding:24px 0;gap:8px 18px}
+    .nav .home{flex-basis:100%}
+    .head{padding:48px 0 32px}
+    h1{font-size:28px;line-height:38px}
+    .group{margin-top:56px}
+    .group h2{font-size:22px;line-height:32px}
+    .item{padding:40px 0}
+    .item h3{font-size:20px;line-height:30px}
+    .facts,.more .facts{grid-template-columns:1fr;gap:0}
+    .facts dd{padding-top:0;padding-left:0}
+    .facts dt ~ dt + dd{border-top:0}
+    .steps{grid-template-columns:1fr}
+    .steps li + li{border-left:0;border-top:1px solid var(--line)}
+    .roles li{grid-template-columns:1fr;gap:2px}
+    th,td{padding:10px 6px}
+    footer .c{margin-left:0;flex-basis:100%}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav" aria-label="페이지"><a class="home" href="index.html">← 윤정한 · 홈</a><a href="projects.html" class="on" aria-current="page">프로젝트</a><a href="engineering.html">문제 해결 사례</a><a href="ai_ability.html">AI 운영</a></nav>
+  <header class="head read">
+    <div class="eyebrow">PROJECTS</div>
+    <h1>검색·데이터 프로젝트</h1>
+    <p>문서 검색과 데이터 플랫폼을 개발하며 맡은 작업입니다. 구현한 기능과 설계 중인 부분을 구분하고, 모델 실험에서 확인한 결과도 함께 적었습니다.</p>
+    <nav class="jump" aria-label="항목"><a href="#p-media">미디어 AI Hybrid RAG</a><a href="#p-data">EDPP 데이터 설계</a><a href="#p-twin">설비 상태 트윈</a><a href="#p-jiguda">지구다</a><a href="#teamwork">협업</a></nav>
+  </header>
+  <section class="group">
+    <article class="item" id="p-media">
+      <div class="meta">운영 · 2026 상반기</div>
+      <h3>미디어 AI Hybrid RAG</h3>
+      <p class="lede">언론·미디어 기관의 문서와 표를 검색해 답변에 근거를 붙이는 RAG 서비스입니다.</p>
+      <dl class="facts"><dt class="k-own">담당</dt><dd>검색 경로 설계, 재처리 파이프라인, 검증 기준과 변경 범위 판단. 구현과 반복 실험에는 AI를 썼습니다.</dd><dt class="k-key">핵심 판단</dt><dd>근거가 부족하면 자료를 다시 요청하거나 질의를 다시 쓰는 <b>품질 판단 루프</b>를 두고, 최종 응답은 별도 판정으로 걸렀습니다.</dd><dt class="k-scope">적용 범위</dt><dd>고객사의 운영 시스템에서 팀과 함께 진행한 작업입니다. 검색 고도화의 속도 개선치는 측정 로그가 남아 있지 않습니다.</dd></dl>
+      <div class="tags"><span>Graph RAG</span><span>OpenSearch</span><span>Neo4j</span></div>
+      <figure class="shot"><a href="images/proj-media.png" target="_blank" rel="noopener"><img src="images/proj-media.png" alt="미디어 AI 서비스 화면 — 간행물 메타 검색 UI" loading="lazy"></a><figcaption>서비스 화면 · 메타 검색 · <a href="images/proj-media.png" target="_blank" rel="noopener">원본 크게 보기</a></figcaption></figure>
+      <details><summary>제안과 설계 과정</summary><div class="more"><h4>검색 흐름을 바꾸자는 제안</h4><p>답변 품질 개선을 맡았을 때, 기존에는 프롬프트나 검색 점수를 조정하는 쪽으로 접근한다고 들었습니다. 저는 작은 언어모델이 질문에 맞는 처리 경로를 고르게 해보고 싶었습니다. 실행 체계와 프로토타입을 만들어 팀장님께 보여드렸고, 기존 범위를 넘어 처리 흐름을 바꾸는 고도화를 시도할 수 있었습니다.</p><h4>핵심 설계</h4><ul><li>질의를 분석해 의도와 표 데이터 여부로 <b>검색 경로를 나눴습니다.</b> 지난 대화의 맥락도 함께 반영합니다.</li><li>그래프 검색(전체 주제 → 관련 개체 주변 탐색)과 문서 검색(재랭킹·임계값)을 병행했습니다.</li><li>한국어 임베딩 모델을 비교해 인덱스를 설계했습니다.</li></ul><h4>내 몫 · 운영에서 배운 것</h4><ul><li>문서 수가 늘면서 발생한 재처리 오류와 스키마 검증 작업은 사례집에 따로 적었습니다.</li><li>같은 데이터를 다시 처리했을 때 중복이 쌓이는지도 확인했습니다.</li></ul><figure class="shot"><a href="images/proj-media-arch.png" target="_blank" rel="noopener"><img src="images/proj-media-arch.png" alt="미디어 AI 시스템 아키텍처 그래프" loading="lazy"></a><figcaption>시스템 아키텍처 · <a href="images/proj-media-arch.png" target="_blank" rel="noopener">원본 크게 보기</a></figcaption></figure><figure class="shot"><a href="images/proj-media-process.png" target="_blank" rel="noopener"><img src="images/proj-media-process.png" alt="미디어 AI 파이프라인 설계 — 질의 분석 · 경로 분기 · Graph/Normal RAG · 품질 판단 루프" loading="lazy"></a><figcaption>설계 파이프라인 · <a href="images/proj-media-process.png" target="_blank" rel="noopener">원본 크게 보기</a></figcaption></figure><p class="cap">운영에서 틀린 지점은 → <a href="engineering.html#case-schema">스키마 계약</a> · <a href="engineering.html#case-reprocess">재처리</a> 사례에서.</p></div></details>
+    </article>
+    <article class="item" id="p-data">
+      <div class="meta">구조 · 2026 하반기</div>
+      <h3>EDPP 데이터 설계</h3>
+      <p class="lede">문서 파싱·변환·저장·검색을 모듈로 조합하는 사내 플랫폼입니다. 공용 모듈을 개발하고, 데이터 변경과 처리 규칙 변경을 구분할 수 있도록 식별자와 카탈로그를 설계했습니다.</p>
+      <dl class="facts"><dt class="k-ok">구현</dt><dd>GraphRAG 증분 인덱싱, 플랫폼 공용 모듈과 프론트 연동 API, 스트리밍 PoC.</dd><dt class="k-key">설계 제안</dt><dd>논리 ID·내용 해시·표현 키를 분리하고, 관계와 변경 이력을 원장에 보존하는 구조를 제안했습니다.</dd><dt class="k-scope">적용 범위</dt><dd>"설계한 것"은 설계 제안과 로컬 프로토타입 단계로 실환경 연동 전입니다. 변환 로직이 바뀌면 함수 버전도 달라져 전체 재처리가 필요합니다.</dd></dl>
+      <div class="tags"><span>UUIDv5 · 결정적 식별자</span><span>SQL · PostgreSQL</span><span>Kubernetes</span></div>
+      <figure class="shot"><a href="images/proj-edpp.png" target="_blank" rel="noopener"><img src="images/proj-edpp.png" alt="EDPP 플랫폼 — 데이터 자산·파이프라인 운영 대시보드" loading="lazy"></a><figcaption>EDPP 플랫폼 대시보드 · <a href="images/proj-edpp.png" target="_blank" rel="noopener">원본 크게 보기</a></figcaption></figure>
+      <details><summary>설계와 검증 과정</summary><div class="more"><h4>구현한 것</h4><ul><li><b>GraphRAG 증분 인덱싱</b> — 제목을 정규화해 기존 개체의 ID를 승계하고 새 것만 발급했습니다. 정규화 규칙의 버전이 바뀔 때만 전체 재정합을 강제합니다. ID 재발급 없이 증분 갱신을 테스트로 확인했습니다.</li><li><b>플랫폼 파트</b> — 모듈 간 스키마와 데이터 라벨링 정리, 조건 분기·저장·검색 공용 모듈, 프론트 연동 API. 쿠버네티스 기반 MSA 위에서 Spark·Hadoop을 씁니다.</li><li><b>스트리밍 PoC</b> — 입력 스키마를 명시하게 하고 변환·저장 단계 검증과 오류 이벤트로 불일치를 드러냈습니다.</li></ul><h4>설계한 것</h4><ul><li>운영 재처리에서 덮어쓰기, 부모 필드명 변동, 재실행마다 늘어나는 인덱스가 반복됐습니다. 원인은 한 값에 <b>정체성·실행 실체·표현</b>을 다 시킨 것이었습니다.</li><li>정체성을 세 층(논리 id · 내용 해시 · 표현 키)으로 나누고, 관계는 컬럼이 아니라 원장에, 식별자는 <b>버전 있는 함수</b>로, 덮어쓰기라는 연산은 없앴습니다.</li><li>모듈마다 다르게 쓰이던 필드의 정의를 카탈로그 파일에 모으고, CI에서 선언을 검사하도록 설계했습니다. 실행 중에는 불일치 여부를 관찰하도록 역할을 나눴습니다.</li><li>설계를 네 관점의 독립 검토에 맡겨 <b>36개 지적을 받고 여덟 개 원인으로 분류</b>했습니다. 자체 테스트 전부 통과는 설계가 맞다는 증거가 아니었습니다.</li></ul><p class="cap">이 설계가 답하려던 운영 문제는 → <a href="engineering.html#case-reprocess">재처리 사례</a>에서.</p></div></details>
+    </article>
+    <article class="item" id="p-twin">
+      <div class="meta">검증 · 2026.09</div>
+      <h3>설비 상태 트윈</h3>
+      <p class="lede">공개 유압 시험대 데이터로 부품 상태를 판별하고, 센서 오류가 의심되면 판단을 보류하도록 만든 모델입니다.</p>
+      <dl class="facts"><dt class="k-key">핵심 판단</dt><dd>여러 온도 센서에 같은 편향을 넣었을 때 평가한 모델이 오판했습니다. 상태별 센서 간 차이의 분포를 학습해 <b>분포를 벗어난 입력은 판단을 보류</b>하도록 바꿨습니다.</dd><dt class="k-ok">결과</dt><dd>센서 오류 조건의 판단 기회 7만 3천여 회에서 <b>오판 0, 판단 발행률 83.8%</b>였습니다. 보류를 정답으로 세지 않고 미검출로 계산했습니다.</dd><dt class="k-scope">적용 범위</dt><dd>공개 데이터 1개 시험대입니다. 부품 상태 구분이며 잔여 수명 예측이 아니고, 판단 기회 수는 독립 사례 수가 아닙니다. 요구사항·데이터 계약·평가 기준은 제가 정했고 구현과 실험 실행에는 AI를 썼습니다.</dd></dl>
+      <div class="tags"><span>Python</span><span>RandomForest</span><span>StratifiedGroupKFold</span></div>
+      <figure class="shot tall"><a href="images/proj-twin.png" target="_blank" rel="noopener"><img src="images/proj-twin.png" alt="설비 상태 트윈 대시보드 — 센서 14채널, 시나리오 선택, 부품 상태 판별과 보류 표시" loading="lazy"></a><figcaption>상태 판별 대시보드 · 공개 유압 시험대 데이터 · <a href="images/proj-twin.png" target="_blank" rel="noopener">원본 크게 보기</a></figcaption></figure>
+      <details><summary>설계와 검증 과정</summary><div class="more"><h4>무엇을 확인했나</h4><ul><li>원본 데이터에서 잘 구분하던 상태를 <b>센서 하나에 편향을 넣자</b> 잘못 판별했습니다.</li></ul><h4>검증을 어떻게 설계했나</h4><ul><li>가설을 코드 실행 전에 파일로 고정했습니다.</li><li>기각한 후보를 삭제하지 않고 <b>코드째 보존</b>했습니다. 공통 편향에서 발행한 판단이 전부 틀렸던 후보입니다.</li><li>같은 입력이면 같은 산출물이 나오도록 코드·모델·설정을 해시로 고정하고, 단위 테스트와 실제 브라우저 검사를 함께 돌렸습니다.</li></ul><p class="cap">같은 태도로 지표를 의심한 사례는 → <a href="engineering.html#case-metric">재현율 1위가 최악의 표였다</a>.</p></div></details>
+    </article>
+    <article class="item" id="p-jiguda">
+      <div class="meta">연구 · 2025</div>
+      <h3>지구다</h3>
+      <p class="lede">경제 유튜브 대본에서 "금리가 떨어졌다" 같은 구문을 추출해 지식그래프로 연결한 팀 프로젝트입니다.</p>
+      <dl class="facts"><dt class="k-own">내 몫</dt><dd>스크립트 전처리, 구문 분리 모델 선정·학습, 노드 동일성 비교 실험, attention 실험</dd><dt class="k-own">팀</dt><dd>컨셉맵·이벤트 토픽 모델, 관계 추출과 링크 예측(R-VGAE 디코더 교체), Neo4j 적재, 웹·크롬 확장</dd><dt class="k-scope">적용 범위</dt><dd>교육 과정의 팀 프로젝트입니다. 링크 예측 점수는 발표자료에서 재점검 대상으로 남아 있어 제외했습니다.</dd></dl>
+      <div class="tags"><span>KF-DeBERTa</span><span>R-VGAE</span><span>Neo4j</span></div>
+      
+      <figure class="shot"><a href="images/proj-jiguda.png" target="_blank" rel="noopener"><img src="images/proj-jiguda.png" alt="지구다 시스템 아키텍처 — 스크립트 전처리 · 구문 분리 · 관계 탐지 · Neo4j 지식그래프 적재, 하단 서비스 화면" loading="lazy"></a><figcaption>시스템 아키텍처 · 서비스 화면 · <a href="images/proj-jiguda.png" target="_blank" rel="noopener">원본 크게 보기</a></figcaption></figure>
+      <details><summary>설계와 검증 과정</summary><div class="more"><h4>판단과 시행착오</h4><ul><li>금리와 환율의 관계를 한 문장으로 정의할 수 없었습니다. 키워드 노드로는 경제 <b>현상</b>이 담기지 않아, 명사와 동사가 붙은 구문을 노드로 삼았습니다.</li><li>구문 경계를 자를 모델이 필요했습니다. 여러 한국어 모델을 직접 시도한 끝에 경제 서브토큰을 가진 모델을 골라 <b>일부 레이어와 토큰 분류기</b>를 학습했습니다.</li><li>토큰 간 attention을 2차원으로 보고 CNN으로 구문 분리와 관계 추출을 한 번에 하려 했습니다. 성능이 기준에 못 미쳐 <b>구절 끝 태깅</b>으로 확정했습니다.</li><li>표현이 다른 구문이 같은 현상인지 판별해야 했습니다. CLS 단독, 인코더 교체, 동의어 사전, 압축 네 가지를 같은 데이터로 비교해 <b>CLS와 토큰 가중 평균을 결합·투영</b>하는 방식으로 결론냈습니다.</li></ul><h4>내 몫 · 팀</h4><ul><li>4인 팀 · 한국경제신문 SW 지능정보 아카데미 6기</li></ul></div></details>
+    </article>
+    <article class="item" id="teamwork">
+      <div class="meta">회사 협업</div>
+      <h3>역할 조율과 설계 회의</h3>
+      <p class="lede">함께 일하며 동료마다 잘하는 일이 다르다는 것을 알게 되었습니다. 사람들 사이의 소통을 돕는 분, 한 분야를 깊게 아는 분, 눈앞의 일을 빠르게 해결하는 분이 있었습니다. 몇 달간 지켜본 강점을 팀장님께 말씀드리고, 각자 어떤 역할을 맡으면 좋을지 제안했습니다.</p>
+      <div class="read" style="margin-top:16px"><p>사내 AI 플랫폼 설계에서는 같은 용어를 서로 다르게 이해하는 일이 있었습니다. 온톨로지 같은 개념을 각자 일해 온 분야의 뜻으로 받아들여, 같은 설계안을 보고도 다른 구현을 생각하곤 했습니다.</p><p style="margin-top:12px">세미나와 공유 문서로 개념을 정리하면서, 회의 전에는 이해되지 않는 지점을 질문으로 준비해 오자고 제안했습니다. 감사하게도 많은 분이 함께해 주셨고, 회의에서는 그 질문을 하나씩 풀어가며 의견을 모았습니다. 설계 의도가 잘 보인다는 평가도 받았습니다.</p></div>
+    </article>
+  </section>
+  <footer><a href="engineering.html">문제 해결 사례</a><a href="ai_ability.html">AI 운영</a><a href="mailto:cubejh04@gmail.com">cubejh04@gmail.com</a><a href="https://github.com/auspiland">github.com/auspiland</a><span class="c">© 2026 auspiland</span></footer>
+</div>
+</body>
+</html>

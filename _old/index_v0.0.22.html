@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!--
+  ============================================================
+  auspiland — Portfolio Home (index.html)
+  ------------------------------------------------------------
+  두 단 레이아웃: 왼쪽 고정(이름·한 줄 소개·목차·연락) /
+  오른쪽 About · Strengths(주장+드러난 프로젝트) · Experience(한 일·스택) · Profile.
+  가는 선으로 나눈 줄 목록. 베이지+테라코타(변수명은 --lime 유지, 강조는 목차·화살표에만). CSS·JS 인라인.
+  같은 구성의 흑백판: https://auspiland.com/portfolio/ (원본은 저장소 밖)
+  ============================================================
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>윤정한 · Portfolio</title>
+<meta name="description" content="문서 검색 서비스의 파싱과 재처리를 맡아 왔습니다. 처리 결과를 원문과 대조하고 중복과 누락의 원인을 찾아 고칩니다.">
+<meta property="og:title" content="윤정한 · Portfolio">
+<meta property="og:description" content="문서 검색 서비스의 파싱과 재처리를 맡아 왔습니다. 처리 결과를 원문과 대조하고 중복과 누락의 원인을 찾아 고칩니다.">
+<meta property="og:image" content="https://auspiland.github.io/Portfolio/images/og-home.png">
+<meta property="og:url" content="https://auspiland.github.io/Portfolio/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' rx='3.5' fill='%23f3efe6'/%3E%3Crect x='2' y='2' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='2' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='3' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='3' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='3' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='3' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='4' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='5' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='6' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='7' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='8' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='5' y='8' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='6' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='8' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='11' y='8' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='12' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='8' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='9' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='5' y='9' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='6' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='9' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='11' y='9' width='1.02' height='1.02' fill='%23e0b04a'/%3E%3Crect x='12' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='9' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='10' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='1' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='11' width='1.02' height='1.02' fill='%23b5502a'/%3E%3Crect x='8' y='11' width='1.02' height='1.02' fill='%23b5502a'/%3E%3Crect x='9' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='14' y='11' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='2' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='13' y='12' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='3' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='12' y='13' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='4' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='5' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='6' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='7' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='8' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='9' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='10' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3Crect x='11' y='14' width='1.02' height='1.02' fill='%232a2620'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --bg:#f3efe6; --body:#3d3931; --fg:#1f1c17; --sub:#6b655a; --mute:#7d766a; --line:#cdc2ae; --hair:#e2dacb; --hover:#ebe5d8; --lime:#b5502a;
+    --sans:"Pretendard Variable",Pretendard,system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--sub);font-family:var(--sans);font-size:16px;line-height:1.7;
+       letter-spacing:-0.005em;word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--lime);color:var(--bg)}
+
+  .page{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:9fr 15fr;gap:64px}
+
+  /* ---------- left (sticky) ---------- */
+  .side{position:sticky;top:0;height:100vh;overflow-y:auto;scrollbar-width:none;padding:56px 0 40px;display:flex;flex-direction:column}
+  .eye{font-family:var(--mono);font-size:7.4px;line-height:1;letter-spacing:0;color:#4a443b;white-space:pre;user-select:none;
+       margin-bottom:24px}
+  .path{font-family:var(--mono);font-size:14px;color:var(--mute)}
+  .path a:hover{color:var(--fg)}
+  h1{font-size:46px;font-weight:700;color:var(--fg);letter-spacing:-0.035em;line-height:1.15;margin-top:10px}
+  .role{font-size:18px;font-weight:500;color:var(--fg);margin-top:8px;letter-spacing:-0.015em}
+  .intro{margin-top:16px;max-width:340px;font-size:16px}
+  .intro b{color:var(--lime);font-weight:600}
+
+  .toc{list-style:none;margin-top:36px;display:grid;gap:10px}
+  .toc a{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:14px;letter-spacing:.1em;
+         text-transform:uppercase;color:var(--mute);transition:color .2s}
+  .toc a::before{content:"";width:28px;height:1px;background:currentColor;transition:width .2s}
+  .toc a:hover,.toc a.on{color:var(--lime)}
+  .toc a:hover::before,.toc a.on::before{width:60px}
+
+  .toc.pages{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);max-width:260px}
+  .toc.pages a::before{display:none}
+  .toc.pages a{font-family:var(--sans);font-size:15px;letter-spacing:0;text-transform:none}
+  .links{margin-top:auto;padding-top:20px;display:flex;flex-wrap:wrap;gap:20px;font-family:var(--mono);font-size:14px;color:var(--mute)}
+  .links a:hover{color:var(--fg)}
+
+  /* ---------- right ---------- */
+  main{padding:88px 0 96px;max-width:640px}
+  section{scroll-margin-top:64px}
+  section+section{margin-top:72px}
+  .label{font-family:var(--mono);font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);
+         display:flex;align-items:center;gap:12px;margin-bottom:24px}
+  .label{color:var(--fg);font-weight:600;padding-top:14px;border-top:2px solid var(--fg)}
+  .label::after{display:none}
+
+  /* about meta */
+  .meta{display:grid;grid-template-columns:72px 1fr;row-gap:10px;font-size:15.5px}
+  .meta dt{font-family:var(--mono);font-size:14px;color:var(--mute);padding-top:2px}
+  .meta dd{color:var(--fg)}
+
+  /* list rows (strengths, experience) */
+  .list{list-style:none}
+  .row{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:22px 20px;margin:0 -20px;border-radius:8px;
+       transition:background .2s,opacity .2s}
+  .list > li + li{border-top:1px solid var(--line)}
+  @media (hover:hover){ .list .row:hover{background:var(--hover)} }
+  .when{font-family:var(--mono);font-size:14px;color:var(--mute);padding-top:3px;line-height:1.6}
+  .when b{display:block;font-weight:400;color:var(--sub)}
+  .row h3{font-size:18px;font-weight:600;color:var(--fg);letter-spacing:-0.02em;line-height:1.45}
+  .row h3 .arr{display:inline-block;margin-left:6px;font-weight:400;color:var(--mute);transition:transform .2s,color .2s}
+  .row:hover h3 .arr{transform:translateX(4px);color:var(--lime)}
+  .row p{margin-top:4px;font-size:15.5px;line-height:1.65}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .tags span{font-family:var(--mono);font-size:14px;color:var(--body);background:var(--hover);border-radius:4px;padding:3px 9px}
+  .proof{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:15px}
+  .proof a{color:var(--fg);border-bottom:1px solid #cbbfab;transition:border-color .2s}
+  .proof a:hover{border-color:var(--fg)}
+  .proof a::after{content:" →";color:var(--mute)}
+  .after{margin-top:22px;font-size:15px}
+  .intro,.row p,.after{color:var(--body)}
+  .after a{color:var(--fg);border-bottom:1px solid #cbbfab}
+  .after a:hover{border-color:var(--fg)}
+
+  /* profile */
+  .tl{list-style:none}
+  .tl li{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:12px 0;font-size:15.5px;color:var(--fg)}
+  .tl li+li{border-top:1px solid var(--line)}
+  .tl span{font-family:var(--mono);font-size:14px;color:var(--mute);padding-top:3px}
+
+  footer{margin-top:120px;font-family:var(--mono);font-size:14px;color:var(--mute)}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1024px){
+    .page{grid-template-columns:1fr;gap:0;padding:0 24px;max-width:720px}
+    .side{position:static;height:auto;padding:72px 0 0}
+    .toc{display:none}
+    .toc.pages{display:grid;max-width:none;margin-top:28px}
+    .links{margin-top:28px}
+    main{padding:72px 0 80px;max-width:none}
+    section+section{margin-top:56px}
+  }
+  @media (max-width:640px){
+    .side{padding-top:40px}
+    .eye{margin-bottom:24px}
+    main{padding-top:40px}
+    .toc.pages{display:flex;flex-wrap:wrap;gap:8px 16px}
+    .toc.pages .note{flex-basis:100%}
+    .toc.pages a,.links a{min-height:44px;display:inline-flex;align-items:center}
+    .row,.tl li{grid-template-columns:1fr;gap:6px}
+  }
+  @media (max-width:560px){
+    .page{padding:0 18px}
+    h1{font-size:38px}
+    .row,.tl li{grid-template-columns:1fr;gap:6px}
+    .row{padding:20px 0;margin:0;border-radius:0}
+    .eye{font-size:6.8px}
+    .when b{display:inline;margin-right:8px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <aside class="side">
+<pre class="eye" role="img" aria-label="ASCII 고양이">                                  .=
+                          .*-  .--#-
+                          +##%%%*##
+                         .*#%####*#:
+          :----:::.:.-+######%#%###=
+       =*%##########*##%%*#####*###:
+     =#%####%#####%#####%#%##%###%#:
+   :##%###*#%#%#%#*######*#%#%+..:
+  :*#####%%#%##%#*%#%##%##%##+
+ -##*#%##########%####%#%#%%#*
+ #%##%%%%%###%#%*#%######%%###-
+.#*########%###%#%##%#%####%%#*::.
+=%#-=#####%#%%*.   -#%###**######%#*+-
+=##  -#######=  :    -+%##= .-:-::-*#%*:
++%* -%##*-:=+-*#+:     :*###.       :**-
+ +##*+####*+*#+.         .*#%-
+  .-**######+             .#%*
+          +*-               .</pre>
+    <p class="path"><a href="https://github.com/auspiland">~/auspiland</a> / portfolio</p>
+    <h1>윤정한</h1>
+    <p class="role">Data &amp; AI Engineer</p>
+    <p class="intro">문서 검색 서비스의 파싱과 재처리를 맡아 왔습니다. 강점은 <b>도전적인 실행력</b>입니다.</p>
+
+    <ul class="toc">
+      <li><a href="#about">About</a></li>
+      <li><a href="#strengths">Strengths</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#side">Side</a></li>
+      <li><a href="#profile">Profile</a></li>
+    </ul>
+    <ul class="toc pages">
+      <li><a href="projects.html">프로젝트 →</a></li>
+      <li><a href="engineering.html">문제 해결 사례 →</a></li>
+      <li><a href="ai_ability.html">AI 운영 →</a></li>
+    </ul>
+
+    <nav class="links">
+      <a href="mailto:cubejh04@gmail.com">[EMAIL]</a>
+      <a href="https://github.com/auspiland">[GITHUB]</a>
+      <a href="https://auspiland.com/portfolio/">[auspiland.com ↗]</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section id="about">
+      <h2 class="label">About</h2>
+      <dl class="meta">
+        <dt>NOW</dt><dd>T3Q 데이터서비스팀</dd>
+        <dt>EDU</dt><dd>고려대학교 물리학과</dd>
+        <dt>MAIN</dt><dd>Python · SQL · RAG · OpenSearch</dd>
+        <dt>ALSO</dt><dd>Spark · Kafka · Kubernetes · HDFS</dd>
+      </dl>
+    </section>
+
+    <section id="strengths">
+      <h2 class="label">Strengths</h2>
+      <ul class="list">
+        <li><div class="row">
+          <div class="when">01</div>
+          <div>
+            <h3>도전적 실행력</h3>
+            <p>검색 흐름을 바꾼 프로토타입을 만들어 팀 검토를 받았습니다.</p>
+            <div class="proof"><a href="projects.html#p-media">미디어 AI Hybrid RAG</a><a href="engineering.html#case-adapter">구형 GPU 어댑터</a></div>
+          </div>
+        </div></li>
+        <li><div class="row">
+          <div class="when">02</div>
+          <div>
+            <h3>추진력</h3>
+            <p>서비스 상태를 관찰하고, 놓친 오류를 감지하는 규칙을 추가했습니다.</p>
+            <div class="proof"><a href="ai_ability.html#monitor">운영 모니터링 에이전트</a><a href="ai_ability.html#openclaw">OpenClaw</a></div>
+          </div>
+        </div></li>
+        <li><div class="row">
+          <div class="when">03</div>
+          <div>
+            <h3>정의부터 맞추는 소통</h3>
+            <p>고객이 원하는 검색 단위에 맞춰 결과 집계를 조정했습니다.</p>
+            <div class="proof"><a href="engineering.html#case-plans">업무계획서 지식화</a><a href="projects.html#p-media">RAG 개선 제안</a></div>
+          </div>
+        </div></li>
+      </ul>
+    </section>
+
+    <section id="experience">
+      <h2 class="label">Experience</h2>
+      <ul class="list">
+        <li><a class="row" href="engineering.html#case-plans">
+          <div class="when"><b>운영</b>2026</div>
+          <div><h3>공공기관 업무계획서 지식화<span class="arr">→</span></h3>
+            <p>스캔본이 섞인 PDF를 OCR부터 검색 색인까지 잇고 기존 포털에 붙였습니다.</p>
+            <div class="tags"><span>OCR</span><span>OpenSearch</span><span>HDFS</span><span>LLM-as-Judge</span></div></div>
+        </a></li>
+        <li><a class="row" href="projects.html#p-media">
+          <div class="when"><b>운영</b>2026 상반기</div>
+          <div><h3>미디어 AI Hybrid RAG<span class="arr">→</span></h3>
+            <p>검색 경로 설계와 재처리 파이프라인을 맡았습니다.</p>
+            <div class="tags"><span>Graph RAG</span><span>OpenSearch</span><span>Neo4j</span><span>Reranking</span></div></div>
+        </a></li>
+        <li><a class="row" href="engineering.html#case-join">
+          <div class="when"><b>개발 서버</b>2026</div>
+          <div><h3>연구 성과 인덱스 보강<span class="arr">→</span></h3>
+            <p>이름 대신 순번 키로 조인해 참여자 사번을 보완하고, 남은 누락의 복구 조건을 정리했습니다.</p>
+            <div class="tags"><span>SQL</span><span>PostgreSQL</span><span>OpenSearch</span></div></div>
+        </a></li>
+        <li><a class="row" href="engineering.html#case-metric">
+          <div class="when"><b>검증</b>2026 하반기</div>
+          <div><h3>문서 변환 품질 평가<span class="arr">→</span></h3>
+            <p>점수 1위 후보의 평가 구간 오류를 찾아 변환 방식을 다시 골랐습니다.</p>
+            <div class="tags"><span>Document Parsing</span><span>통제 실험</span><span>DocIR</span></div></div>
+        </a></li>
+        <li><a class="row" href="projects.html#p-data">
+          <div class="when"><b>설계</b>2026 하반기</div>
+          <div><h3>EDPP 데이터 설계<span class="arr">→</span></h3>
+            <p>다시 돌려도 같은 ID가 나오는 식별자와 카탈로그를 설계해 제안했습니다.</p>
+            <div class="tags"><span>Spark</span><span>Kafka</span><span>Kubernetes</span><span>Delta Lake</span></div></div>
+        </a></li>
+        <li><a class="row" href="projects.html#p-twin">
+          <div class="when"><b>검증</b>2026.09</div>
+          <div><h3>설비 상태 트윈<span class="arr">→</span></h3>
+            <p>센서가 함께 틀리면 판단을 보류하는 상태 판별 모델을 만들었습니다.</p>
+            <div class="tags"><span>Python</span><span>RandomForest</span><span>JSON Schema</span></div></div>
+        </a></li>
+        <li><a class="row" href="projects.html#p-jiguda">
+          <div class="when"><b>4인 팀</b>2025</div>
+          <div><h3>지구다<span class="arr">→</span></h3>
+            <p>경제 지식그래프에서 구문 분리 모델을 학습하고 같은 뜻 판별을 실험했습니다.</p>
+            <div class="tags"><span>KF-DeBERTa</span><span>PyTorch</span><span>Neo4j</span></div></div>
+        </a></li>
+      </ul>
+      <p class="after">문서 검색을 만들고 처리 오류를 고친 과정은 <a href="engineering.html">문제 해결 사례 →</a>에 모았습니다.</p>
+    </section>
+
+    <section id="side">
+      <h2 class="label">Side</h2>
+      <ul class="list">
+        <li><a class="row" href="ai_ability.html#openclaw">
+          <div class="when"><b>개인 운영</b>2026</div>
+          <div><h3>OpenClaw<span class="arr">→</span></h3>
+            <p>웹과 실행 권한을 나눈 멀티 에이전트를 집 서버에서 운영합니다.</p>
+            <div class="tags"><span>Multi-Agent</span><span>Rootless Docker</span><span>Claude API</span></div></div>
+        </a></li>
+        <li><a class="row" href="ai_ability.html#trading">
+          <div class="when"><b>개인 운영</b>2026</div>
+          <div><h3>모의투자 감독<span class="arr">→</span></h3>
+            <p>모의투자 주문은 코드로 실행하고, LLM이 전략 설정을 검토합니다.</p>
+            <div class="tags"><span>Python</span><span>systemd</span><span>LLM</span></div></div>
+        </a></li>
+      </ul>
+    </section>
+
+    <section id="profile">
+      <h2 class="label">Profile</h2>
+      <ul class="tl">
+        <li><span>2025.07 –</span>T3Q 데이터서비스팀 정규직</li>
+        <li><span>2025.09</span>OPIc IM</li>
+        <li><span>2025.08</span>고려대학교 물리학과 졸업</li>
+        <li><span>2025.02 – 06</span>한국경제신문 SW 지능정보 아카데미 6기 수료</li>
+        <li><span>2024.09 – 12</span>고려대학교 초전도 양자 컴퓨터 연구실 연구생</li>
+      </ul>
+    </section>
+
+    <footer>© 2026 auspiland</footer>
+  </main>
+</div>
+
+<script>
+  // 왼쪽 목차: 지금 보고 있는 절 표시
+  const links = [...document.querySelectorAll('.toc a')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('main section').forEach((s) => io.observe(s));
+</script>
+</body>
+</html>

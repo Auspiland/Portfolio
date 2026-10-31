@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!--
+  auspiland — Casebook (engineering.html)
+  홈(index.html)과 같은 디자인 체계: 베이지 배경, 산세리프 본문, 1px 선, 강조색 테라코타 하나(변수명은 --lime 유지).
+  긴 경위는 <details>로 접는다. 문구는 이 파일에서 직접 고친다.
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>문제를 확인하고 고친 사례 · 윤정한</title>
+<meta name="description" content="공공기관 문서 검색과 사내 플랫폼에서 겪은 문제를 정리했습니다. 어떤 자료를 확인했고, 무엇을 바꿨는지 설명합니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="문제를 확인하고 고친 사례 · 윤정한">
+<meta property="og:description" content="공공기관 문서 검색과 사내 플랫폼에서 겪은 문제를 정리했습니다. 어떤 자료를 확인했고, 무엇을 바꿨는지 설명합니다.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1 -1 18 18' shape-rendering='crispEdges'%3E%3Crect x='-1' y='-1' width='18' height='18' rx='3.6' fill='%23f3efe6'/%3E%3Crect x='4' y='0' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='5' y='0' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='6' y='0' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='7' y='0' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='8' y='0' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='9' y='0' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='10' y='0' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='11' y='0' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='2' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='3' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='4' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='5' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='6' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='7' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='8' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='9' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='10' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='11' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='12' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='13' y='1' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='0' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='1' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='2' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='3' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='4' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='5' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='6' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='7' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='8' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='9' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='10' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='11' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='12' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='13' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='14' y='2' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='0' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='1' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='2' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='3' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='4' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='5' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='6' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='7' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='8' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='9' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='10' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='11' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='12' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='13' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='14' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='15' y='3' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='0' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='1' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='2' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='3' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='4' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='5' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='6' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='7' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='8' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='9' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='10' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='11' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='12' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='13' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='14' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='15' y='4' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='0' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='1' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='2' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='3' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='4' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='5' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='6' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='7' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='8' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='9' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='10' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='11' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='12' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='13' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='14' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='15' y='5' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='0' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='1' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='2' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='3' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='4' y='6' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='5' y='6' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='6' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='7' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='8' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='9' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='10' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='11' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='12' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='13' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='14' y='6' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='15' y='6' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='0' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='1' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='2' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='3' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='4' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='5' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='6' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='7' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='8' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='9' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='10' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='11' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='12' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='13' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='14' y='7' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='15' y='7' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='0' y='8' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='1' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='2' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='3' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='4' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='5' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='6' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='7' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='8' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='9' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='10' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='11' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='12' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='13' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='14' y='8' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='15' y='8' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='0' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='1' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='2' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='3' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='4' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='5' y='9' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='6' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='7' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='8' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='9' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='10' y='9' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='11' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='12' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='13' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='14' y='9' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='1' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='2' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='3' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='4' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='5' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='6' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='7' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='8' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='9' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='10' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='11' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='12' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='13' y='10' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='1' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='2' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='3' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='4' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='5' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='6' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='7' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='8' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='9' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='10' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='11' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='12' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='13' y='11' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='2' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='3' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='4' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='5' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='6' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='7' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='8' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='9' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='10' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='11' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='12' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='13' y='12' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='2' y='13' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='3' y='13' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='4' y='13' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='5' y='13' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='6' y='13' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='7' y='13' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='8' y='13' width='1.02' height='1.02' fill='%231f1c17'/%3E%3Crect x='9' y='13' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='10' y='13' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='11' y='13' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='12' y='13' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='3' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='4' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='5' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='6' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='7' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='8' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='9' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='10' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='11' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='12' y='14' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='3' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='4' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='5' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='6' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='7' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='8' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='9' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='10' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='11' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3Crect x='12' y='15' width='1.02' height='1.02' fill='%23d8b89c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --bg:#f3efe6; --panel:#ebe5d8; --fg:#1f1c17; --body:#3d3931; --sub:#6b655a; --line:#cdc2ae; --hair:#e2dacb; --lime:#b5502a;
+    --sans:"Pretendard Variable",Pretendard,system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.7;font-weight:400;
+       letter-spacing:-0.005em;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  b{color:var(--fg);font-weight:600}
+  ::selection{background:var(--lime);color:var(--bg)}
+  :focus-visible{outline:2px solid var(--lime);outline-offset:4px;border-radius:2px}
+
+  .wrap{max-width:960px;margin:0 auto;padding:0 32px}
+  .read{max-width:720px}
+
+  /* 상단 탐색 */
+  .nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;padding:32px 0;border-bottom:1px solid var(--line);
+       font-size:15px}
+  .nav a{text-decoration:none;color:var(--sub);transition:color .15s}
+  .nav a:hover{color:var(--fg)}
+  .nav a.on{color:var(--lime)}
+  .nav .home{margin-right:auto;font-family:var(--mono);font-size:14px}
+
+  /* 페이지 머리 */
+  .head{padding:72px 0 48px}
+  .eyebrow{font-family:var(--mono);font-size:14px;color:var(--sub)}
+  h1{font-size:36px;line-height:46px;font-weight:600;color:var(--fg);letter-spacing:-0.03em;margin-top:8px}
+  .head p{margin-top:16px;font-size:17px;line-height:1.75}
+  .jump{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:32px;font-size:15px}
+  .jump a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--line);transition:color .15s,border-color .15s}
+  .jump a:hover{color:var(--lime);border-color:var(--lime)}
+
+  /* 묶음 */
+  .group{margin-top:72px}
+  .group h2{font-size:24px;line-height:34px;font-weight:600;color:var(--fg);letter-spacing:-0.02em;padding-top:16px;border-top:2px solid var(--fg)}
+  .group > p{margin-top:8px;color:var(--sub);font-size:15px}
+  .group h2,.group > p{max-width:720px}
+  .head + .group{margin-top:0}
+  .head + .group > .item:first-child{border-top:2px solid var(--fg)}
+
+  /* 항목 */
+  .item{max-width:720px;padding:48px 0;border-top:1px solid var(--line);scroll-margin-top:24px}
+  .group .item:first-of-type{margin-top:24px}
+  .meta{font-family:var(--mono);font-size:14px;color:var(--sub)}
+  .item h3{font-size:22px;line-height:32px;font-weight:600;color:var(--fg);letter-spacing:-0.02em;margin-top:6px}
+  .lede{margin-top:8px;font-size:17px;line-height:1.75}
+
+  .figure{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-top:24px}
+  .figure b{font-size:24px;line-height:32px;font-weight:600;color:var(--fg);font-variant-numeric:tabular-nums}
+  .figure span{font-size:14px;color:var(--sub)}
+
+  .facts{display:grid;grid-template-columns:120px 1fr;gap:0;margin-top:24px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+  .facts dt,.facts dd{padding:12px 0}
+  .facts dt{padding-top:14px;line-height:1.6}
+  .facts dd{padding-left:24px}
+  .facts dt ~ dt,.facts dt ~ dt + dd{border-top:1px dashed var(--hair)}
+  .facts dt{font-size:14px;color:var(--sub)}
+  .facts dd{font-size:16px}
+
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .tags span{font-family:var(--mono);font-size:14px;color:var(--sub);border:1px solid var(--line);border-radius:6px;padding:2px 10px}
+
+  .shot{margin-top:32px}
+  .shot a{display:block;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel)}
+  .shot img{display:block;width:100%;height:auto}
+  .shot.tall img{max-height:480px;object-fit:cover;object-position:top}
+  .shot figcaption{margin-top:8px;font-size:14px;color:var(--sub)}
+  .shot figcaption a{display:inline;border:0;background:none;color:var(--sub);text-decoration:underline;text-underline-offset:3px}
+  .shot figcaption a:hover{color:var(--lime)}
+
+  details{margin-top:16px}
+  summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;min-height:44px;padding-top:12px;
+          font-size:15px;color:var(--sub);transition:color .15s}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"+";font-family:var(--mono);width:16px;color:var(--sub)}
+  details[open] summary::before{content:"−"}
+  summary:hover{color:var(--fg)}
+  .more{padding:8px 0 4px}
+  .more h4{font-size:15px;font-weight:600;color:var(--fg);margin-top:20px}
+  .more h4:first-child{margin-top:4px}
+  .more ul{list-style:none;margin-top:8px}
+  .more li{position:relative;padding-left:16px;margin-top:8px}
+  .more li::before{content:"";position:absolute;left:0;top:.8em;width:6px;height:1px;background:var(--sub)}
+  .more .facts{margin-top:8px}
+  .more .shot{margin-top:24px}
+
+  /* 도식 */
+  .steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);margin-top:24px;border:1px solid var(--line);
+         border-radius:6px;overflow:hidden}
+  .steps li{padding:16px;background:var(--panel)}
+  .steps li + li{border-left:1px solid var(--line)}
+  .steps .n{font-family:var(--mono);font-size:14px;color:var(--sub)}
+  .steps b{display:block;font-size:15px;margin-top:4px}
+  .steps small{display:block;font-size:14px;color:var(--sub);line-height:1.6;margin-top:2px}
+  .cap{margin-top:8px;font-size:14px;color:var(--sub)}
+
+  table{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px}
+  th,td{text-align:left;padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:14px;font-weight:400;color:var(--sub)}
+  td.y{color:var(--fg)} td.n{color:var(--sub)}
+  table{table-layout:fixed}
+  col.r{width:40%} col.p{width:30%}
+  tbody th{font-size:15px;color:var(--fg);font-weight:600}
+  tbody th small{display:block;font-size:14px;color:var(--sub);font-weight:400}
+  tr.note td{padding-top:0;font-size:14px;color:var(--sub)}
+  tr.role th,tr.role td{border-bottom:0;padding-bottom:6px}
+
+  .roles{list-style:none;margin-top:24px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .roles li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:14px 16px;background:var(--panel)}
+  .roles li + li{border-top:1px solid var(--line)}
+  .roles span{font-size:14px;color:var(--sub);padding-top:1px}
+
+  /* 바닥 */
+  footer{margin-top:72px;padding:32px 0 48px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 24px;
+         font-size:15px;color:var(--sub)}
+  footer a{text-decoration:none;transition:color .15s}
+  footer a:hover{color:var(--lime)}
+  footer .c{margin-left:auto;font-family:var(--mono);font-size:14px}
+
+  @media (max-width:640px){
+    .wrap{padding:0 20px}
+    .nav{padding:24px 0;gap:8px 18px}
+    .nav .home{flex-basis:100%}
+    .head{padding:48px 0 32px}
+    h1{font-size:28px;line-height:38px}
+    .group{margin-top:56px}
+    .group h2{font-size:22px;line-height:32px}
+    .item{padding:40px 0}
+    .item h3{font-size:20px;line-height:30px}
+    .facts,.more .facts{grid-template-columns:1fr;gap:0}
+    .facts dd{padding-top:0;padding-left:0}
+    .facts dt ~ dt + dd{border-top:0}
+    .steps{grid-template-columns:1fr}
+    .steps li + li{border-left:0;border-top:1px solid var(--line)}
+    .roles li{grid-template-columns:1fr;gap:2px}
+    th,td{padding:10px 6px}
+    footer .c{margin-left:0;flex-basis:100%}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav" aria-label="페이지"><a class="home" href="index.html">← 윤정한 · 홈</a><a href="projects.html">프로젝트</a><a href="engineering.html" class="on" aria-current="page">문제 해결 사례</a><a href="ai_ability.html">AI 운영</a></nav>
+  <header class="head read">
+    <div class="eyebrow">CASEBOOK</div>
+    <h1>문제를 확인하고 고친 사례</h1>
+    <p>공공기관 문서 검색과 사내 플랫폼에서 겪은 문제를 정리했습니다. 어떤 자료를 확인했고, 무엇을 바꿨는지 설명합니다.</p>
+    <nav class="jump" aria-label="항목"><a href="#case-plans">공공기관 업무계획서 검색</a><a href="#case-join">검색 인덱스의 참여자 정보 보완</a><a href="#case-schema">스트리밍 스키마 계약</a><a href="#case-reprocess">대용량 재처리 파이프라인</a><a href="#case-metric">재현율 1위가 최악의 표였다</a><a href="#case-adapter">구형 GPU에서 문서 인식 모델 실행</a></nav>
+  </header>
+  <section class="group" id="knowledge">
+    <h2>문서 검색과 누락 데이터 보완</h2>
+    <p class="read">문서를 구조화해 색인하고, 비어 있던 값을 채워 기존 시스템에 이은 두 사례입니다.</p>
+    <article class="item read" id="case-plans">
+      <div class="meta">Document · Search</div>
+      <h3>공공기관 업무계획서 검색</h3>
+      <p class="lede">스캔본과 텍스트가 섞인 공공기관 업무계획서 PDF를 OCR부터 구조화, 검색 색인까지 잇고 기존 운영 포털에 붙였습니다.</p>
+      <div class="figure"><b>43 / 43</b><span>전체 문서 OCR · 색인 완료</span></div>
+      <dl class="facts"><dt>결론</dt><dd>구조화 검사를 통과하지 못한 문서는 <b>페이지 단위로 처리</b>했습니다. 추출한 내용은 원문과 대조해 확인했습니다.</dd><dt>확인</dt><dd>전체 문서를 전수 구조 검증을 거쳐 색인했고, 검색 집계를 담당자가 원한 문서 단위로 맞춰 새 주소 없이 <b>기존 운영 포털에 병합</b>했습니다.</dd><dt>적용 범위</dt><dd>임베딩을 더한 하이브리드 검색까지 만들어 검증했지만, 운영 반영본은 고객 결정에 따라 BM25만 남겼습니다. 원문 대조 채점은 세부계획 문서에만 적용했습니다. 스크립트 작성과 서버 실행은 AI에 맡기고, OCR 선택·검색 단위·배포 방식은 제가 정했습니다.</dd></dl>
+      <div class="tags"><span>OpenSearch · BM25</span><span>OCR</span><span>HDFS</span></div>
+      <details><summary>상황과 한 일</summary><div class="more"><dl class="facts"><dt>상황</dt><dd>서버의 기존 OCR·검색 시스템은 줄 구조와 위치를 버리고 페이지 평문만 돌려줘, 목차·과제 단위 검색에 쓸 수 없었습니다. 담당자가 원한 것은 문서 단위 검색과 원본 PDF 내려받기였습니다.</dd><dt>한 일</dt><dd>기존 OCR의 코드를 살펴보고 다른 후보를 호출해 응답을 비교한 뒤, 사용할 OCR을 골랐습니다. 큰 스캔 문서는 나눠 처리했고, 깨진 텍스트 레이어를 읽을 수 있다고 오판하던 문서는 이미지 OCR로 돌렸습니다. 목차 → 섹션 → 과제 3단계로 구조화하되, <b>순서·제목 적중·과제 수 검사</b>를 통과하지 못하면 페이지 단위로 후퇴하게 했습니다. 원문 대조 채점에서 옛 문서의 글머리 기호가 영문자로 읽혀 일정 항목이 비던 것을 찾아 인식 단계에서 고쳤습니다.</dd><dt>이후</dt><dd>내려받기가 간헐적으로 실패하자 원인이 HDFS 네임노드 HA의 대기 노드로 요청이 가는 것임을 추적해, 다른 시스템이 함께 쓰는 설정은 두고 클라이언트만 고쳤습니다. 최종 사용자 화면은 다른 팀이 담당했습니다.</dd></dl></div></details>
+    </article>
+    <article class="item read" id="case-join">
+      <div class="meta">SQL · Index</div>
+      <h3>검색 인덱스의 참여자 정보 보완</h3>
+      <p class="lede">연구 성과 검색 인덱스에서 참여자 사번이 대량으로 비어 있었습니다. 동명이인 위험이 있는 이름 매칭 대신, 문서 안의 순번 필드로 채웠습니다.</p>
+      
+      <dl class="facts"><dt>결론</dt><dd>과제·성과 번호와 참여 순번, <b>네 개 키로 조인</b>해 이름 매칭 없이 사번을 보완했습니다.</dd><dt>확인</dt><dd>병합 실행은 별도 감시 에이전트로 진행과 오류를 지켜보며 <b>실패 없이</b> 끝냈습니다. 남은 누락은 원인별로 나누고, 운영 DB를 확보했을 때 쓸 복구 키까지 문서로 남겼습니다.</dd><dt>적용 범위</dt><dd>개발 서버의 데이터로 한 작업이고, 운영 DB를 확보하기 전까지 남은 누락은 보류 상태입니다. 조회와 실행은 AI가 했고, 범위와 진행 여부는 제가 정했습니다.</dd></dl>
+      <div class="tags"><span>SQL · PostgreSQL</span><span>OpenSearch</span><span>Delta Lake · Parquet</span></div>
+      <details><summary>상황과 한 일</summary><div class="more"><dl class="facts"><dt>상황</dt><dd>이전 시도들은 이름 매칭과 오래된 개발 DB 조인으로 서로 다른 결과를 남긴 채 흩어져 있었습니다. 최신 데이터가 있는 운영 DB에는 접근할 수 없었습니다.</dd><dt>한 일</dt><dd>전체 재처리와 필드만 추가하는 방식의 소요를 비교해 제시하고, 필드 추가로 범위를 정했습니다. 인덱스 문서 수가 실제보다 몇 배 크게 보이던 것은 첨부파일이 중첩 필드로 합산된 값임을 문서 단위 실측으로 밝혀 작업 대상을 다시 정했습니다. 개발 DB는 <b>SQL로 데이터가 멈춘 시점</b>을 확인해, DB로 채울 수 있는 양이 매우 적다는 한계를 먼저 보고했습니다. 그 뒤 과제·성과 번호와 참여 순번, <b>네 개 키로 조인</b>해 사번을 채웠습니다.</dd></dl></div></details>
+    </article>
+  </section>
+  <section class="group" id="quiet">
+    <h2>스키마 검증과 문서 재처리</h2>
+    <p class="read">저장 단계에서야 드러난 스키마 오류와 재실행할 때 누적된 중복을 확인하고 고쳤습니다.</p>
+    <article class="item read" id="case-schema">
+      <div class="meta">Streaming · Schema</div>
+      <h3>스트리밍 스키마 계약</h3>
+      <p class="lede">여러 스트리밍 앱이 Kafka로 이어지는 파이프라인에서, 스키마가 어긋나도 저장 직전까지 조용히 흘러갔습니다.</p>
+      
+      <dl class="facts"><dt>결론</dt><dd><b>스키마 선언을 필수로 바꾸고</b>, 선언이 빠진 요청은 입력 단계에서 오류로 처리했습니다.</dd><dt>확인</dt><dd>"추측 → 조용한 기본값" 경로가 사라졌고, 새 스트리밍 앱은 <b>계약만 지키면</b> 추가할 수 있게 됐습니다. 리팩터 중 잠복해 있던 미정의 오류도 코드를 정독하며 함께 걷어냈습니다.</dd><dt>적용 범위</dt><dd>AI 보조로 진행한 PoC 맥락입니다. 계층 사이에서 같은 이름이 다른 뜻으로 쓰이는 문제까지는 다루지 못했고, 그 문제는 <a href="projects.html#p-data">데이터 설계</a>로 이어졌습니다.</dd></dl>
+      <div class="tags"><span>Spark Structured Streaming</span><span>Kafka</span><span>Delta Lake</span></div>
+      <details><summary>상황과 한 일</summary><div class="more"><dl class="facts"><dt>상황</dt><dd>스키마를 토픽명으로 딕셔너리에서 추측하고, 못 찾으면 부분 문자열로 맞추고, 그래도 없으면 조용히 기본 스키마로 진행하던 구조였습니다. 잘못된 스키마는 저장 시점에야 터졌고, 그때는 어디서 어긋났는지 되짚기 어려웠습니다.</dd><dt>한 일</dt><dd>개선에 앞서 다른 워크플로 도구가 스키마와 계보를 어떻게 다루는지 비교해 격차를 진단했습니다. 그 위에서 공통 추상으로 <b>입·출력 스키마와 변환 모듈 지정을 필수화</b>하고, 선언이 없으면 즉시 오류로 멈추게 해 자동 추측을 없앴습니다. 출력 스키마는 변환 직후와 저장 직전에 다시 확인하고, 불일치는 삼키지 않고 이벤트로 발행했습니다.</dd></dl></div></details>
+    </article>
+    <article class="item read" id="case-reprocess">
+      <div class="meta">Scale · Reprocessing</div>
+      <h3>대용량 재처리 파이프라인</h3>
+      <p class="lede">파싱된 문서를 운영 검색 인덱스에 다시 적재하는 파이프라인에서, 전체 데이터를 처리할 때 저장 오류·지연·중복이 발생했습니다.</p>
+      <div class="figure"><b>1만 2천 → 67</b><span>한 문서의 중복 청크 · 같은 청킹 조건</span></div>
+      <dl class="facts"><dt>결론</dt><dd>청크 ID를 <b>결정적 값으로 발급</b>해, 다시 실행해도 같은 항목이 갱신되도록 바꿨습니다.</dd><dt>확인</dt><dd>한 문서에 쌓여 있던 청크 <b>1만 2천여 개가 67개</b>로 정합됐고, 임베딩은 실패 없이 완주했습니다. 품질 검증을 길이 비교에서 해시 전수 대조로 바꾸자, 손상으로 의심하던 건들이 실은 분할할 수 없는 문서의 복제였음이 드러났습니다.</dd><dt>적용 범위</dt><dd>같은 청킹 조건에서의 멱등성입니다. 청커 버전이 바뀌면 전체 재처리는 피할 수 없고, 그 경계를 정하는 일은 <a href="projects.html#p-data">데이터 설계</a>로 넘겼습니다. 팀 운영 시스템이며 구현에는 AI를 썼습니다.</dd></dl>
+      <div class="tags"><span>OpenSearch</span><span>PyArrow · Parquet</span><span>UUIDv5</span></div>
+      <details><summary>상황과 한 일</summary><div class="more"><dl class="facts"><dt>상황</dt><dd>재청킹과 재임베딩을 거쳐 운영 벡터 인덱스에 다시 넣어야 했습니다. 전체 규모에서 저장 오류, 지연, 중복이 한꺼번에 나타났는데 로그상 실행은 성공으로 끝나 있었습니다.</dd><dt>한 일</dt><dd>추측 대신 원인을 단위별로 나눠 측정했습니다. 임베딩 실패 행의 빈 벡터가 고정 크기 스키마를 깨뜨린 것은 <b>가변 스키마와 원자적 쓰기</b>로, 입력 크기와 무관하던 고정 지연은 배치 조정으로 풀었습니다. 인덱스가 부푼 원인을 청크 순서 분포로 추적하니 재실행 누적이었고, 청크 식별자를 <b>결정적 값으로 발급</b>해 재실행해도 같은 id로 갱신되게 했습니다.</dd></dl></div></details>
+    </article>
+  </section>
+  <section class="group" id="doubt">
+    <h2>파서 평가와 GPU 서빙</h2>
+    <p class="read">파서 평가에서 잘못 잡은 구간을 수정하고, 구형 GPU에서 모델을 실행할 수 있도록 서빙 방식을 바꿨습니다.</p>
+    <article class="item read" id="case-metric">
+      <div class="meta">Evaluation · Document Parsing</div>
+      <h3>재현율 1위가 최악의 표였다</h3>
+      <p class="lede">PDF를 문서 AI가 쓸 형태로 바꾸는 후보들을 비교했습니다. 문자 재현율이 가장 높은 후보를 고르면 끝나는 줄 알았습니다.</p>
+      <div class="figure"><b>0.999 → 0.25</b><span>문자 재현율 · 평가 구간을 고친 뒤 재측정</span></div>
+      <dl class="facts"><dt>결론</dt><dd>병합셀의 복제와 잘못 선택한 평가 구간 때문에 <b>문자 재현율이 높게 나왔습니다.</b> 실제 표 구간으로 다시 평가했습니다.</dd><dt>확인</dt><dd>표 구조와 페이지·위치 정보를 함께 남기는 후보를 채택했습니다. 처음 기대한 표 보존만 보면 HTML 경로도 괜찮았지만, <b>답변 근거를 원문으로 되짚어야 하는 시스템</b>에는 부족했습니다.</dd><dt>적용 범위</dt><dd>단기 PoC입니다. 실행은 AI가 했고 실험 설계와 판정은 제가 했습니다. 같은 태도를 처음부터 설계에 넣은 것이 <a href="projects.html#p-twin">설비 상태 트윈</a>입니다.</dd></dl>
+      <div class="tags"><span>통제 실험</span><span>문서 파싱</span><span>재현율 · 구조 보존</span></div>
+      <details><summary>상황과 한 일</summary><div class="more"><dl class="facts"><dt>상황</dt><dd>HTML을 거치면 표 손실이 적을 것이라는 제 가설이 있었습니다. 비교 경로와 반드시 남겨야 할 정보(표 구조, 페이지·위치 출처)를 먼저 정하고, 실험 구현과 실행은 AI에 맡겼습니다.</dd><dt>한 일</dt><dd>첫 결과에서 재현율이 가장 높던 후보는 병합셀 내용을 열마다 복제해 문자량을 부풀리고 있었고, 표 구조는 하나도 보존하지 못했습니다. 두 파서가 같은 구간의 표 개수를 다르게 세는 불일치를 오류 신호로 보고 끝까지 재검증하자, <b>평가 구간 자체가 표가 아니라 점선 목차</b>였습니다. 실제 표 구간만 다시 재면 그 후보는 꼴찌였습니다.</dd></dl></div></details>
+    </article>
+    <article class="item read" id="case-adapter">
+      <div class="meta">Serving · Shared GPU</div>
+      <h3>구형 GPU에서 문서 인식 모델 실행</h3>
+      <p class="lede">최신 문서 인식 모델을 폐쇄망의 구형 GPU에 올려야 했습니다. 추론 프레임워크는 그 GPU 세대의 지원을 이미 끝냈고, 하나뿐인 노드는 다른 팀 배포가 차지하고 있었습니다.</p>
+      
+      <dl class="facts"><dt>결론</dt><dd>기존 호출부를 유지할 수 있도록 <b>같은 요청 형식을 받는 어댑터 서버</b>를 만들었습니다. GPU 자원을 회수하기 전에는 복구 명령을 남겼습니다.</dd><dt>확인</dt><dd>모델은 품질 평가용으로 배포돼 결과를 낼 수 있었고, 회수한 자원은 <b>언제든 되돌릴 수 있는 상태</b>로 남았습니다.</dd><dt>적용 범위</dt><dd>배치 처리 없이 직렬로 도는 품질 평가용 배포입니다. 운영 처리량으로 일반화하지 않습니다.</dd></dl>
+      <div class="tags"><span>Kubernetes</span><span>VLM 서빙</span><span>HTTP 어댑터</span></div>
+      <details><summary>상황과 한 일</summary><div class="more"><dl class="facts"><dt>상황</dt><dd>모델 코드는 그대로 두고 서빙 자리를 바꿔야 했습니다. 노드의 GPU는 다른 팀 배포가 붙잡고 있었는데, 그 배포는 한 달 넘게 기동에 실패하며 재시작만 반복하고 있었습니다.</dd><dt>한 일</dt><dd>같은 호출 규격을 받는 <b>어댑터 서버</b>를 두어 프레임워크 없이 모델을 서빙했습니다. GPU를 바꿔도 호출부는 남습니다. 타 팀 자원은 먼저 소유자를 확인하고, 배포를 지우지 않고 실행 수만 내린 뒤 <b>원상 복구 명령을 문서에 남긴 다음</b>에야 회수했습니다. 자원 관리 체계의 부재는 별건으로 분리해 보고했습니다.</dd></dl></div></details>
+    </article>
+  </section>
+  <footer><a href="projects.html">프로젝트</a><a href="ai_ability.html">AI 운영</a><a href="mailto:cubejh04@gmail.com">cubejh04@gmail.com</a><a href="https://github.com/auspiland">github.com/auspiland</a><span class="c">© 2026 auspiland</span></footer>
+</div>
+</body>
+</html>
